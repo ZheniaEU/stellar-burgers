@@ -8,13 +8,13 @@ import appStyles from './App.module.css';
 
 export function App() {
    return (
-      <div className={appStyles.body}>
+      <React.Fragment className={appStyles.body}>
          <AppHeader />
          <main>
             <h1>Соберите бургер</h1>
             <BurgerIngredients />
             <BurgerConstructor />
          </main>
-      </div>
+      </React.Fragment>
    );
 }
