@@ -8,10 +8,10 @@ import appStyles from './App.module.css';
 
 export function App() {
    return (
-      <React.Fragment className={appStyles.body}>
-         <AppHeader />
-         <main>
-            <h1>Соберите бургер</h1>
+      <React.Fragment>
+         {/* <AppHeader className={appStyles.lil}/> */}
+         <AppHeader/>
+         <main className={appStyles.main}>
             <BurgerIngredients />
             <BurgerConstructor />
          </main>

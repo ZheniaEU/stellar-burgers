@@ -1,7 +1,9 @@
-.App {
-   text-align: center;
-}
+/* .lil {
 
-.body {
-   background-color: #131316;
+} */
+
+.main{
+   display: flex;
+   justify-content: center;
+   width: 1280px;
 }

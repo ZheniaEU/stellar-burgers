@@ -1,6 +1,9 @@
+import BurgerConstructorStyles from "./BurgerConstructor.module.css";
+
+
 export const BurgerConstructor = function () {
    return (
-      <section >
+      <section className={BurgerConstructorStyles.w}>
 
       </section>
    );
