@@ -17,4 +17,5 @@
 .nav {
    display: flex;
    flex-direction: wrap;
+   outline: 2px solid dodgerblue;
 }

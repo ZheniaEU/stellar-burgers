@@ -1,4 +1,4 @@
-import BurgerConstructorStyles from "./BurgerConstructor.module.css";
+import BurgerConstructorStyles from "./BurgerConstructor.module.css"
 
 
 export const BurgerConstructor = function () {

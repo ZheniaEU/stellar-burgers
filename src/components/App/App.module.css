@@ -2,8 +2,18 @@
 
 } */
 
-.main{
+.main {
    display: flex;
    justify-content: center;
-   width: 1280px;
+   /* width: 1280px; */
+}
+
+.title {
+   display: flex;
+   width: 1240px;
+   margin: 0 auto;
+   padding: 40px 0 20px;
+   line-height: 40px;
+   font-size: 36px;
+   font-weight: 700;
 }

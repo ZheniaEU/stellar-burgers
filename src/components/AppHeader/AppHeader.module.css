@@ -1,8 +1,12 @@
 .header {
-   padding: 40px 0 0;
+   display: flex;
+   justify-content: center;
+   width: 100vw;
+   background-color: #1c1c21;
 }
 
 .ul {
+   width: 1280px;
    display: flex;
    align-items: center;
    margin: 0;
@@ -23,7 +27,8 @@
 }
 
 .li:nth-child(2) {
-   margin-right: 112px;
+   margin-right: 120px;
+   /* сместел на 8 пикселей вправо чтобы лого казалось более естественным, в центре */
 }
 
 .li:last-child {

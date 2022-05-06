@@ -1,5 +1,5 @@
-import headerStyles from "./AppHeader.module.css";
-import { Logo, BurgerIcon, ListIcon, ProfileIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import headerStyles from "./AppHeader.module.css"
+import { Logo, BurgerIcon, ListIcon, ProfileIcon } from "@ya.praktikum/react-developer-burger-ui-components"
 //import { BrowserRouter, Route } from "react-router-dom";
 // Свобода от БЭМ, это +8 часов в сутках!
 
@@ -21,7 +21,7 @@ export const AppHeader = () => {
                   </a>
                </li>
                <div className={headerStyles.logo}>
-               <Logo />
+                  <Logo />
                </div>
                <li className={headerStyles.li}>
                   <a href="/profile" className={headerStyles.a}>
