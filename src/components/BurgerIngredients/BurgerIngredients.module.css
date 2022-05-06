@@ -4,11 +4,31 @@
    width: 600px;
    margin-right: 40px;
    outline: 2px solid purple;
+
+}
+
+.article {
+   display: flex;
+   flex-wrap: wrap;
+
+   max-height: 70vh;
+   overflow-y: auto;
+   overflow-x: hidden;
+   scroll-behavior: smooth;
+}
+
+.article::-webkit-scrollbar {
+   background-color: #2f2f37;
+   width: 8px;
+}
+
+.article::-webkit-scrollbar-thumb {
+   background-color: #8585ad;
 }
 
 .title {
    margin: 0px;
-   padding: 40px 0 20px;
+   padding-bottom: 20px;
    line-height: 40px;
    font-size: 36px;
    font-weight: 700;
@@ -17,5 +37,50 @@
 .nav {
    display: flex;
    flex-direction: wrap;
-   outline: 2px solid dodgerblue;
+
+}
+
+.subtitle {
+   font-size: 24px;
+   line-height: 30px;
+   font-weight: 700;
+}
+
+.ul{
+   display: flex;
+   flex-wrap: wrap;
+   margin: 0;
+   padding: 0;
+
+}
+.card {
+   display: flex;
+   flex-direction: column;
+   flex-direction: wrap;
+   /* justify-content: center; */
+   align-items: center;
+   width: 272px;
+   list-style: none;
+}
+
+.img {
+   width: 240px;
+   height: 120px;
+}
+
+.price {
+   font-family: "iceland", "JetBrainsMono", "Tahoma";
+   font-size: 28px;
+   line-height: 24px;
+   margin: 0;
+   padding-right: 9px;
+}
+
+.div {
+   display: flex;
+}
+
+.p {
+   font-size: 16px;
+   line-height: 24px;
 }

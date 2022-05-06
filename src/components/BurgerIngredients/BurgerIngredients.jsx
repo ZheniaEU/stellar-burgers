@@ -1,9 +1,9 @@
 import React from "react"
-import { useState } from 'react'
-import IngredientsStyles from "./BurgerIngredients.module.css"
+import { useState } from "react"
+import ingredientsStyles from "./BurgerIngredients.module.css"
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components"
-import { data } from '../../utils/data'
-import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
+import { data } from "../../utils/data"
+import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components"
 
 export const BurgerIngredients = ({ props }) => {
    const [current, setCurrent] = useState("one")
@@ -23,32 +23,40 @@ export const BurgerIngredients = ({ props }) => {
    console.log(buns, sauces, fillings)
 
    return (
-      <section className={IngredientsStyles.section}>
-         <h1 className={IngredientsStyles.title}>Соберите бургер</h1>
-         <nav className={IngredientsStyles.nav}>
+      <section className={ingredientsStyles.section}>
+         <h1 className={ingredientsStyles.title}>Соберите бургер</h1>
+         <nav className={ingredientsStyles.nav}>
             <Tab value="one" active={current === "one"} onClick={setCurrent}>Булки</Tab>
             <Tab value="two" active={current === "two"} onClick={setCurrent}>Соусы</Tab>
             <Tab value="three" active={current === "three"} onClick={setCurrent}>Начинки</Tab>
          </nav>
-         <ul>
+         <article className={ingredientsStyles.article}>
             <h2>Булки</h2>
-            <Ingridients Ingridients={buns} />
+            <Ingridients ingridients={buns} />
             <h2>Соусы</h2>
-            <Ingridients Ingridients={sauces} />
+            <Ingridients ingridients={sauces} />
             <h2>Начинки</h2>
-            <Ingridients Ingridients={fillings} />
-         </ul>
+            <Ingridients ingridients={fillings} />
+         </article>
       </section>
    );
 };
 
-const Ingridients = () => {
-   return (
-      <li>
-
-         <img src="" alt="" />
-         <p></p>
-         <p></p>
+const Ingridients = ({ ingridients }) => {
+   const ingredientItem = ingridients.map((item) => (
+      < li className={ingredientsStyles.card} key={item._id} >
+         <img className={ingredientsStyles.img} src={item.image} alt={item.name} />
+         <div className={ingredientsStyles.div}>
+            <p className={ingredientsStyles.price}>{item.price}</p>
+            <CurrencyIcon type="primary" />
+         </div>
+         <p>{item.name}</p>
       </li>
+   ))
+
+   return (
+      <ul className={ingredientsStyles.ul}>
+         {ingredientItem}
+      </ul>
    )
 }
