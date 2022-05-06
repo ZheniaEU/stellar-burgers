@@ -6,7 +6,7 @@ import { BurgerConstructor } from "../BurgerConstructor/BurgerConstructor"
 import appStyles from "./App.module.css"
 // import "./App.css";
 
-export function App() {
+export const App = () => {
    return (
       <React.Fragment>
          <AppHeader />

@@ -1,5 +1,82 @@
-.w{
-   padding-top: 60px;
+.w {
+   padding: 60px 0 20px;
    width: 600px;
    outline: 2px solid red;
+}
+
+.ul {
+   display: flex;
+   align-items: center;
+   margin: 0;
+   padding: 0 16px 0 0;
+   max-height: 50vh;
+   overflow-y: auto;
+   overflow-x: hidden;
+   scroll-behavior: smooth;
+}
+
+.ul::-webkit-scrollbar {
+   background-color: #2f2f37;
+   width: 8px;
+}
+
+.ul:-webkit-scrollbar-thumb {
+   background-color: #8585ad;
+}
+
+
+.li {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   width: 538px;
+   height: 80px;
+   margin: 0 0 0 8px;
+   list-style: none;
+   outline: 2px solid dodgerblue;
+}
+
+.img{
+   width: 80px;
+   height: 40px;
+}
+
+.div{
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+.text{
+   width: 254px;
+   margin: 0 20px;
+}
+
+.price{
+   font-family: "iceland", "JetBrainsMono", "Tahoma";
+   font-size: 28px;
+   line-height: 24px;
+}
+
+.telo {
+   width: 536px;
+   background-color: #1C1C21;
+}
+
+.top {
+   border-top-right-radius: 88px;
+   border-top-left-radius: 88px;
+   border-bottom-right-radius: 40px;
+   border-bottom-left-radius: 40px;
+}
+
+.center {
+   border-radius: 40px;
+}
+
+.bottom {
+   border-top-right-radius: 40px;
+   border-top-left-radius: 40px;
+   border-bottom-right-radius: 88px;
+   border-bottom-left-radius: 88px;
 }
