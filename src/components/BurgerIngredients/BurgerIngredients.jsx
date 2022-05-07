@@ -2,13 +2,13 @@ import React from "react"
 import { useState } from "react"
 import ingredientsStyles from "./BurgerIngredients.module.css"
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components"
-import { data } from "../../utils/data"
+//import { data } from "../../utils/data"
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components"
+import PropTypes from 'prop-types';
 
-export const BurgerIngredients = ({ props }) => {
+
+export const BurgerIngredients = ({ data }) => {
    const [current, setCurrent] = useState("one")
-   // console.log(...props)
-   // let ingridients {type} = {...props.data.type}
 
    const buns = data.filter((item) => {
       return item.type === "bun"
@@ -19,6 +19,8 @@ export const BurgerIngredients = ({ props }) => {
    const fillings = data.filter((item) => {
       return item.type === "main"
    })
+
+   console.log(buns)
 
    return (
       <section className={ingredientsStyles.section}>
@@ -57,4 +59,12 @@ const Ingridients = ({ ingridients }) => {
          {ingredientItem}
       </ul>
    )
+}
+
+BurgerIngredients.propTypes = {
+   data: PropTypes.arrayOf(PropTypes.object).isRequired
+}
+
+Ingridients.propTypes = {
+   ingridients: PropTypes.arrayOf(PropTypes.object).isRequired
 }

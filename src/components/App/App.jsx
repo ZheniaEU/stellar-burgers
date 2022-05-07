@@ -1,5 +1,5 @@
 import React from "react"
-//import { data } from "../../utils/data"
+import { data } from "../../utils/data"
 import { AppHeader } from "../AppHeader/AppHeader"
 import { BurgerIngredients } from "../BurgerIngredients/BurgerIngredients"
 import { BurgerConstructor } from "../BurgerConstructor/BurgerConstructor"
@@ -10,11 +10,10 @@ export const App = () => {
    return (
       <React.Fragment>
          <AppHeader />
-         {/* <h1 className={appStyles.title}>Соберите бургер</h1> */}
          <main className={appStyles.main}>
-            <BurgerIngredients />
-            {/* props={data} */}
-            <BurgerConstructor />
+            <BurgerIngredients data={data} />
+            {/* data={data} */}
+            <BurgerConstructor data={data} />
          </main>
       </React.Fragment>
    );

@@ -1,18 +1,20 @@
-import ConstructorStyles from "./BurgerConstructor.module.css"
-import { Button, CurrencyIcon, LockIcon, DeleteIcon, DragIcon, ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components"
-import { data } from "../../utils/data"
 import React from "react";
+import ConstructorStyles from "./BurgerConstructor.module.css"
+import { Button, CurrencyIcon, DragIcon, ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components"
+//import { data } from "../../utils/data"
+import PropTypes from 'prop-types';
 
-export const BurgerConstructor = () => {
+
+export const BurgerConstructor = ({ data }) => {
    return (
-      <section className={ConstructorStyles.w}>
+      <section className={ConstructorStyles.section}>
          <div className={` ${ConstructorStyles.bun} mb-4 pr-4`}>
             <ConstructorElement
                type="top"
                isLocked={true}
                //  text="Краторная булка N-200i (верх)"
                text="React он как сыр, вначале он тебе не нравится (верх)"
-               price={20}
+               price={"20"}
                thumbnail={"https://code.s3.yandex.net/react/code/bun-02.png"}
             />
          </div>
@@ -26,7 +28,7 @@ export const BurgerConstructor = () => {
                isLocked={true}
                //      text="Краторная булка N-200i (низ)"
                text="А потом тебе не нравится в нём, только дырки (низ)"
-               price={20}
+               price={"20"}
                thumbnail={"https://code.s3.yandex.net/react/code/bun-02.png"}
             />
          </div>
@@ -70,12 +72,6 @@ const ConstructorList = ({ data }) => {
    )
 }
 
-// className={`${ConstructorStyles.li} + "" + ${ConstructorStyles.center}`}
-
-{/* <img className={ConstructorStyles.img} src="" alt="" />
-<p className={ConstructorStyles.text}></p>
-<div className={ConstructorStyles.div}>
-   <p className={ConstructorStyles.price}></p>
-   <CurrencyIcon type="primary" />
-   <DeleteIcon type="primary" />
-</div> */}
+BurgerConstructor.propTypes = {
+   data: PropTypes.arrayOf(PropTypes.object).isRequired
+}
