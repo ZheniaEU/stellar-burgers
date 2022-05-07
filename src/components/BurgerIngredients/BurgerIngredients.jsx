@@ -20,8 +20,6 @@ export const BurgerIngredients = ({ props }) => {
       return item.type === "main"
    })
 
-   console.log(buns, sauces, fillings)
-
    return (
       <section className={ingredientsStyles.section}>
          <h1 className={ingredientsStyles.title}>Соберите бургер</h1>
