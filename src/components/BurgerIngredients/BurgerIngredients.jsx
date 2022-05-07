@@ -1,26 +1,25 @@
-import React from "react"
 import { useState } from "react"
 import ingredientsStyles from "./BurgerIngredients.module.css"
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components"
 //import { data } from "../../utils/data"
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components"
-import PropTypes from 'prop-types';
+//import PropTypes from "prop-types";
+import { ingredientsPropTypes } from "../../utils/types"
 
 
-export const BurgerIngredients = ({ data }) => {
+export const BurgerIngredients = (props) => {
    const [current, setCurrent] = useState("one")
 
-   const buns = data.filter((item) => {
+   const buns = props.data.filter((item) => {
       return item.type === "bun"
    })
-   const sauces = data.filter((item) => {
+   const sauces = props.data.filter((item) => {
       return item.type === "sauce"
    })
-   const fillings = data.filter((item) => {
+   const fillings = props.data.filter((item) => {
       return item.type === "main"
    })
 
-   console.log(buns)
 
    return (
       <section className={ingredientsStyles.section}>
@@ -42,8 +41,8 @@ export const BurgerIngredients = ({ data }) => {
    );
 };
 
-const Ingridients = ({ ingridients }) => {
-   const ingredientItem = ingridients.map((item) => (
+const Ingridients = (props) => {
+   const ingredientItem = props.ingridients.map((item) => (
       < li className={ingredientsStyles.card} key={item._id} >
          <img className={ingredientsStyles.img} src={item.image} alt={item.name} />
          <div className={ingredientsStyles.div}>
@@ -62,9 +61,10 @@ const Ingridients = ({ ingridients }) => {
 }
 
 BurgerIngredients.propTypes = {
-   data: PropTypes.arrayOf(PropTypes.object).isRequired
+   data: ingredientsPropTypes.isRequired
 }
 
+
 Ingridients.propTypes = {
-   ingridients: PropTypes.arrayOf(PropTypes.object).isRequired
+   ingridients: ingredientsPropTypes.isRequired
 }

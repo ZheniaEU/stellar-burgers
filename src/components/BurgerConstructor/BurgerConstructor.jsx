@@ -2,10 +2,10 @@ import React from "react";
 import ConstructorStyles from "./BurgerConstructor.module.css"
 import { Button, CurrencyIcon, DragIcon, ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components"
 //import { data } from "../../utils/data"
-import PropTypes from 'prop-types';
+//import PropTypes from "prop-types";
+import { ingredientsPropTypes } from "../../utils/types"
 
-
-export const BurgerConstructor = ({ data }) => {
+export const BurgerConstructor = (props) => {
    return (
       <section className={ConstructorStyles.section}>
          <div className={` ${ConstructorStyles.bun} mb-4 pr-4`}>
@@ -20,7 +20,7 @@ export const BurgerConstructor = ({ data }) => {
          </div>
 
          <ul className={ConstructorStyles.list} >
-            <ConstructorList data={data} />
+            <ConstructorList data={props.data} />
          </ul>
          <div className={` ${ConstructorStyles.bun} mb-10 pr-4`}>
             <ConstructorElement
@@ -45,8 +45,8 @@ export const BurgerConstructor = ({ data }) => {
    );
 }
 
-const ConstructorList = ({ data }) => {
-   const list = data.map((item) => {
+const ConstructorList = (props) => {
+   const list = props.data.map((item) => {
       if (item.type !== "bun") {
          return (
             <li className={ConstructorStyles.li} key={item._id}>
@@ -73,5 +73,9 @@ const ConstructorList = ({ data }) => {
 }
 
 BurgerConstructor.propTypes = {
-   data: PropTypes.arrayOf(PropTypes.object).isRequired
+   data: ingredientsPropTypes.isRequired
+}
+
+ConstructorList.propTypes = {
+   data: ingredientsPropTypes.isRequired
 }
