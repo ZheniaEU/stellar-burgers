@@ -29,11 +29,11 @@ export const BurgerIngredients = ({ props }) => {
             <Tab value="three" active={current === "three"} onClick={setCurrent}>Начинки</Tab>
          </nav>
          <article className={ingredientsStyles.article}>
-            <h2>Булки</h2>
+            <h2 className={ingredientsStyles.subtitle}>Булки</h2>
             <Ingridients ingridients={buns} />
-            <h2>Соусы</h2>
+            <h2 className={ingredientsStyles.subtitle}>Соусы</h2>
             <Ingridients ingridients={sauces} />
-            <h2>Начинки</h2>
+            <h2 className={ingredientsStyles.subtitle}>Начинки</h2>
             <Ingridients ingridients={fillings} />
          </article>
       </section>
@@ -48,7 +48,7 @@ const Ingridients = ({ ingridients }) => {
             <p className={ingredientsStyles.price}>{item.price}</p>
             <CurrencyIcon type="primary" />
          </div>
-         <p>{item.name}</p>
+         <p className={ingredientsStyles.name}>{item.name}</p>
       </li>
    ))
 

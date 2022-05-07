@@ -6,8 +6,7 @@ import React from "react";
 export const BurgerConstructor = () => {
    return (
       <section className={ConstructorStyles.w}>
-         <div className="mr-4 mb-4 pl-8">
-            <DragIcon />
+         <div className={` ${ConstructorStyles.bun} mb-4 pr-4`}>
             <ConstructorElement
                type="top"
                isLocked={true}
@@ -21,7 +20,7 @@ export const BurgerConstructor = () => {
          <ul className={ConstructorStyles.list} >
             <ConstructorList data={data} />
          </ul>
-         <div className="mr-4 mb-4 pl-8">
+         <div className={` ${ConstructorStyles.bun} mb-10 pr-4`}>
             <ConstructorElement
                type="bottom"
                isLocked={true}
@@ -31,7 +30,15 @@ export const BurgerConstructor = () => {
                thumbnail={"https://code.s3.yandex.net/react/code/bun-02.png"}
             />
          </div>
-         <Button >Жизнь без БЭМ прекрасна</Button>
+         <div className={ConstructorStyles.total}>
+            <p className={ConstructorStyles.value}>610</p>
+            <div className={ConstructorStyles.icon} >
+               <CurrencyIcon />
+            </div>
+            <div className="pr-4 pl-10">
+               <Button type="primary" size="large" >Жизнь без БЭМ прекрасна</Button>
+            </div>
+         </div>
       </section>
    );
 }
@@ -41,11 +48,16 @@ const ConstructorList = ({ data }) => {
       if (item.type !== "bun") {
          return (
             <li className={ConstructorStyles.li} key={item._id}>
-               <ConstructorElement
-                  text={item.name}
-                  price={item.price}
-                  thumbnail={item.image}
-               />
+               <div className={ConstructorStyles.div}>
+                  <div className={`mr-2`}>
+                     <DragIcon />
+                  </div>
+                  <ConstructorElement
+                     text={item.name}
+                     price={item.price}
+                     thumbnail={item.image}
+                  />
+               </div>
             </li>
          )
       }

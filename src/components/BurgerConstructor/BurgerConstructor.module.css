@@ -25,7 +25,8 @@
    height: 292px;
 }
 
-.list{
+.list {
+   padding-left: 16px;
    max-height: 45vh;
    overflow-y: scroll;
    overflow-x: hidden;
@@ -42,62 +43,76 @@
 
 }
 
+.div {
+   display: flex;
+   width: 568px;
+   justify-content: flex-start;
+}
 
 .li {
    display: flex;
-
-   justify-content: center;
-   align-items: center;
-   width: 538px;
+   margin: 0 auto;
+   /* justify-content: center;
+   align-items: center; */
+   width: 600px;
    height: 80px;
-   margin: 0 0 0 8px;
+   /* margin: 0 0 0 8px; */
    list-style: none;
 }
-.li:not(:last-child){
+
+.li:not(:last-child) {
    margin-bottom: 10px;
 }
 
-.img{
+.img {
    width: 80px;
    height: 40px;
 }
 
-.div{
+.div {
    display: flex;
    justify-content: center;
    align-items: center;
+
 }
 
-.text{
+.text {
    width: 254px;
    margin: 0 20px;
 }
 
-.price{
+.price {
    font-family: "iceland", "JetBrainsMono", "Tahoma";
    font-size: 28px;
    line-height: 24px;
 }
 
-.telo {
-   width: 536px;
-   background-color: #1C1C21;
+.total {
+   display: flex;
+   justify-content: flex-end;
+   align-items: center;
 }
 
-.top {
-   border-top-right-radius: 88px;
-   border-top-left-radius: 88px;
-   border-bottom-right-radius: 40px;
-   border-bottom-left-radius: 40px;
+.icon{
+   display: flex;
+   align-items: center;
+
+
 }
 
-.center {
-   border-radius: 40px;
+.icon svg{
+   width: 33px;
+   height: 33px;
 }
 
-.bottom {
-   border-top-right-radius: 40px;
-   border-top-left-radius: 40px;
-   border-bottom-right-radius: 88px;
-   border-bottom-left-radius: 88px;
+.value {
+   font-family: "iceland", "JetBrainsMono", "Tahoma";
+   font-size: 48px;
+   line-height: 36px;
+   margin: 0;
+   padding-right: 9.5px;
+}
+
+.bun{
+   padding-left: 48px;
 }
