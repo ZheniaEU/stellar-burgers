@@ -45,10 +45,11 @@ export const BurgerConstructor = (props) => {
    );
 }
 
+//мой кусок после исправления старшим студентом
 const ConstructorList = (props) => {
-   const list = props.data.map((item) => {
-      if (item.type !== "bun") {
-         return (
+   return (
+
+         props.data.map((item) => item.type !== "bun" && (
             <li className={ConstructorStyles.li} key={item._id}>
                <div className={ConstructorStyles.div}>
                   <div className={`mr-2`}>
@@ -61,14 +62,8 @@ const ConstructorList = (props) => {
                   />
                </div>
             </li>
-         )
-      }
-   })
+         ))
 
-   return (
-      <React.Fragment>
-         {list}
-      </React.Fragment>
    )
 }
 
@@ -79,3 +74,49 @@ BurgerConstructor.propTypes = {
 ConstructorList.propTypes = {
    data: ingredientsPropTypes.isRequired
 }
+
+//это мой кусок кода
+// const ConstructorList = (props) => {
+//    const list = props.data.map((item) => {
+//       if (item.type !== "bun") {
+//          return (
+//             <li className={ConstructorStyles.li} key={item._id}>
+//                <div className={ConstructorStyles.div}>
+//                   <div className={`mr-2`}>
+//                      <DragIcon />
+//                   </div>
+//                   <ConstructorElement
+//                      text={item.name}
+//                      price={item.price}
+//                      thumbnail={item.image}
+//                   />
+//                </div>
+//             </li>
+//          )
+//       }
+//    })
+
+//    return (
+//       <React.Fragment>
+//          {list}
+//       </React.Fragment>
+//    )
+// }
+
+//Комментарии исходя из замечаний выше:
+// конструкция  item.type !== "bun" && (...) заменяет if в коде JSX.Два амперсанда(значок &)
+// означают выполнение единственного условия.Если требуется выполнить несколько условий,
+//  можно использовать && повторно.То есть читается если item.type !== "bun",
+// возвращаем такой - то фрагмент кода.
+// Сюда же: тернарный оператор.Если тебе нужно отрендерить один кусок кода,
+//  если type === 'bun', и иной кусок кода, если, например, type === 'что-то еще',
+//   то запись будет такая: item.type === "bun" ? (<I кусок кода>...</I кусок кода >)
+//   : (<II кусок кода>...</II кусок кода >).
+// Обрати внимание на фигурные скобки, обрамляющие условный рендеринг и использование map
+// return (
+//    {
+//       props.data.map(...)
+//    }
+// )
+// В эти скобки заключается выражение, внутри которого должен выполнится JSX - код.
+// Без них движок не поймет, что именно мы хотим вернуть из компонента, если присутствует некое выражение.
