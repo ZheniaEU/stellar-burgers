@@ -12,8 +12,8 @@ export const BurgerConstructor = (props) => {
             <ConstructorElement
                type="top"
                isLocked={true}
-               //  text="Краторная булка N-200i (верх)"
-               text="React он как сыр, вначале он тебе не нравится (верх)"
+               text="Краторная булка N-200i (верх)"
+               // text="React он как сыр, вначале он тебе не нравится (верх)"
                price={"20"}
                thumbnail={"https://code.s3.yandex.net/react/code/bun-02.png"}
             />
@@ -26,8 +26,8 @@ export const BurgerConstructor = (props) => {
             <ConstructorElement
                type="bottom"
                isLocked={true}
-               //      text="Краторная булка N-200i (низ)"
-               text="А потом тебе не нравится в нём, только дырки (низ)"
+                    text="Краторная булка N-200i (низ)"
+               // text="А потом тебе не нравится в нём, только дырки (низ)"
                price={"20"}
                thumbnail={"https://code.s3.yandex.net/react/code/bun-02.png"}
             />
@@ -38,7 +38,7 @@ export const BurgerConstructor = (props) => {
                <CurrencyIcon />
             </div>
             <div className="pr-4 pl-10">
-               <Button type="primary" size="large" >Жизнь без БЭМ прекрасна</Button>
+               <Button type="primary" size="large" >Оформить заказ</Button>
             </div>
          </div>
       </section>
@@ -48,22 +48,20 @@ export const BurgerConstructor = (props) => {
 //мой кусок после исправления старшим студентом
 const ConstructorList = (props) => {
    return (
-
-         props.data.map((item) => item.type !== "bun" && (
-            <li className={ConstructorStyles.li} key={item._id}>
-               <div className={ConstructorStyles.div}>
-                  <div className={`mr-2`}>
-                     <DragIcon />
-                  </div>
-                  <ConstructorElement
-                     text={item.name}
-                     price={item.price}
-                     thumbnail={item.image}
-                  />
+      props.data.map((item) => item.type !== "bun" && (
+         <li className={ConstructorStyles.li} key={item._id}>
+            <div className={ConstructorStyles.div}>
+               <div className={`mr-2`}>
+                  <DragIcon />
                </div>
-            </li>
-         ))
-
+               <ConstructorElement
+                  text={item.name}
+                  price={item.price}
+                  thumbnail={item.image}
+               />
+            </div>
+         </li>
+      ))
    )
 }
 

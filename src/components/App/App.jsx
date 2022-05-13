@@ -4,6 +4,7 @@ import React from "react"
 import { AppHeader } from "../AppHeader/AppHeader"
 import { BurgerIngredients } from "../BurgerIngredients/BurgerIngredients"
 import { BurgerConstructor } from "../BurgerConstructor/BurgerConstructor"
+import { Modal } from "../Modal/Modal"
 import appStyles from "./App.module.css"
 // import "./App.css";
 
@@ -14,7 +15,7 @@ export const App = () => {
    const [state, setState] = React.useState([])
    const getData = () => {
       fetch(API_URL)
-      // .then(checkResponse)
+         // .then(checkResponse)
          .then(res => {
             if (res.ok) {
                return res.json()
@@ -22,8 +23,8 @@ export const App = () => {
                return Promise.reject(`Проблемы с запросом: ${res.status}`)
             }
          })
-         .then(data => {setState(data.data)})
-         .catch(err => {console.log(` Не переключайтесь мы скоро вернёмся: ${err} `)} )
+         .then(data => { setState(data.data) })
+         .catch(err => { console.log(` Не переключайтесь, мы скоро вернёмся: ${err} `) })
    }
 
    // const checkResponse = function (res) {
@@ -46,6 +47,14 @@ export const App = () => {
             {/* data={data} */}
             <BurgerConstructor data={state} />
          </main>
+
+
+
+         <Modal>
+
+         </Modal>
+
+
       </React.Fragment>
    );
 }
