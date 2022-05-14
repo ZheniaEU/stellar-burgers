@@ -5,6 +5,7 @@ import { AppHeader } from "../AppHeader/AppHeader"
 import { BurgerIngredients } from "../BurgerIngredients/BurgerIngredients"
 import { BurgerConstructor } from "../BurgerConstructor/BurgerConstructor"
 import { Modal } from "../Modal/Modal"
+import { OrderDetals } from "../OrderDetails/OrderDetals"
 import appStyles from "./App.module.css"
 // import "./App.css";
 
@@ -70,7 +71,7 @@ export const App = () => {
 
          {openModal && (
             <Modal active={openModal} onClickClose={onCloseModal} onEcsClose={handleCloseModal}>
-
+               <OrderDetals />
             </Modal>
          )}
 
