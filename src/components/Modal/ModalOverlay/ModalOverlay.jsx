@@ -1,12 +1,7 @@
 import modalStyles from "./ModalOverlay.module.css"
 
-export const ModalOverlay = (props) => {
-   const { active, onClose, children } = props
-
+export const ModalOverlay = ({onClose}) => {
    return (
-      <div className={active ? `${modalStyles.modal} ${modalStyles.active}`
-         : `${modalStyles.modal}`} onClick={onClose}>{children}</div>
+      <div className={modalStyles.modal} onClick={onClose}></div>
    )
 }
-
-// onClick={() => setActive(false)}

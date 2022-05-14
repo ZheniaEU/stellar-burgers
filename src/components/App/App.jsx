@@ -56,7 +56,7 @@ export const App = () => {
          onCloseModal()
       }
    }
-// console.log(handleOpenModal)
+   // console.log(handleOpenModal)
 
    return (
       <React.Fragment>
@@ -68,11 +68,11 @@ export const App = () => {
          </main>
 
 
-         {/* {openModal && ( */}
-            <Modal active={openModal} onClose={handleCloseModal}>
+         {openModal && (
+            <Modal active={openModal} onClickClose={onCloseModal} onEcsClose={handleCloseModal}>
 
             </Modal>
-         {/* )} */}
+         )}
 
       </React.Fragment>
    );
