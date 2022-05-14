@@ -6,6 +6,9 @@ import { Button, CurrencyIcon, DragIcon, ConstructorElement } from "@ya.praktiku
 import { ingredientsPropTypes } from "../../utils/types"
 
 export const BurgerConstructor = (props) => {
+
+   const {data, onOpen} = props
+
    return (
       <section className={ConstructorStyles.section}>
          <div className={` ${ConstructorStyles.bun} mb-4 pr-4`}>
@@ -20,7 +23,7 @@ export const BurgerConstructor = (props) => {
          </div>
 
          <ul className={ConstructorStyles.list} >
-            <ConstructorList data={props.data} />
+            <ConstructorList data={data} />
          </ul>
          <div className={` ${ConstructorStyles.bun} mb-10 pr-4`}>
             <ConstructorElement
@@ -38,7 +41,7 @@ export const BurgerConstructor = (props) => {
                <CurrencyIcon />
             </div>
             <div className="pr-4 pl-10">
-               <Button type="primary" size="large" >Оформить заказ</Button>
+               <Button type="primary" size="large" onClick={onOpen}>Оформить заказ</Button>
             </div>
          </div>
       </section>

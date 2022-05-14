@@ -12,7 +12,7 @@ export const App = () => {
 
    const API_URL = "https://norma.nomoreparties.space/api/ingredients"
 
-   const [state, setState] = React.useState([])
+   const [data, setData] = React.useState([])
    const getData = () => {
       fetch(API_URL)
          // .then(checkResponse)
@@ -23,7 +23,7 @@ export const App = () => {
                return Promise.reject(`Проблемы с запросом: ${res.status}`)
             }
          })
-         .then(data => { setState(data.data) })
+         .then(data => { setData(data.data) })
          .catch(err => { console.log(` Не переключайтесь, мы скоро вернёмся: ${err} `) })
    }
 
@@ -39,43 +39,41 @@ export const App = () => {
       getData();
    }, []);
 
+   //открыть
+   const [openModal, setOpenModal] = React.useState(false)
+
+   const handleOpenModal = () => {
+      setOpenModal(true)
+   }
+
+   //закрыть
+   const onCloseModal = () => {
+      setOpenModal(false)
+   }
+
+   const handleCloseModal = (evt) => {
+      if (evt.key === "Escape") {
+         onCloseModal()
+      }
+   }
+// console.log(handleOpenModal)
+
    return (
       <React.Fragment>
          <AppHeader />
          <main className={appStyles.main}>
-            <BurgerIngredients data={state} />
-            {/* data={data} */}
-            <BurgerConstructor data={state} />
+            <BurgerIngredients data={data} />
+
+            <BurgerConstructor data={data} onOpen={handleOpenModal} />
          </main>
 
 
+         {/* {openModal && ( */}
+            <Modal active={openModal} onClose={handleCloseModal}>
 
-         <Modal>
-
-         </Modal>
-
+            </Modal>
+         {/* )} */}
 
       </React.Fragment>
    );
 }
-
-
-
-// const [data, setData] = React.useState({})
-// const getData = function () {
-
-//    return fetch(API_URL)
-//       .then(data => {
-//          setData({data})
-//       })
-//       .then(checkResponse)
-// }
-// getData()
-
-// const checkResponse = function (response) {
-//    if (response.ok) {
-//       return response.json()
-//    } else {
-//       return Promise.reject(`Обнаружен запуск ядерной ракеты: ${response.status}`)
-//    }
-// }
