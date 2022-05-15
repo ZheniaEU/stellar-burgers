@@ -8,6 +8,8 @@ import { ingredientsPropTypes } from "../../utils/types"
 export const BurgerConstructor = (props) => {
 
    const { data, onOpen } = props
+   //?подумать/ спросить у наставника как прокинуть дату, подождать получение данных и только потом выводить, а то сваливается в ошибку
+// console.log(data[0].price)
 
    return (
       <section className={ConstructorStyles.section}>
@@ -18,7 +20,7 @@ export const BurgerConstructor = (props) => {
                text="Краторная булка N-200i (верх)"
                // text="React он как сыр, вначале он тебе не нравится (верх)"
                price={"20"}
-               thumbnail={"https://code.s3.yandex.net/react/code/bun-02.png"}
+               thumbnail={"https://code.s3.yandex.net/react/code/bun-02-mobile.png"}
             />
          </div>
 
@@ -32,7 +34,7 @@ export const BurgerConstructor = (props) => {
                text="Краторная булка N-200i (низ)"
                // text="А потом тебе не нравится в нём, только дырки (низ)"
                price={"20"}
-               thumbnail={"https://code.s3.yandex.net/react/code/bun-02.png"}
+               thumbnail={"https://code.s3.yandex.net/react/code/bun-02-mobile.png"}
             />
          </div>
          <div className={ConstructorStyles.total}>
@@ -60,7 +62,7 @@ const ConstructorList = ({ data }) => {
                <ConstructorElement
                   text={item.name}
                   price={item.price}
-                  thumbnail={item.image}
+                  thumbnail={item.image_mobile}
                />
             </div>
          </li>

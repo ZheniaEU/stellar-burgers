@@ -48,7 +48,7 @@ export const BurgerIngredients = ({data, onOpen}) => {
 const Ingridients = ({ingridients, onOpen}) => {
    const ingredientItem = ingridients.map((item) => (
       < li className={ingredientsStyles.card} key={item._id} >
-         <img className={ingredientsStyles.img} src={item.image} alt={item.name} onClick={onOpen} />
+         <img className={ingredientsStyles.img} src={item.image} alt={item.name} onClick={() => onOpen(item)} />
          <div className={ingredientsStyles.div}>
             <p className={ingredientsStyles.price}>{item.price}</p>
             <CurrencyIcon type="primary" />

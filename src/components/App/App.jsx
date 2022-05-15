@@ -43,14 +43,16 @@ export const App = () => {
       setopenOrderModal(true)
    }
 
-   const handleOpenInfoModal = () => {
+   const handleOpenInfoModal = (card) => {
       setopenInfoModal(true)
+      setIngredients(card)
    }
 
    //закрыть
    const onCloseModal = () => {
       setopenInfoModal(false)
       setopenOrderModal(false)
+      setIngredients(null)
    }
 
    // const onCloseInfoModal = () => {
@@ -63,7 +65,7 @@ export const App = () => {
          onCloseModal()
       }
    }
-   // console.log(handleOpenOrderModal)
+   // console.log(ingredient)
 
    return (
       <React.Fragment>
@@ -78,7 +80,7 @@ export const App = () => {
             <Modal
                active={openInfoModal}
                onClickClose={onCloseModal} onEcsClose={handleCloseModal}>
-               <IngredientDetails data={data} />
+               <IngredientDetails card={ingredient} />
             </Modal>
          )}
 
