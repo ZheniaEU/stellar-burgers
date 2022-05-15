@@ -7,16 +7,20 @@ import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components
 import { ingredientsPropTypes } from "../../utils/types"
 
 
-export const BurgerIngredients = (props) => {
+
+export const BurgerIngredients = ({data, onOpen}) => {
+
+
+
    const [current, setCurrent] = useState("one")
 
-   const buns = props.data.filter((item) => {
+   const buns = data.filter((item) => {
       return item.type === "bun"
    })
-   const sauces = props.data.filter((item) => {
+   const sauces = data.filter((item) => {
       return item.type === "sauce"
    })
-   const fillings = props.data.filter((item) => {
+   const fillings = data.filter((item) => {
       return item.type === "main"
    })
 
@@ -31,20 +35,20 @@ export const BurgerIngredients = (props) => {
          </nav>
          <article className={ingredientsStyles.article}>
             <h2 className={ingredientsStyles.subtitle}>Булки</h2>
-            <Ingridients ingridients={buns} />
+            <Ingridients ingridients={buns} onOpen={onOpen}/>
             <h2 className={ingredientsStyles.subtitle}>Соусы</h2>
-            <Ingridients ingridients={sauces} />
+            <Ingridients ingridients={sauces} onOpen={onOpen} />
             <h2 className={ingredientsStyles.subtitle}>Начинки</h2>
-            <Ingridients ingridients={fillings} />
+            <Ingridients ingridients={fillings} onOpen={onOpen} />
          </article>
       </section>
    );
 };
 
-const Ingridients = (props) => {
-   const ingredientItem = props.ingridients.map((item) => (
+const Ingridients = ({ingridients, onOpen}) => {
+   const ingredientItem = ingridients.map((item) => (
       < li className={ingredientsStyles.card} key={item._id} >
-         <img className={ingredientsStyles.img} src={item.image} alt={item.name} />
+         <img className={ingredientsStyles.img} src={item.image} alt={item.name} onClick={onOpen} />
          <div className={ingredientsStyles.div}>
             <p className={ingredientsStyles.price}>{item.price}</p>
             <CurrencyIcon type="primary" />

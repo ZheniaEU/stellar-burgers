@@ -1,22 +1,21 @@
 import React from "react"
-// import { data } from "../../utils/data"
-//import { getData } from "../../utils/api"
 import { AppHeader } from "../AppHeader/AppHeader"
 import { BurgerIngredients } from "../BurgerIngredients/BurgerIngredients"
 import { BurgerConstructor } from "../BurgerConstructor/BurgerConstructor"
 import { Modal } from "../Modal/Modal"
+import { IngredientDetails } from "../IngredientDetails/IngredientDetails"
 import { OrderDetals } from "../OrderDetails/OrderDetals"
 import appStyles from "./App.module.css"
-// import "./App.css";
+
+
+const API_URL = "https://norma.nomoreparties.space/api/ingredients"
 
 export const App = () => {
 
-   const API_URL = "https://norma.nomoreparties.space/api/ingredients"
-
+   //получение данных с сервера
    const [data, setData] = React.useState([])
    const getData = () => {
       fetch(API_URL)
-         // .then(checkResponse)
          .then(res => {
             if (res.ok) {
                return res.json()
@@ -28,49 +27,65 @@ export const App = () => {
          .catch(err => { console.log(` Не переключайтесь, мы скоро вернёмся: ${err} `) })
    }
 
-   // const checkResponse = function (res) {
-   //    if (res.ok) {
-   //       return res.json()
-   //    } else {
-   //       return Promise.reject(`Обнаружен запуск ядерной ракеты: ${res.status}`)
-   //    }
-   // }
 
    React.useEffect(() => {
       getData();
    }, []);
 
-   //открыть
-   const [openModal, setOpenModal] = React.useState(false)
+   //состояния
+   const [openOrderModal, setopenOrderModal] = React.useState(false)
+   const [openInfoModal, setopenInfoModal] = React.useState(false)
+   const [ingredient, setIngredients] = React.useState(null)
 
-   const handleOpenModal = () => {
-      setOpenModal(true)
+
+   //открыть
+   const handleOpenOrderModal = () => {
+      setopenOrderModal(true)
+   }
+
+   const handleOpenInfoModal = () => {
+      setopenInfoModal(true)
    }
 
    //закрыть
    const onCloseModal = () => {
-      setOpenModal(false)
+      setopenInfoModal(false)
+      setopenOrderModal(false)
    }
 
+   // const onCloseInfoModal = () => {
+   //    setopenInfoModal(false)
+   // }
+
+   //закрыть по ESC
    const handleCloseModal = (evt) => {
       if (evt.key === "Escape") {
          onCloseModal()
       }
    }
-   // console.log(handleOpenModal)
+   // console.log(handleOpenOrderModal)
 
    return (
       <React.Fragment>
          <AppHeader />
          <main className={appStyles.main}>
-            <BurgerIngredients data={data} />
+            <BurgerIngredients data={data} onOpen={handleOpenInfoModal} />
 
-            <BurgerConstructor data={data} onOpen={handleOpenModal} />
+            <BurgerConstructor data={data} onOpen={handleOpenOrderModal} />
          </main>
 
+         {openInfoModal && (
+            <Modal
+               active={openInfoModal}
+               onClickClose={onCloseModal} onEcsClose={handleCloseModal}>
+               <IngredientDetails data={data} />
+            </Modal>
+         )}
 
-         {openModal && (
-            <Modal active={openModal} onClickClose={onCloseModal} onEcsClose={handleCloseModal}>
+         {openOrderModal && (
+            <Modal
+               active={openOrderModal}
+               onClickClose={onCloseModal} onEcsClose={handleCloseModal}>
                <OrderDetals />
             </Modal>
          )}
