@@ -1,6 +1,6 @@
 import ConstructorStyles from "./BurgerConstructor.module.css"
 import { Button, CurrencyIcon, ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components"
-import { ConstructorList } from "./ConstructorList"
+import { ConstructorList } from "../ConstructorList/ConstructorList"
 import { ingredientsPropTypes } from "../../utils/types"
 import PropTypes from "prop-types"
 
@@ -8,16 +8,20 @@ export const BurgerConstructor = (props) => {
 
    const { data, onOpen } = props
 
+   const buns = data.filter((item) => {
+      return item.type === "bun"
+   })
+
    return (
-      data.length > 0 &&
+      buns.length > 0 &&
       <section className={ConstructorStyles.section}>
          <div className={` ${ConstructorStyles.bun} mb-4 pr-4`}>
             <ConstructorElement
                type="top"
                isLocked={true}
-               text={`${data[0].name} (верх)`}
-               price={data[0].price}
-               thumbnail={data[0].image_mobile}
+               text={`${buns[0].name} (верх)`}
+               price={buns[0].price}
+               thumbnail={buns[0].image_mobile}
             />
          </div>
          <ul className={ConstructorStyles.list} >
@@ -27,9 +31,9 @@ export const BurgerConstructor = (props) => {
             <ConstructorElement
                type="bottom"
                isLocked={true}
-               text={`${data[0].name} (низ)`}
-               price={data[0].price}
-               thumbnail={data[0].image_mobile}
+               text={`${buns[0].name} (низ)`}
+               price={buns[0].price}
+               thumbnail={buns[0].image_mobile}
             />
          </div>
          <div className={ConstructorStyles.total}>

@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Ingridients } from "./Ingridients"
+import { Ingridients } from "../Ingridients/Ingridients"
 import ingredientsStyles from "./BurgerIngredients.module.css"
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components"
 import { ingredientsPropTypes } from "../../utils/types"
@@ -7,7 +7,7 @@ import PropTypes from "prop-types"
 
 export const BurgerIngredients = ({ data, onOpen }) => {
 
-   const [current, setCurrent] = useState("bun")
+   const [current, setCurrent] = useState("one")
 
    const buns = data.filter((item) => {
       return item.type === "bun"
