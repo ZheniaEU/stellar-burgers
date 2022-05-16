@@ -1,0 +1,47 @@
+.card {
+   display: flex;
+   flex-direction: column;
+   flex-direction: wrap;
+   align-items: center;
+   padding-left: 16px;
+   padding-right: 8px;
+   width: 272px;
+   list-style: none;
+}
+
+.img {
+   width: 240px;
+   height: 120px;
+   padding: 0 16px 8px 16px;
+   cursor: pointer;
+}
+
+.price {
+   font-family: "iceland", "JetBrainsMono", "Tahoma";
+   font-size: 28px;
+   line-height: 24px;
+   margin: 0;
+   padding-right: 8px;
+}
+
+.div {
+   display: flex;
+}
+
+.name {
+   width: 272px;
+   height: 48px;
+   margin: 8px 0 0 0;
+   text-align: center
+}
+
+.name:not(:nth-last-of-type(-n+2)) {
+   margin: 8px 0 32px 0;
+}
+
+.ul {
+   display: flex;
+   flex-wrap: wrap;
+   margin: 0;
+   padding: 0;
+}

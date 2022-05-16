@@ -3,24 +3,6 @@
    width: 600px;
 }
 
-.ul {
-   padding: 0 16px 0 0;
-   max-height: 45vh;
-   overflow-y: scroll;
-   overflow-x: hidden;
-   scroll-behavior: smooth;
-}
-
-.ul::-webkit-scrollbar {
-   background-color: #2f2f37;
-   width: 8px;
-}
-
-.ul:-webkit-scrollbar-thumb {
-   background-color: #8585ad;
-   height: 292px;
-}
-
 .list {
    padding-left: 16px;
    max-height: 45vh;
@@ -32,52 +14,12 @@
 .list::-webkit-scrollbar {
    background-color: #2f2f37;
    width: 8px;
+   border-radius: 12px;
 }
 
 .list::-webkit-scrollbar-thumb {
    background-color: #8585ad;
-
-}
-
-.div {
-   display: flex;
-   width: 568px;
-   justify-content: flex-start;
-}
-
-.li {
-   display: flex;
-   margin: 0 auto;
-   width: 600px;
-   height: 80px;
-   list-style: none;
-}
-
-.li:not(:last-child) {
-   margin-bottom: 10px;
-}
-
-.img {
-   width: 80px;
-   height: 40px;
-}
-
-.div {
-   display: flex;
-   justify-content: center;
-   align-items: center;
-
-}
-
-.text {
-   width: 254px;
-   margin: 0 20px;
-}
-
-.price {
-   font-family: "iceland", "JetBrainsMono", "Tahoma";
-   font-size: 28px;
-   line-height: 24px;
+   border-radius: 12px;
 }
 
 .total {
@@ -89,8 +31,6 @@
 .icon{
    display: flex;
    align-items: center;
-
-
 }
 
 .icon svg{

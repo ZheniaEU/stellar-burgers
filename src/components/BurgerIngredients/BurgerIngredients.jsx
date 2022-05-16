@@ -1,16 +1,11 @@
 import { useState } from "react"
+import {Ingridients} from "./Ingridients"
 import ingredientsStyles from "./BurgerIngredients.module.css"
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components"
-//import { data } from "../../utils/data"
-import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components"
-//import PropTypes from "prop-types";
 import { ingredientsPropTypes } from "../../utils/types"
-
-
+import PropTypes from "prop-types"
 
 export const BurgerIngredients = ({data, onOpen}) => {
-
-
 
    const [current, setCurrent] = useState("one")
 
@@ -23,7 +18,6 @@ export const BurgerIngredients = ({data, onOpen}) => {
    const fillings = data.filter((item) => {
       return item.type === "main"
    })
-
 
    return (
       <section className={ingredientsStyles.section}>
@@ -45,30 +39,7 @@ export const BurgerIngredients = ({data, onOpen}) => {
    );
 };
 
-const Ingridients = ({ingridients, onOpen}) => {
-   const ingredientItem = ingridients.map((item) => (
-      < li className={ingredientsStyles.card} key={item._id} >
-         <img className={ingredientsStyles.img} src={item.image} alt={item.name} onClick={() => onOpen(item)} />
-         <div className={ingredientsStyles.div}>
-            <p className={ingredientsStyles.price}>{item.price}</p>
-            <CurrencyIcon type="primary" />
-         </div>
-         <p className={ingredientsStyles.name}>{item.name}</p>
-      </li>
-   ))
-
-   return (
-      <ul className={ingredientsStyles.ul}>
-         {ingredientItem}
-      </ul>
-   )
-}
-
 BurgerIngredients.propTypes = {
-   data: ingredientsPropTypes.isRequired
-}
-
-
-Ingridients.propTypes = {
-   ingridients: ingredientsPropTypes.isRequired
+   data: ingredientsPropTypes.isRequired,
+   onOpen: PropTypes.func.isRequired
 }

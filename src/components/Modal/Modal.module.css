@@ -1,40 +1,10 @@
-/* .modal {
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   background-color: rgba(0, 0, 0, 0.6);
-   width: 100vw;
-   height: 100vh;
-   position: fixed;
-   top: 0;
-   opacity: 1;
-
-   pointer-events: none;
-   transition: 0.4s ease-in;
-   z-index: 3;
-   scale: (0.4);
-}
-
-.modal .active {
-   opacity: 1;
-   pointer-events: auto;
-   scale: (1);
-} */
-
 .wrapper {
    display: flex;
-    /* flex-direction: column; */
    justify-content: center;
- /*  align-items: center; */
    top: 50%;
-   /* top: 50%; */
    left: 50%;
    transition: 0.4s ease-in;
    transform:translate(-50%, -50%);
-
-   /* top: 25%;
-   left: 25%; */
-   scale: (0.4);
    width: 720px;
    min-height: 520px;
    background-color: #1C1C21;

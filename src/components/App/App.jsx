@@ -8,14 +8,14 @@ import { OrderDetals } from "../OrderDetails/OrderDetals"
 import appStyles from "./App.module.css"
 
 
-const API_URL = "https://norma.nomoreparties.space/api/ingredients"
+const API_URL = "https://norma.nomoreparties.space/api"
 
 export const App = () => {
 
    //получение данных с сервера
    const [data, setData] = React.useState([])
    const getData = () => {
-      fetch(API_URL)
+      fetch(`${API_URL}/ingredients`)
          .then(res => {
             if (res.ok) {
                return res.json()
@@ -35,7 +35,7 @@ export const App = () => {
    //состояния
    const [openOrderModal, setopenOrderModal] = React.useState(false)
    const [openInfoModal, setopenInfoModal] = React.useState(false)
-   const [ingredient, setIngredients] = React.useState(null)
+   const [ingredient, setIngredient] = React.useState(null)
 
 
    //открыть
@@ -45,27 +45,15 @@ export const App = () => {
 
    const handleOpenInfoModal = (card) => {
       setopenInfoModal(true)
-      setIngredients(card)
+      setIngredient(card)
    }
 
    //закрыть
    const onCloseModal = () => {
       setopenInfoModal(false)
       setopenOrderModal(false)
-      setIngredients(null)
+      setIngredient(null)
    }
-
-   // const onCloseInfoModal = () => {
-   //    setopenInfoModal(false)
-   // }
-
-   //закрыть по ESC
-   const handleCloseModal = (evt) => {
-      if (evt.key === "Escape") {
-         onCloseModal()
-      }
-   }
-   // console.log(ingredient)
 
    return (
       <React.Fragment>
@@ -79,7 +67,7 @@ export const App = () => {
          {openInfoModal && (
             <Modal
                active={openInfoModal}
-               onClickClose={onCloseModal} onEcsClose={handleCloseModal}>
+               onClickClose={onCloseModal} >
                <IngredientDetails card={ingredient} />
             </Modal>
          )}
@@ -87,7 +75,7 @@ export const App = () => {
          {openOrderModal && (
             <Modal
                active={openOrderModal}
-               onClickClose={onCloseModal} onEcsClose={handleCloseModal}>
+               onClickClose={onCloseModal}>
                <OrderDetals />
             </Modal>
          )}

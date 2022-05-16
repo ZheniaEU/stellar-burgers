@@ -1,23 +1,26 @@
-import modalStyles from "./Modal.module.css"
+import React from "react"
 import ReactDOM from "react-dom"
-import React from "react";
+import modalStyles from "./Modal.module.css"
 import { ModalOverlay } from "./ModalOverlay/ModalOverlay"
-import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-//import { modalPropTypes } from "../../utils/types"
-import PropTypes from 'prop-types';
+import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components"
+import PropTypes from "prop-types"
 
 const modalRoot = document.getElementById("modal");
 
-export const Modal = ({ active, onClickClose, onEcsClose, children }) => {
+export const Modal = ({ active, onClickClose, children }) => {
 
-//!active нужен для анимации открытия попапа, я просто не доделал
+   const handleCloseModal = (evt) => {
+      if (evt.key === "Escape") {
+         onClickClose()
+      }
+   }
 
    React.useEffect(() => {
-      document.addEventListener("keydown", onEcsClose)
+      document.addEventListener("keydown", handleCloseModal)
       return () => {
-         document.removeEventListener("keydown", onEcsClose)
+         document.removeEventListener("keydown", handleCloseModal)
       }
-   }, [onEcsClose])
+   }, )
 
 
 
@@ -36,8 +39,7 @@ export const Modal = ({ active, onClickClose, onEcsClose, children }) => {
 }
 
 Modal.propTypes = {
-   active : PropTypes.bool.isRequired,
-   onClickClose : PropTypes.func.isRequired,
-   onEcsClose : PropTypes.func.isRequired,
-   children : PropTypes.node.isRequired
+   active: PropTypes.bool.isRequired,
+   onClickClose: PropTypes.func.isRequired,
+   children: PropTypes.node.isRequired
 }
