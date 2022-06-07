@@ -1,7 +1,21 @@
-.App {
-   text-align: center;
+.main {
+   display: flex;
+   justify-content: center;
+   padding: 40px 0 20px;
+   margin: 0 auto;
+   width: 1280px;
 }
 
-.body {
-   background-color: #131316;
+.title {
+   display: flex;
+   width: 1240px;
+   margin: 0 auto;
+   padding: 40px 0 20px;
+   line-height: 40px;
+   font-size: 36px;
+   font-weight: 700;
+}
+
+.test {
+   position: relative;
 }

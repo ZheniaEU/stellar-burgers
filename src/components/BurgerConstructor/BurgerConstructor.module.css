@@ -1,0 +1,51 @@
+.section {
+   padding: 60px 0 20px;
+   width: 600px;
+}
+
+.list {
+   padding-left: 16px;
+   max-height: 45vh;
+   overflow-y: scroll;
+   overflow-x: hidden;
+   scroll-behavior: smooth;
+}
+
+.list::-webkit-scrollbar {
+   background-color: #2f2f37;
+   width: 8px;
+   border-radius: 12px;
+}
+
+.list::-webkit-scrollbar-thumb {
+   background-color: #8585ad;
+   border-radius: 12px;
+}
+
+.total {
+   display: flex;
+   justify-content: flex-end;
+   align-items: center;
+}
+
+.icon{
+   display: flex;
+   align-items: center;
+}
+
+.icon svg{
+   width: 33px;
+   height: 33px;
+}
+
+.value {
+   font-family: "iceland", "JetBrainsMono", "Tahoma";
+   font-size: 48px;
+   line-height: 36px;
+   margin: 0;
+   padding-right: 9.5px;
+}
+
+.bun{
+   padding-left: 48px;
+}

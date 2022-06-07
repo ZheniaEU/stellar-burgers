@@ -1,0 +1,23 @@
+/* iceland*/
+@font-face {
+   font-family: "iceland";
+   font-style: normal;
+   font-weight: 400;
+   src: url("./iceland-v16-latin-regular.woff2") format("woff2");
+}
+
+/* JetBrainsMono-Bold*/
+@font-face {
+   font-family: "JetBrainsMono";
+   font-style: normal;
+   font-weight: 700;
+   src: url("./JetBrainsMono-Bold.woff2") format("woff2");
+}
+
+/* JetBrainsMono-Regular*/
+@font-face {
+   font-family: "JetBrainsMono";
+   font-style: normal;
+   font-weight: 400;
+   src: url("./JetBrainsMono-Regular.woff2") format("woff2");
+}

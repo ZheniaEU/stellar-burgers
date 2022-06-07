@@ -1,0 +1,42 @@
+.container {
+   display: flex;
+   flex-direction: column;
+   text-align: center;
+   height: 718px;
+}
+
+.h2 {
+   font-size: 144px;
+   line-height: 120px;
+   font-weight: 400;
+   font-family: "iceland", "JetBrainsMono", "Tahoma";
+   margin: 120px 0 32px;
+}
+
+.image {
+   width: 120px;
+   height: 120px;
+   margin: 60px auto;
+}
+
+.order{
+   font-size: 24px;
+   line-height: 30px;
+   font-weight: 700;
+   margin: 0;
+   color: #F2F2F3;
+}
+
+.status {
+   font-size: 16px;
+   line-height: 24px;
+   margin: 0 0 8px;
+   color: #F2F2F3;
+}
+
+.msg {
+   font-size: 16px;
+   line-height: 24px;
+   margin: 0;
+   color: #8585AD;
+}
