@@ -46,7 +46,7 @@ export const BurgerConstructor = (props) => {
             </div>
          </div>
       </section>
-   );
+   )
 }
 
 BurgerConstructor.propTypes = {

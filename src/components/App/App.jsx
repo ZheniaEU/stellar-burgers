@@ -29,8 +29,8 @@ export const App = () => {
 
 
    React.useEffect(() => {
-      getData();
-   }, []);
+      getData()
+   }, [])
 
    //состояния
    const [openOrderModal, setopenOrderModal] = React.useState(false)
@@ -81,5 +81,5 @@ export const App = () => {
          )}
 
       </React.Fragment>
-   );
+   )
 }

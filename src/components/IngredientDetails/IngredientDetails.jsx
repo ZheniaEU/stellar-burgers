@@ -1,5 +1,5 @@
 import details from "./IngredientDetails.module.css"
-import { ingredientDetails } from "../../utils/types"
+import { ingredientsPropTypes } from "../../utils/types"
 
 export const IngredientDetails = ({ card }) => {
 
@@ -31,5 +31,5 @@ export const IngredientDetails = ({ card }) => {
 }
 
 IngredientDetails.propTypes = {
-   card: ingredientDetails.isRequired
+   card: ingredientsPropTypes.isRequired
 }

@@ -1,6 +1,6 @@
 import headerStyles from "./AppHeader.module.css"
 import { Logo, BurgerIcon, ListIcon, ProfileIcon, } from "@ya.praktikum/react-developer-burger-ui-components"
-//import { BrowserRouter, Route } from "react-router-dom";
+//import { BrowserRouter, Route } from "react-router-dom"
 
 
 export const AppHeader = () => {
@@ -32,5 +32,5 @@ export const AppHeader = () => {
             </ul>
          </nav>
       </header>
-   );
-};
+   )
+}

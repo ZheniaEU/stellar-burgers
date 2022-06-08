@@ -42,8 +42,8 @@ export const BurgerIngredients = ({ data, onOpen }) => {
             <Ingridients ingridients={fillings} onOpen={onOpen} />
          </article>
       </section>
-   );
-};
+   )
+}
 
 BurgerIngredients.propTypes = {
    data: ingredientsPropTypes.isRequired,
