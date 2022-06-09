@@ -12,7 +12,7 @@ const initialState = {
    ingredientsFailed: false,
 }
 
-const testReducer = (state = initialState, action) => {
+const ingredientsReducer = (state = initialState, action) => {
    switch (action.type) {
       case "GET_INGREDIENTS_ITEMS_REQUEST": {
          return {
@@ -41,7 +41,7 @@ const testReducer = (state = initialState, action) => {
 }
 
 export const rootReducer = combineReducers({
-   test: testReducer
+   ingredient: ingredientsReducer
 })
 
 //export const state = createStore(rootReducer, applyMiddleware(thunk, logger))

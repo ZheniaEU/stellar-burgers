@@ -5,17 +5,16 @@ import {
    GET_INGREDIENTS_ITEMS_FAILED
 } from "../reducers/index"
 
-export function getData() {
+export function getDatar() {
    return function (dispatch) {
       dispatch({
          type: GET_INGREDIENTS_ITEMS_REQUEST
       })
       getIngredients().then(res => {
          if (res && res.success) {
-            console.log(res)
             dispatch({
                type: GET_INGREDIENTS_SUCCESS,
-               items: res.data
+               data: res.data
             })
          } else {
             dispatch({

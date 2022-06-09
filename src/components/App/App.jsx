@@ -1,4 +1,4 @@
-import React from "react"
+import { useState, useEffect } from "react"
 import { AppHeader } from "../AppHeader/AppHeader"
 import { BurgerIngredients } from "../BurgerIngredients/BurgerIngredients"
 import { BurgerConstructor } from "../BurgerConstructor/BurgerConstructor"
@@ -7,16 +7,29 @@ import { IngredientDetails } from "../IngredientDetails/IngredientDetails"
 import { OrderDetals } from "../OrderDetails/OrderDetals"
 import appStyles from "./App.module.css"
 //import { getIngredients } from "../../utils/api"
+import { getDatar } from "../../services/actions/index"
+import { useDispatch, useSelector } from "react-redux"
 
 const API_URL = "https://norma.nomoreparties.space/api"
 
+
+//getIngredients()
 
 
 
 export const App = () => {
 
+   const dispatch = useDispatch()
+
+  // const { } = useSelector()
+
+
+   useEffect(() => {
+      dispatch(getDatar())
+   }, [dispatch])
+
    //получение данных с сервера
-   const [data, setData] = React.useState([])
+   const [data, setData] = useState([])
    const getData = () => {
       fetch(`${API_URL}/ingredients`)
          .then(res => {
@@ -31,14 +44,14 @@ export const App = () => {
    }
 
 
-   React.useEffect(() => {
+   useEffect(() => {
       getData()
    }, [])
 
    //состояния
-   const [openOrderModal, setopenOrderModal] = React.useState(false)
-   const [openInfoModal, setopenInfoModal] = React.useState(false)
-   const [ingredient, setIngredient] = React.useState(null)
+   const [openOrderModal, setopenOrderModal] = useState(false)
+   const [openInfoModal, setopenInfoModal] = useState(false)
+   const [ingredient, setIngredient] = useState(null)
 
 
    //открыть
@@ -59,7 +72,7 @@ export const App = () => {
    }
 
    return (
-      <React.Fragment>
+      <>
          <AppHeader />
          <main className={appStyles.main}>
             <BurgerIngredients data={data} onOpen={handleOpenInfoModal} />
@@ -82,7 +95,6 @@ export const App = () => {
                <OrderDetals />
             </Modal>
          )}
-
-      </React.Fragment>
+      </>
    )
 }

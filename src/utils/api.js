@@ -19,24 +19,25 @@ export const getIngredients = () => {
       },
       method: "GET",
    })
-      .then(checkResponse)
+      .then(res => checkResponse(res))
+      .then(res => console.log(res))
       .catch(err => { console.log(` Не переключайтесь, мы скоро вернёмся: ${err} `) })
 }
 
-const GET_INGREDIENTS = "GET_INGREDIENTS"
+// const GET_INGREDIENTS = "GET_INGREDIENTS"
 
-export const reduxData = () => {
-   return function (dispath) {
-      dispath({ type: GET_INGREDIENTS })
-      getIngredients()
-      .then(res => {
-         dispath({
-            type: GET_INGREDIENTS,
-            data: res.data
-         })
-      })
-   }
-}
+// export const reduxData = () => {
+//    return function (dispath) {
+//       dispath({ type: GET_INGREDIENTS })
+//       getIngredients()
+//       .then(res => {
+//          dispath({
+//             type: GET_INGREDIENTS,
+//             data: res.data
+//          })
+//       })
+//    }
+// }
 
 
 

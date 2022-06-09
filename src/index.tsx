@@ -8,7 +8,7 @@ import { Provider } from "react-redux"
 import thunk from "redux-thunk"
 import { createStore, applyMiddleware } from "redux"
 import { rootReducer } from "./services/reducers"
-import { logger } from "redux-logger"
+//import { logger } from "redux-logger"
 //import { state } from "./services/reducers"
 //import thunk from "redux-thunk"
 //import { createStore, applyMiddleware } from "redux"
@@ -25,7 +25,7 @@ import { logger } from "redux-logger"
 
 // export const state = createStore(rootReducer, enhancer)
 
-export const state = createStore(rootReducer, applyMiddleware(thunk, logger))
+export const state = createStore(rootReducer, applyMiddleware(thunk))
 
 
 const root = ReactDOM.createRoot(
@@ -34,10 +34,10 @@ const root = ReactDOM.createRoot(
 
 // ReactDOM.render(
 root.render(
-   <React.StrictMode>
+//   <React.StrictMode>
       <Provider store={state}>
          <App />
       </Provider>
-   </React.StrictMode>
+//   </React.StrictMode>
    // document.getElementById("root")
 )
