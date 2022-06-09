@@ -6,9 +6,12 @@ import { Modal } from "../Modal/Modal"
 import { IngredientDetails } from "../IngredientDetails/IngredientDetails"
 import { OrderDetals } from "../OrderDetails/OrderDetals"
 import appStyles from "./App.module.css"
-
+//import { getIngredients } from "../../utils/api"
 
 const API_URL = "https://norma.nomoreparties.space/api"
+
+
+
 
 export const App = () => {
 
