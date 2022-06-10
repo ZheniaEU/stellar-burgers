@@ -6,47 +6,19 @@ import { Modal } from "../Modal/Modal"
 import { IngredientDetails } from "../IngredientDetails/IngredientDetails"
 import { OrderDetals } from "../OrderDetails/OrderDetals"
 import appStyles from "./App.module.css"
-//import { getIngredients } from "../../utils/api"
-import { getDatar } from "../../services/actions/index"
+import { getData } from "../../services/actions/index"
 import { useDispatch, useSelector } from "react-redux"
-
-const API_URL = "https://norma.nomoreparties.space/api"
-
-
-//getIngredients()
-
 
 
 export const App = () => {
 
    const dispatch = useDispatch()
-
-  // const { } = useSelector()
-
+   const { ingredients } = useSelector(state => state.ingredients)
+   const data = ingredients
 
    useEffect(() => {
-      dispatch(getDatar())
+      dispatch(getData())
    }, [dispatch])
-
-   //получение данных с сервера
-   const [data, setData] = useState([])
-   const getData = () => {
-      fetch(`${API_URL}/ingredients`)
-         .then(res => {
-            if (res.ok) {
-               return res.json()
-            } else {
-               return Promise.reject(`Проблемы с запросом: ${res.status}`)
-            }
-         })
-         .then(data => { setData(data.data) })
-         .catch(err => { console.log(` Не переключайтесь, мы скоро вернёмся: ${err} `) })
-   }
-
-
-   useEffect(() => {
-      getData()
-   }, [])
 
    //состояния
    const [openOrderModal, setopenOrderModal] = useState(false)

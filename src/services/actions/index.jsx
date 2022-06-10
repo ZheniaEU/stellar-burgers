@@ -1,26 +1,40 @@
 import { getIngredients } from "../../utils/api"
 import {
-   GET_INGREDIENTS_ITEMS_REQUEST,
+   GET_INGREDIENTS_REQUEST,
    GET_INGREDIENTS_SUCCESS,
-   GET_INGREDIENTS_ITEMS_FAILED
+   GET_INGREDIENTS_FAILED
 } from "../reducers/index"
 
-export function getDatar() {
-   return function (dispatch) {
-      dispatch({
-         type: GET_INGREDIENTS_ITEMS_REQUEST
-      })
-      getIngredients().then(res => {
-         if (res && res.success) {
-            dispatch({
-               type: GET_INGREDIENTS_SUCCESS,
-               data: res.data
-            })
-         } else {
-            dispatch({
-               type: GET_INGREDIENTS_ITEMS_FAILED
-            })
-         }
-      })
+export const getData = () => {
+   return (dispatch) => {
+       dispatch(getIngredientsRequest())
+       getIngredients()
+         .then(res => {
+            dispatch(getIngredientsSuccess(res.data))
+         })
+         .catch(err => {
+            dispatch(getIngredientsFailed())
+            console.log(`Обнаружено жжение в нижней части таза ${err}`)
+         })
    }
 }
+
+
+const getIngredientsRequest = () => {
+   return {
+      type: GET_INGREDIENTS_REQUEST
+   };
+};
+
+const getIngredientsSuccess = (data) => {
+   return {
+      type: GET_INGREDIENTS_SUCCESS,
+      ingredients: data
+   }
+}
+
+const getIngredientsFailed = () => {
+   return {
+      type: GET_INGREDIENTS_FAILED
+   };
+};

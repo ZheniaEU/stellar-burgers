@@ -1,10 +1,8 @@
 import { combineReducers } from "redux"
 
-
-export const GET_INGREDIENTS_ITEMS_REQUEST = "GET_INGREDIENTS_REQUEST"
+export const GET_INGREDIENTS_REQUEST = "GET_INGREDIENTS_REQUEST"
 export const GET_INGREDIENTS_SUCCESS = "GET_INGREDIENTS_SUCCESS"
-export const GET_INGREDIENTS_ITEMS_FAILED = "GET_INGREDIENTS_FAILED"
-
+export const GET_INGREDIENTS_FAILED = "GET_INGREDIENTS_FAILED"
 
 const initialState = {
    ingredients: [],
@@ -14,7 +12,7 @@ const initialState = {
 
 const ingredientsReducer = (state = initialState, action) => {
    switch (action.type) {
-      case "GET_INGREDIENTS_ITEMS_REQUEST": {
+      case "GET_INGREDIENTS_REQUEST": {
          return {
             ...state,
             ingredientsRequest: true,
@@ -25,10 +23,11 @@ const ingredientsReducer = (state = initialState, action) => {
          return {
             ...state,
             ingredientsRequest: false,
-            ingredientsFailed: false
+            ingredientsFailed: false,
+            ingredients: action.ingredients
          }
       }
-      case "GET_INGREDIENTS_ITEMS_FAILED": {
+      case "GET_INGREDIENTS_FAILED": {
          return {
             ...state,
             ingredientsRequest: true
@@ -37,11 +36,9 @@ const ingredientsReducer = (state = initialState, action) => {
 
       default:
          return state
+      }
    }
-}
 
-export const rootReducer = combineReducers({
-   ingredient: ingredientsReducer
-})
-
-//export const state = createStore(rootReducer, applyMiddleware(thunk, logger))
+   export const rootReducer = combineReducers({
+      ingredients: ingredientsReducer
+   })
