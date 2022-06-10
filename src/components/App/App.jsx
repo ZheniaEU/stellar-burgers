@@ -8,9 +8,12 @@ import { OrderDetals } from "../OrderDetails/OrderDetals"
 import appStyles from "./App.module.css"
 import { getData } from "../../services/actions/index"
 import { useDispatch, useSelector } from "react-redux"
-
+import { onDemandOrder } from "../../utils/api"
 
 export const App = () => {
+
+   onDemandOrder()
+
 
    const dispatch = useDispatch()
    const { ingredients } = useSelector(state => state.ingredients)
