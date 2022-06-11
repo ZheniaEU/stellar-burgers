@@ -36,9 +36,30 @@ const ingredientsReducer = (state = initialState, action) => {
 
       default:
          return state
-      }
    }
+}
 
-   export const rootReducer = combineReducers({
-      ingredients: ingredientsReducer
-   })
+const initialStateOrder = {
+   order: []
+
+}
+
+const orderReducer = (state = initialStateOrder, action) => {
+   switch (action.type) {
+      case "ORDER": {
+         return {
+
+         }
+      }
+
+      
+      default:
+         return state
+   }
+}
+
+export const rootReducer = combineReducers({
+   ingredients: ingredientsReducer,
+   order: orderReducer,
+ //  dnd: dndReducer
+})

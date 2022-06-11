@@ -12,6 +12,8 @@ export const BurgerConstructor = (props) => {
       return item.type === "bun"
    })
 
+   const totalPrice = "8600"
+
    return (
       buns.length > 0 &&
       <section className={ConstructorStyles.section}>
@@ -37,7 +39,7 @@ export const BurgerConstructor = (props) => {
             />
          </div>
          <div className={ConstructorStyles.total}>
-            <p className={ConstructorStyles.value}>8600</p>
+            <p className={ConstructorStyles.value}>{totalPrice}</p>
             <div className={ConstructorStyles.icon} >
                <CurrencyIcon />
             </div>

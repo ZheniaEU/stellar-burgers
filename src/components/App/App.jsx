@@ -8,16 +8,18 @@ import { OrderDetals } from "../OrderDetails/OrderDetals"
 import appStyles from "./App.module.css"
 import { getData } from "../../services/actions/index"
 import { useDispatch, useSelector } from "react-redux"
-import { onDemandOrder } from "../../utils/api"
+//import { onDemandOrder } from "../../utils/api"
 
 export const App = () => {
 
-   onDemandOrder()
+//   onDemandOrder()
+
 
 
    const dispatch = useDispatch()
    const { ingredients } = useSelector(state => state.ingredients)
    const data = ingredients
+  console.log(data)
 
    useEffect(() => {
       dispatch(getData())
