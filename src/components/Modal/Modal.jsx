@@ -1,4 +1,4 @@
-import React from "react"
+import { useEffect } from "react"
 import ReactDOM from "react-dom"
 import modalStyles from "./Modal.module.css"
 import { ModalOverlay } from "./ModalOverlay/ModalOverlay"
@@ -15,12 +15,12 @@ export const Modal = ({ active, onClickClose, children }) => {
       }
    }
 
-   React.useEffect(() => {
+   useEffect(() => {
       document.addEventListener("keydown", handleCloseModal)
       return () => {
          document.removeEventListener("keydown", handleCloseModal)
       }
-   }, )
+   })
 
 
 
