@@ -1,7 +1,8 @@
-import { useMemo, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { Ingridients } from "../Ingridients/Ingridients"
 import ingredientsStyles from "./BurgerIngredients.module.css"
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components"
+import { useInView } from 'react-hook-inview';
 //import { ingredientsPropTypes } from "../../utils/types"
 //import PropTypes from "prop-types"
 import { useSelector } from "react-redux"
@@ -30,21 +31,41 @@ export const BurgerIngredients = ({ onOpen }) => {
       anchor.scrollIntoView({ behavior: "smooth" })
    }
 
+   const [bunsRef, inViewBuns] = useInView({ threshold: 0 })
+   const [saucesRef, inViewSauces] = useInView({ threshold: 0 })
+   const [fillingRef, inViewFilling] = useInView({ threshold: 0 })
+
+   useEffect(() => {
+      if (inViewBuns) {
+         setCurrent("buns")
+      } else if (inViewSauces) {
+         setCurrent("sauces")
+      } else if (inViewFilling) {
+         setCurrent("fillings")
+      }
+   }, [inViewBuns, inViewSauces, inViewFilling])
+
    return (
       <section className={ingredientsStyles.section}>
          <h1 className={ingredientsStyles.title}>Соберите бургер</h1>
          <nav className={ingredientsStyles.nav}>
-            <Tab value="one" active={current === "one"} onClick={() => handleClick("one")}>Булки</Tab>
-            <Tab value="two" active={current === "two"} onClick={() => handleClick("two")}>Соусы</Tab>
-            <Tab value="three" active={current === "three"} onClick={() => handleClick("three")}>Начинки</Tab>
+            <Tab value="buns" active={current === "buns"} onClick={() => handleClick("buns")}>Булки</Tab>
+            <Tab value="sauces" active={current === "sauces"} onClick={() => handleClick("sauces")}>Соусы</Tab>
+            <Tab value="fillings" active={current === "fillings"} onClick={() => handleClick("fillings")}>Начинки</Tab>
          </nav>
          <article className={ingredientsStyles.article}>
-            <h2 className={ingredientsStyles.subtitle} id="one">Булки</h2>
-            <Ingridients ingridients={buns} onOpen={onOpen} />
-            <h2 className={ingredientsStyles.subtitle} id="two">Соусы</h2>
-            <Ingridients ingridients={sauces} onOpen={onOpen} />
-            <h2 className={ingredientsStyles.subtitle} id="three">Начинки</h2>
-            <Ingridients ingridients={fillings} onOpen={onOpen} />
+            <div ref={bunsRef}>
+               <h2 className={ingredientsStyles.subtitle} id="buns">Булки</h2>
+               <Ingridients ingridients={buns} onOpen={onOpen} />
+            </div>
+            <div ref={saucesRef}>
+               <h2 className={ingredientsStyles.subtitle} id="sauces">Соусы</h2>
+               <Ingridients ingridients={sauces} onOpen={onOpen} />
+            </div>
+            <div ref={fillingRef}>
+               <h2 className={ingredientsStyles.subtitle} id="fillings">Начинки</h2>
+               <Ingridients ingridients={fillings} onOpen={onOpen} />
+            </div>
          </article>
       </section>
    )

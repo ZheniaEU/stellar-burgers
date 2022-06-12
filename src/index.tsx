@@ -14,7 +14,7 @@ import { rootReducer } from "./services/reducers"
 //import { createStore, applyMiddleware } from "redux"
 //import { compose, createStore, applyMiddleware } from "redux"
 //import { rootReducer } from "./test"
-import { logger } from "redux-logger"
+//import { logger } from "redux-logger"
 
 // const composeEnhancers =
 //    typeof window === "object" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
@@ -25,7 +25,7 @@ import { logger } from "redux-logger"
 
 // export const state = createStore(rootReducer, enhancer)
 
-export const state = createStore(rootReducer, applyMiddleware(thunk, logger))
+export const state = createStore(rootReducer, applyMiddleware(thunk))
 
 
 const root = ReactDOM.createRoot(
