@@ -9,6 +9,14 @@ export const getIngredients = async () => {
    return await fetch(`${API_URL}/ingredients`)
       .then(res => checkResponse(res))
 }
+// const checkResponse = (res) => {
+//    if (res.ok) {
+//      return res.json();
+//    } else {
+//      return Promise.reject(new Error(res.status))
+//    }
+//  }
+
 
 export const onDemandOrder = (massId) => {
 //   console.log(massId)

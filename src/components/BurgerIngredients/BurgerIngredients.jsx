@@ -7,9 +7,14 @@ import { useInView } from 'react-hook-inview';
 //import PropTypes from "prop-types"
 import { useSelector } from "react-redux"
 
+
+
 export const BurgerIngredients = ({ onOpen }) => {
 
-   const { ingredients } = useSelector(state => state.ingredients)
+   const { ingredients, isLoading, errorLoading } = useSelector(state => state.ingredients)
+
+console.log(isLoading, errorLoading
+   )
 
    const [current, setCurrent] = useState("one")
 
@@ -45,32 +50,37 @@ export const BurgerIngredients = ({ onOpen }) => {
       }
    }, [inViewBuns, inViewSauces, inViewFilling])
 
-   return (
-      <section className={ingredientsStyles.section}>
-         <h1 className={ingredientsStyles.title}>Соберите бургер</h1>
-         <nav className={ingredientsStyles.nav}>
-            <Tab value="buns" active={current === "buns"} onClick={() => handleClick("buns")}>Булки</Tab>
-            <Tab value="sauces" active={current === "sauces"} onClick={() => handleClick("sauces")}>Соусы</Tab>
-            <Tab value="fillings" active={current === "fillings"} onClick={() => handleClick("fillings")}>Начинки</Tab>
-         </nav>
-         <article className={ingredientsStyles.article}>
-            <div ref={bunsRef}>
-               <h2 className={ingredientsStyles.subtitle} id="buns">Булки</h2>
-               <Ingridients ingridients={buns} onOpen={onOpen} />
-            </div>
-            <div ref={saucesRef}>
-               <h2 className={ingredientsStyles.subtitle} id="sauces">Соусы</h2>
-               <Ingridients ingridients={sauces} onOpen={onOpen} />
-            </div>
-            <div ref={fillingRef}>
-               <h2 className={ingredientsStyles.subtitle} id="fillings">Начинки</h2>
-               <Ingridients ingridients={fillings} onOpen={onOpen} />
-            </div>
-         </article>
-      </section>
-   )
+   if (errorLoading) {
+      return <p> Отшибка</p>
+   } else if (isLoading) {
+      return <p>Загрузка...................</p>
+   } else {
+     return (
+         <section className={ingredientsStyles.section}>
+            <h1 className={ingredientsStyles.title}>Соберите бургер</h1>
+            <nav className={ingredientsStyles.nav}>
+               <Tab value="buns" active={current === "buns"} onClick={() => handleClick("buns")}>Булки</Tab>
+               <Tab value="sauces" active={current === "sauces"} onClick={() => handleClick("sauces")}>Соусы</Tab>
+               <Tab value="fillings" active={current === "fillings"} onClick={() => handleClick("fillings")}>Начинки</Tab>
+            </nav>
+            <article className={ingredientsStyles.article}>
+               <div ref={bunsRef}>
+                  <h2 className={ingredientsStyles.subtitle} id="buns">Булки</h2>
+                  <Ingridients ingridients={buns} onOpen={onOpen} />
+               </div>
+               <div ref={saucesRef}>
+                  <h2 className={ingredientsStyles.subtitle} id="sauces">Соусы</h2>
+                  <Ingridients ingridients={sauces} onOpen={onOpen} />
+               </div>
+               <div ref={fillingRef}>
+                  <h2 className={ingredientsStyles.subtitle} id="fillings">Начинки</h2>
+                  <Ingridients ingridients={fillings} onOpen={onOpen} />
+               </div>
+            </article>
+         </section>
+      )
+   }
 }
-
 // BurgerIngredients.propTypes = {
 //    data: ingredientsPropTypes.isRequired,
 //    onOpen: PropTypes.func.isRequired

@@ -19,28 +19,31 @@ const initialState = {
 
 const ingredientsReducer = (state = initialState, action) => {
    switch (action.type) {
-      case "GET_INGREDIENTS_REQUEST": {
+      case GET_INGREDIENTS_REQUEST: {
          return {
             ...state,
             ingredientsRequest: true,
             ingredientsFailed: false,
-            isLoading: true
+            isLoading: true,
+            errorLoading: false
          }
       }
-      case "GET_INGREDIENTS_SUCCESS": {
+      case GET_INGREDIENTS_SUCCESS: {
          return {
             ...state,
             ingredientsRequest: false,
             ingredientsFailed: false,
             isLoading: false,
+            errorLoading: false,
             ingredients: action.ingredients
          }
       }
-      case "GET_INGREDIENTS_FAILED": {
+      case GET_INGREDIENTS_FAILED: {
          return {
             ...state,
             ingredientsRequest: true,
             isLoading: false,
+            errorLoading: false
          }
       }
 

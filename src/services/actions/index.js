@@ -7,10 +7,14 @@ import {
 
 export const getData = () => {
    return (dispatch) => {
-       dispatch(getIngredientsRequest())
-       getIngredients()
+      dispatch(getIngredientsRequest())
+      getIngredients()
          .then(res => {
-            dispatch(getIngredientsSuccess(res.data))
+            if (res.success) {
+               dispatch(getIngredientsSuccess(res.data))
+            } else {
+               dispatch(getIngredientsFailed())
+            }
          })
          .catch(err => {
             dispatch(getIngredientsFailed())

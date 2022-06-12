@@ -34,10 +34,10 @@ const root = ReactDOM.createRoot(
 
 // ReactDOM.render(
 root.render(
-//   <React.StrictMode>
-      <Provider store={state}>
-         <App />
-      </Provider>
-//   </React.StrictMode>
+   //   <React.StrictMode>
+   <Provider store={state}>
+      <App />
+   </Provider>
+   //   </React.StrictMode>
    // document.getElementById("root")
 )

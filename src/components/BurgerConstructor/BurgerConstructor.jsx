@@ -5,7 +5,7 @@ import { ConstructorList } from "../ConstructorList/ConstructorList"
 //import PropTypes from "prop-types"
 import { useDispatch, useSelector } from "react-redux"
 import { onDemandOrder } from "../../utils/api"
-import { useMemo } from "react"
+import { useCallback, useMemo } from "react"
 import {
    GET_ORDER_REQUEST,
    GET_ORDER_SUCCESS,
@@ -38,23 +38,27 @@ export const BurgerConstructor = ({ onOpen }) => {
       return mass
    }
 
-   const sendOrder = () => {
-      // setTimeout(() => {
-      onDemandOrder(totalIngredients(ingredients))
-         .then(res => {
-            dispatch({ type: GET_ORDER_SUCCESS, data: res.order.number })
-            console.log(res.order.number)
-         })
-      // }, 2000)
-   }
 
+   useCallback(
+      () => {
+         sendOrder()
+      })
    // useCallback(
    //    () => {
-
+   const sendOrder = () => {
+//      setTimeout(() => {
+         onDemandOrder(totalIngredients(ingredients))
+            .then(res => {
+               dispatch({ type: GET_ORDER_SUCCESS, data: res.order.number })
+               console.log(res.order.number)
+            })
+         onOpen()
+  //    }, 500)
+   }
 
    //    })
 
-   sendOrder()
+
 
    // const handleSubmit = () => {
    //    //    onOpen
@@ -98,7 +102,7 @@ export const BurgerConstructor = ({ onOpen }) => {
                <CurrencyIcon />
             </div>
             <div className="pr-4 pl-10">
-               <Button type="primary" size="large" onClick={onOpen}>Оформить заказ</Button>
+               <Button type="primary" size="large" onClick={sendOrder}>Оформить заказ</Button>
             </div>
          </div>
       </section>

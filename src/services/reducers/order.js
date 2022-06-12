@@ -1,6 +1,8 @@
 const initialStateOrder = {
    order: null,
    price: 8600
+
+   
 }
 
 export const GET_ORDER_REQUEST = "GET_ORDER_REQUEST"
