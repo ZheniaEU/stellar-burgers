@@ -3,25 +3,35 @@ import { Button, CurrencyIcon, ConstructorElement } from "@ya.praktikum/react-de
 import { ConstructorList } from "../ConstructorList/ConstructorList"
 //import { ingredientsPropTypes } from "../../utils/types"
 //import PropTypes from "prop-types"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { onDemandOrder } from "../../utils/api"
-import { useCallback } from "react"
+import { useMemo } from "react"
+import {
+   GET_ORDER_REQUEST,
+   GET_ORDER_SUCCESS,
+   GET_ORDER_FAILED
+} from "../../services/reducers/order"
 
-export const BurgerConstructor = (props) => {
+export const BurgerConstructor = ({ onOpen }) => {
 
-   const { onOpen } = props
+   const { ingredients, isLoading, errorLoading } = useSelector(state => state.ingredients)
 
-   const { ingredients } = useSelector(state => state.ingredients)
+   // const buns = ingredients.filter((item) => {
+   //    return item.type === "bun"
+   // })
 
-   const buns = ingredients.filter((item) => {
-      return item.type === "bun"
-   })
+   const dispatch = useDispatch()
+
+   const buns = useMemo(() =>
+      ingredients.filter((item) => item.type === "bun"),
+      [ingredients])
 
    const totalPrice = (ingredients, sum = 0) => {
       for (let { price, type } of ingredients)
          sum += price * (type === "bun" ? 2 : 1)
       return sum
    }
+
    const totalIngredients = (ingredients, mass = []) => {
       for (let { _id } of ingredients)
          mass.push(_id)
@@ -29,22 +39,26 @@ export const BurgerConstructor = (props) => {
    }
 
    const sendOrder = () => {
-      setTimeout(() => {
-         onDemandOrder(totalIngredients(ingredients))
-            .then(res => {
-               console.log(res.order)
-            })
-      }, 2000)
-
+      // setTimeout(() => {
+      onDemandOrder(totalIngredients(ingredients))
+         .then(res => {
+            dispatch({ type: GET_ORDER_SUCCESS, data: res.order.number })
+            console.log(res.order.number)
+         })
+      // }, 2000)
    }
 
-   useCallback(
-      () => {
+   // useCallback(
+   //    () => {
 
 
-      })
+   //    })
 
-      sendOrder()
+   sendOrder()
+
+   // const handleSubmit = () => {
+   //    //    onOpen
+   // }
 
    // const totalPrice = (ingredients, sum = 0) => {
    //    for (let { price } of ingredients)

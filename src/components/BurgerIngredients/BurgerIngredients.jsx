@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useMemo, useState } from "react"
 import { Ingridients } from "../Ingridients/Ingridients"
 import ingredientsStyles from "./BurgerIngredients.module.css"
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components"
@@ -12,15 +12,17 @@ export const BurgerIngredients = ({ onOpen }) => {
 
    const [current, setCurrent] = useState("one")
 
-   const buns = ingredients.filter((item) => {
-      return item.type === "bun"
-   })
-   const sauces = ingredients.filter((item) => {
-      return item.type === "sauce"
-   })
-   const fillings = ingredients.filter((item) => {
-      return item.type === "main"
-   })
+   const buns = useMemo(() =>
+      ingredients.filter((item) => item.type === "bun"),
+      [ingredients])
+
+   const sauces = useMemo(() =>
+      ingredients.filter((item) => item.type === "sauce"),
+      [ingredients])
+
+   const fillings = useMemo(() =>
+      ingredients.filter((item) => item.type === "main"),
+      [ingredients])
 
    const handleClick = (id) => {
       setCurrent(id)

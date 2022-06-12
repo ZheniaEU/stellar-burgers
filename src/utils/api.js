@@ -11,7 +11,7 @@ export const getIngredients = async () => {
 }
 
 export const onDemandOrder = (massId) => {
-   console.log(massId)
+//   console.log(massId)
    return fetch(`${API_URL}/orders`, {
       method: "POST",
       headers: {

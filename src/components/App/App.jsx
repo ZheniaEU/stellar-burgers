@@ -7,8 +7,11 @@ import { IngredientDetails } from "../IngredientDetails/IngredientDetails"
 import { OrderDetals } from "../OrderDetails/OrderDetals"
 import appStyles from "./App.module.css"
 import { getData } from "../../services/actions/index"
-//import { useDispatch, useSelector } from "react-redux"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
+import { DndProvider } from "react-dnd"
+import { HTML5Backend } from "react-dnd-html5-backend"
+//import { Loader } from "../Loader/Loader"
+//import { useDispatch } from "react-redux"
 //import { onDemandOrder } from "../../utils/api"
 
 export const App = () => {
@@ -18,8 +21,10 @@ export const App = () => {
    //       console.log(res.order)
    //    })
 
+   //  const [ingredientLoading, setIngredientLoading] = useState(true)
+
    const dispatch = useDispatch()
-//   const { ingredients } = useSelector(state => state.ingredients)
+   const { ingredients } = useSelector(state => state.ingredients)
 
    useEffect(() => {
       dispatch(getData())
@@ -33,7 +38,9 @@ export const App = () => {
 
    //открыть
    const handleOpenOrderModal = () => {
-      setopenOrderModal(true)
+    //  setTimeout(() => {
+         setopenOrderModal(true)
+   //   }, 2000)
    }
 
    const handleOpenInfoModal = (card) => {
@@ -51,11 +58,16 @@ export const App = () => {
    return (
       <>
          <AppHeader />
-         <main className={appStyles.main}>
-            <BurgerIngredients onOpen={handleOpenInfoModal} />
-
-            <BurgerConstructor onOpen={handleOpenOrderModal} />
-         </main>
+         <DndProvider backend={HTML5Backend}>
+            <main className={appStyles.main}>
+               {ingredients.length > 0 &&
+                  <BurgerIngredients onOpen={handleOpenInfoModal} />
+               }
+               {ingredients.length > 0 &&
+                  <BurgerConstructor onOpen={handleOpenOrderModal} />
+               }
+            </main>
+         </DndProvider>
 
          {openInfoModal && (
             <Modal

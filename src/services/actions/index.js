@@ -20,6 +20,7 @@ export const getData = () => {
 }
 
 
+
 const getIngredientsRequest = () => {
    return {
       type: GET_INGREDIENTS_REQUEST
