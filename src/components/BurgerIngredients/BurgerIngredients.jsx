@@ -2,20 +2,23 @@ import { useState } from "react"
 import { Ingridients } from "../Ingridients/Ingridients"
 import ingredientsStyles from "./BurgerIngredients.module.css"
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components"
-import { ingredientsPropTypes } from "../../utils/types"
-import PropTypes from "prop-types"
+//import { ingredientsPropTypes } from "../../utils/types"
+//import PropTypes from "prop-types"
+import { useSelector } from "react-redux"
 
-export const BurgerIngredients = ({ data, onOpen }) => {
+export const BurgerIngredients = ({ onOpen }) => {
+
+   const { ingredients } = useSelector(state => state.ingredients)
 
    const [current, setCurrent] = useState("one")
 
-   const buns = data.filter((item) => {
+   const buns = ingredients.filter((item) => {
       return item.type === "bun"
    })
-   const sauces = data.filter((item) => {
+   const sauces = ingredients.filter((item) => {
       return item.type === "sauce"
    })
-   const fillings = data.filter((item) => {
+   const fillings = ingredients.filter((item) => {
       return item.type === "main"
    })
 
@@ -45,7 +48,7 @@ export const BurgerIngredients = ({ data, onOpen }) => {
    )
 }
 
-BurgerIngredients.propTypes = {
-   data: ingredientsPropTypes.isRequired,
-   onOpen: PropTypes.func.isRequired
-}
+// BurgerIngredients.propTypes = {
+//    data: ingredientsPropTypes.isRequired,
+//    onOpen: PropTypes.func.isRequired
+// }

@@ -1,27 +1,58 @@
 import ConstructorStyles from "./BurgerConstructor.module.css"
 import { Button, CurrencyIcon, ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components"
 import { ConstructorList } from "../ConstructorList/ConstructorList"
-import { ingredientsPropTypes } from "../../utils/types"
-import PropTypes from "prop-types"
+//import { ingredientsPropTypes } from "../../utils/types"
+//import PropTypes from "prop-types"
 import { useSelector } from "react-redux"
+import { onDemandOrder } from "../../utils/api"
+import { useCallback } from "react"
 
 export const BurgerConstructor = (props) => {
 
-   const { data, onOpen } = props
+   const { onOpen } = props
 
    const { ingredients } = useSelector(state => state.ingredients)
 
-   const buns = data.filter((item) => {
+   const buns = ingredients.filter((item) => {
       return item.type === "bun"
    })
 
    const totalPrice = (ingredients, sum = 0) => {
       for (let { price, type } of ingredients)
-         sum += price * (type == "bun" ? 2 : 1)
+         sum += price * (type === "bun" ? 2 : 1)
       return sum
    }
+   const totalIngredients = (ingredients, mass = []) => {
+      for (let { _id } of ingredients)
+         mass.push(_id)
+      return mass
+   }
 
-   //   const f1 = ingredients => ingredients.reduce((p, { price: c, type: m }) => p + c * (m == "bun" ? 2 : 1), 0)
+   const sendOrder = () => {
+      setTimeout(() => {
+         onDemandOrder(totalIngredients(ingredients))
+            .then(res => {
+               console.log(res.order)
+            })
+      }, 2000)
+
+   }
+
+   useCallback(
+      () => {
+
+
+      })
+
+      sendOrder()
+
+   // const totalPrice = (ingredients, sum = 0) => {
+   //    for (let { price } of ingredients)
+   //       sum += price
+   //    return sum
+   // }
+
+   // //это в днд
 
    return (
       buns.length > 0 &&
@@ -36,7 +67,7 @@ export const BurgerConstructor = (props) => {
             />
          </div>
          <ul className={ConstructorStyles.list} >
-            <ConstructorList data={data} />
+            <ConstructorList data={ingredients} />
          </ul>
          <div className={` ${ConstructorStyles.bun} mb-10 pr-4`}>
             <ConstructorElement
@@ -60,7 +91,7 @@ export const BurgerConstructor = (props) => {
    )
 }
 
-BurgerConstructor.propTypes = {
-   data: ingredientsPropTypes.isRequired,
-   onOpen: PropTypes.func.isRequired
-}
+// BurgerConstructor.propTypes = {
+//    data: ingredientsPropTypes.isRequired,
+//    onOpen: PropTypes.func.isRequired
+// }

@@ -7,19 +7,19 @@ import { IngredientDetails } from "../IngredientDetails/IngredientDetails"
 import { OrderDetals } from "../OrderDetails/OrderDetals"
 import appStyles from "./App.module.css"
 import { getData } from "../../services/actions/index"
-import { useDispatch, useSelector } from "react-redux"
+//import { useDispatch, useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
 //import { onDemandOrder } from "../../utils/api"
 
 export const App = () => {
 
-//   onDemandOrder()
-
-
+   // onDemandOrder()
+   //    .then(res => {
+   //       console.log(res.order)
+   //    })
 
    const dispatch = useDispatch()
-   const { ingredients } = useSelector(state => state.ingredients)
-   const data = ingredients
-  console.log(data)
+//   const { ingredients } = useSelector(state => state.ingredients)
 
    useEffect(() => {
       dispatch(getData())
@@ -52,9 +52,9 @@ export const App = () => {
       <>
          <AppHeader />
          <main className={appStyles.main}>
-            <BurgerIngredients data={data} onOpen={handleOpenInfoModal} />
+            <BurgerIngredients onOpen={handleOpenInfoModal} />
 
-            <BurgerConstructor data={data} onOpen={handleOpenOrderModal} />
+            <BurgerConstructor onOpen={handleOpenOrderModal} />
          </main>
 
          {openInfoModal && (
