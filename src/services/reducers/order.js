@@ -2,12 +2,12 @@ const initialStateOrder = {
    order: null,
    price: 8600
 
-   
+
 }
 
 export const GET_ORDER_REQUEST = "GET_ORDER_REQUEST"
 export const GET_ORDER_SUCCESS = "GET_ORDER_SUCCESS"
-export const GET_ORDER_FAILED = "GET_ORDER_FAILED"
+export const DELETE_ORDER = "DELETE_ORDER"
 
 
 export const orderReducer = (state = initialStateOrder, action) => {
@@ -22,18 +22,14 @@ export const orderReducer = (state = initialStateOrder, action) => {
          return {
             ...state,
             order: action.data,
-
-
          }
       }
-      case "GET_ORDER_FAILED": {
+      case "DELETE_ORDER": {
          return {
             ...state,
-
+            order: null
          }
       }
-
-
       default:
          return state
    }

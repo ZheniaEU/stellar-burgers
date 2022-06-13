@@ -7,20 +7,21 @@ import { useDispatch, useSelector } from "react-redux"
 import { onDemandOrder } from "../../utils/api"
 import { useCallback, useMemo } from "react"
 import {
-   GET_ORDER_REQUEST,
+   //  GET_ORDER_REQUEST,
    GET_ORDER_SUCCESS,
-   GET_ORDER_FAILED
+   //  GET_ORDER_FAILED
 } from "../../services/reducers/order"
 
 export const BurgerConstructor = ({ onOpen }) => {
 
-   const { ingredients, isLoading, errorLoading } = useSelector(state => state.ingredients)
+   const { ingredients } = useSelector(state => state.ingredients)
 
    // const buns = ingredients.filter((item) => {
    //    return item.type === "bun"
    // })
 
    const dispatch = useDispatch()
+
 
    const buns = useMemo(() =>
       ingredients.filter((item) => item.type === "bun"),
@@ -46,17 +47,17 @@ export const BurgerConstructor = ({ onOpen }) => {
    // useCallback(
    //    () => {
    const sendOrder = () => {
-//      setTimeout(() => {
-         onDemandOrder(totalIngredients(ingredients))
-            .then(res => {
-               dispatch({ type: GET_ORDER_SUCCESS, data: res.order.number })
-               console.log(res.order.number)
-            })
-         onOpen()
-  //    }, 500)
+      //      setTimeout(() => {
+      onDemandOrder(totalIngredients(ingredients))
+         .then(res => {
+            dispatch({ type: GET_ORDER_SUCCESS, data: res.order.number })
+            //      console.log(res.order.number)
+         })
+      onOpen()
+      //    }, 500)
    }
 
-   //    })
+      // })
 
 
 

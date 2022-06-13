@@ -14,6 +14,7 @@ import { HTML5Backend } from "react-dnd-html5-backend"
 //import { Loader } from "../Loader/Loader"
 //import { useDispatch } from "react-redux"
 //import { onDemandOrder } from "../../utils/api"
+import { DELETE_ORDER } from "../../services/reducers/order"
 
 export const App = () => {
 
@@ -25,7 +26,8 @@ export const App = () => {
    //  const [ingredientLoading, setIngredientLoading] = useState(true)
 
    const dispatch = useDispatch()
-//   const { ingredients } = useSelector(state => state.ingredients)
+   //   const { ingredients } = useSelector(state => state.ingredients)
+
 
    useEffect(() => {
       dispatch(getData())
@@ -50,10 +52,24 @@ export const App = () => {
    }
 
    //закрыть
-   const onCloseModal = () => {
+   // const onCloseModal = () => {
+   //    setopenInfoModal(false)
+   //    setopenOrderModal(false)
+   //    setIngredient(null)
+   // }
+
+   //ингредиеты
+   const onCloseModalingredient = () => {
       setopenInfoModal(false)
-      setopenOrderModal(false)
       setIngredient(null)
+   }
+
+   //ордер
+   const onCloseModalOrder = () => {
+      //  setopenInfoModal(false)
+      setopenOrderModal(false)
+      dispatch({ type: DELETE_ORDER })
+      //  setIngredient(null)
    }
 
    return (
@@ -73,7 +89,7 @@ export const App = () => {
          {openInfoModal && (
             <Modal
                active={openInfoModal}
-               onClickClose={onCloseModal} >
+               onClickClose={onCloseModalingredient} >
                <IngredientDetails card={ingredient} />
             </Modal>
          )}
@@ -81,7 +97,7 @@ export const App = () => {
          {openOrderModal && (
             <Modal
                active={openOrderModal}
-               onClickClose={onCloseModal}>
+               onClickClose={onCloseModalOrder}>
                <OrderDetals />
             </Modal>
          )}
