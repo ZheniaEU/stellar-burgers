@@ -16,23 +16,23 @@ export const BurgerIngredients = ({ onOpen }) => {
 
    const [current, setCurrent] = useState("one")
 
-   const buns = useMemo(() =>
-      ingredients.filter((item) => item.type === "bun"),
-      [ingredients])
+   const buns = ingredients.filter((item) => item.type === "bun")
 
-   const sauces = useMemo(() =>
-      ingredients.filter((item) => item.type === "sauce"),
-      [ingredients])
+   // const buns = useMemo(() =>
+   //    ingredients.filter((item) => item.type === "bun"),
+   //    [ingredients])
 
-   const fillings = useMemo(() =>
-      ingredients.filter((item) => item.type === "main"),
-      [ingredients])
+   // const sauces = useMemo(() =>
+   //    ingredients.filter((item) => item.type === "sauce"),
+   //    [ingredients])
 
-   const handleClick = (id) => {
-      setCurrent(id)
-      const anchor = document.getElementById(id)
-      anchor.scrollIntoView({ behavior: "smooth" })
-   }
+   const sauces = ingredients.filter((item) => item.type === "sauce")
+
+   // const fillings = useMemo(() =>
+   //    ingredients.filter((item) => item.type === "main"),
+   //    [ingredients])
+
+   const fillings = ingredients.filter((item) => item.type === "main")
 
    const [bunsRef, inViewBuns] = useInView({ threshold: 0 })
    const [saucesRef, inViewSauces] = useInView({ threshold: 0 })
@@ -40,49 +40,47 @@ export const BurgerIngredients = ({ onOpen }) => {
 
    useEffect(() => {
       if (inViewBuns) {
-         setCurrent("buns")
+         setCurrent("one")
       } else if (inViewSauces) {
-         setCurrent("sauces")
+         setCurrent("two")
       } else if (inViewFilling) {
-         setCurrent("fillings")
+         setCurrent("three")
       }
    }, [inViewBuns, inViewSauces, inViewFilling])
 
+   const handleClick = (id) => {
+      setCurrent(id)
+      const anchor = document.getElementById(id)
+      if (anchor) anchor.scrollIntoView({ behavior: "smooth" })
+   }
 
    return (
       isLoading ? < Loader /> :
-         // <div>
-            <section className={ingredientsStyles.section}>
-               <h1 className={ingredientsStyles.title}>Соберите бургер</h1>
-               <nav className={ingredientsStyles.nav}>
-                  <Tab value="buns" active={current === "buns"} onClick={() => handleClick("buns")}>Булки</Tab>
-                  <Tab value="sauces" active={current === "sauces"} onClick={() => handleClick("sauces")}>Соусы</Tab>
-                  <Tab value="fillings" active={current === "fillings"} onClick={() => handleClick("fillings")}>Начинки</Tab>
-               </nav>
-               <article className={ingredientsStyles.article}>
-                  <div ref={bunsRef}>
-                     <h2 className={ingredientsStyles.subtitle} id="buns">Булки</h2>
-                     <Ingridients ingridients={buns} onOpen={onOpen} />
-                  </div>
-                  <div ref={saucesRef}>
-                     <h2 className={ingredientsStyles.subtitle} id="sauces">Соусы</h2>
-                     <Ingridients ingridients={sauces} onOpen={onOpen} />
-                  </div>
-                  <div ref={fillingRef}>
-                     <h2 className={ingredientsStyles.subtitle} id="fillings">Начинки</h2>
-                     <Ingridients ingridients={fillings} onOpen={onOpen} />
-                  </div>
-               </article>
+         <section className={ingredientsStyles.section}>
+            <h1 className={ingredientsStyles.title}>Соберите бургер</h1>
+            <nav className={ingredientsStyles.nav}>
+               <Tab value="one" active={current === "one"} onClick={() => handleClick("one")}>Булки</Tab>
+               <Tab value="two" active={current === "two"} onClick={() => handleClick("two")}>Соусы</Tab>
+               <Tab value="three" active={current === "three"} onClick={() => handleClick("three")}>Начинки</Tab>
+            </nav>
+            <article className={ingredientsStyles.article}>
 
-            </section>
-            /* {openInfoModal && (
-               <Modal
-                  active={openInfoModal}
-                  onClickClose={onCloseModal} >
-                  <IngredientDetails card={ingredient} />
-               </Modal>
-            )}
-         </div> */
+               <h2 className={ingredientsStyles.subtitle} id="one">Булки</h2>
+               <div ref={bunsRef} >
+                  <Ingridients ingridients={buns} onOpen={onOpen} />
+               </div>
+
+               <h2 className={ingredientsStyles.subtitle} id="two">Соусы</h2>
+               <div ref={saucesRef} >
+                  <Ingridients ingridients={sauces} onOpen={onOpen} />
+               </div>
+
+               <h2 className={ingredientsStyles.subtitle} id="three">Начинки</h2>
+               <div ref={fillingRef}>
+                  <Ingridients ingridients={fillings} onOpen={onOpen} />
+               </div>
+            </article>
+         </section>
    )
 }
 

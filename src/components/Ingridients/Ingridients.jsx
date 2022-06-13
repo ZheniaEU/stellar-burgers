@@ -4,6 +4,7 @@ import styles from "./Ingridients.module.css"
 import PropTypes from "prop-types"
 
 export const Ingridients = ({ingridients, onOpen}) => {
+
    const ingredientItem = ingridients.map((item) => (
       < li className={styles.card} key={item._id} >
          <img className={styles.img} src={item.image} alt={item.name} onClick={() => onOpen(item)} />
