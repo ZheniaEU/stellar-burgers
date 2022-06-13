@@ -6,15 +6,13 @@ import { useInView } from 'react-hook-inview';
 //import { ingredientsPropTypes } from "../../utils/types"
 //import PropTypes from "prop-types"
 import { useSelector } from "react-redux"
-
+import { Loader } from "../Loader/Loader"
 
 
 export const BurgerIngredients = ({ onOpen }) => {
 
-   const { ingredients, isLoading, errorLoading } = useSelector(state => state.ingredients)
 
-console.log(isLoading, errorLoading
-   )
+   const { ingredients, isLoading } = useSelector(state => state.ingredients)
 
    const [current, setCurrent] = useState("one")
 
@@ -50,37 +48,44 @@ console.log(isLoading, errorLoading
       }
    }, [inViewBuns, inViewSauces, inViewFilling])
 
-   if (errorLoading) {
-      return <p> Отшибка</p>
-   } else if (isLoading) {
-      return <p>Загрузка...................</p>
-   } else {
-     return (
-         <section className={ingredientsStyles.section}>
-            <h1 className={ingredientsStyles.title}>Соберите бургер</h1>
-            <nav className={ingredientsStyles.nav}>
-               <Tab value="buns" active={current === "buns"} onClick={() => handleClick("buns")}>Булки</Tab>
-               <Tab value="sauces" active={current === "sauces"} onClick={() => handleClick("sauces")}>Соусы</Tab>
-               <Tab value="fillings" active={current === "fillings"} onClick={() => handleClick("fillings")}>Начинки</Tab>
-            </nav>
-            <article className={ingredientsStyles.article}>
-               <div ref={bunsRef}>
-                  <h2 className={ingredientsStyles.subtitle} id="buns">Булки</h2>
-                  <Ingridients ingridients={buns} onOpen={onOpen} />
-               </div>
-               <div ref={saucesRef}>
-                  <h2 className={ingredientsStyles.subtitle} id="sauces">Соусы</h2>
-                  <Ingridients ingridients={sauces} onOpen={onOpen} />
-               </div>
-               <div ref={fillingRef}>
-                  <h2 className={ingredientsStyles.subtitle} id="fillings">Начинки</h2>
-                  <Ingridients ingridients={fillings} onOpen={onOpen} />
-               </div>
-            </article>
-         </section>
-      )
-   }
+
+   return (
+      isLoading ? < Loader /> :
+         // <div>
+            <section className={ingredientsStyles.section}>
+               <h1 className={ingredientsStyles.title}>Соберите бургер</h1>
+               <nav className={ingredientsStyles.nav}>
+                  <Tab value="buns" active={current === "buns"} onClick={() => handleClick("buns")}>Булки</Tab>
+                  <Tab value="sauces" active={current === "sauces"} onClick={() => handleClick("sauces")}>Соусы</Tab>
+                  <Tab value="fillings" active={current === "fillings"} onClick={() => handleClick("fillings")}>Начинки</Tab>
+               </nav>
+               <article className={ingredientsStyles.article}>
+                  <div ref={bunsRef}>
+                     <h2 className={ingredientsStyles.subtitle} id="buns">Булки</h2>
+                     <Ingridients ingridients={buns} onOpen={onOpen} />
+                  </div>
+                  <div ref={saucesRef}>
+                     <h2 className={ingredientsStyles.subtitle} id="sauces">Соусы</h2>
+                     <Ingridients ingridients={sauces} onOpen={onOpen} />
+                  </div>
+                  <div ref={fillingRef}>
+                     <h2 className={ingredientsStyles.subtitle} id="fillings">Начинки</h2>
+                     <Ingridients ingridients={fillings} onOpen={onOpen} />
+                  </div>
+               </article>
+
+            </section>
+            /* {openInfoModal && (
+               <Modal
+                  active={openInfoModal}
+                  onClickClose={onCloseModal} >
+                  <IngredientDetails card={ingredient} />
+               </Modal>
+            )}
+         </div> */
+   )
 }
+
 // BurgerIngredients.propTypes = {
 //    data: ingredientsPropTypes.isRequired,
 //    onOpen: PropTypes.func.isRequired

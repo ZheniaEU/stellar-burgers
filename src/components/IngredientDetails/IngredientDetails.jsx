@@ -1,5 +1,5 @@
 import details from "./IngredientDetails.module.css"
-import { ingredientsPropTypes } from "../../utils/types"
+//import { ingredientsPropTypes } from "../../utils/types"
 
 export const IngredientDetails = ({ card }) => {
 
@@ -30,6 +30,6 @@ export const IngredientDetails = ({ card }) => {
    )
 }
 
-IngredientDetails.propTypes = {
-   card: ingredientsPropTypes.isRequired
-}
+// IngredientDetails.propTypes = {
+//    card: ingredientsPropTypes.isRequired
+// }

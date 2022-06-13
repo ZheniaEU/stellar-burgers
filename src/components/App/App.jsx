@@ -7,7 +7,8 @@ import { IngredientDetails } from "../IngredientDetails/IngredientDetails"
 import { OrderDetals } from "../OrderDetails/OrderDetals"
 import appStyles from "./App.module.css"
 import { getData } from "../../services/actions/index"
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
+//import { useDispatch, useSelector } from "react-redux"
 import { DndProvider } from "react-dnd"
 import { HTML5Backend } from "react-dnd-html5-backend"
 //import { Loader } from "../Loader/Loader"
@@ -24,7 +25,7 @@ export const App = () => {
    //  const [ingredientLoading, setIngredientLoading] = useState(true)
 
    const dispatch = useDispatch()
-   const { ingredients } = useSelector(state => state.ingredients)
+//   const { ingredients } = useSelector(state => state.ingredients)
 
    useEffect(() => {
       dispatch(getData())
@@ -38,9 +39,9 @@ export const App = () => {
 
    //открыть
    const handleOpenOrderModal = () => {
-    //  setTimeout(() => {
-         setopenOrderModal(true)
-   //   }, 2000)
+      //  setTimeout(() => {
+      setopenOrderModal(true)
+      //   }, 2000)
    }
 
    const handleOpenInfoModal = (card) => {
@@ -60,12 +61,12 @@ export const App = () => {
          <AppHeader />
          <DndProvider backend={HTML5Backend}>
             <main className={appStyles.main}>
-               {ingredients.length > 0 &&
-                  <BurgerIngredients onOpen={handleOpenInfoModal} />
-               }
-               {ingredients.length > 0 &&
-                  <BurgerConstructor onOpen={handleOpenOrderModal} />
-               }
+               {/* {ingredients.length > 0 && */}
+               <BurgerIngredients onOpen={handleOpenInfoModal} />
+               {/* } */}
+               {/* {ingredients.length > 0 && */}
+               <BurgerConstructor onOpen={handleOpenOrderModal} />
+               {/* } */}
             </main>
          </DndProvider>
 
