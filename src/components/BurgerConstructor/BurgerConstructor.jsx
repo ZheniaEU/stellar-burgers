@@ -5,7 +5,8 @@ import { ConstructorList } from "../ConstructorList/ConstructorList"
 //import PropTypes from "prop-types"
 import { useDispatch, useSelector } from "react-redux"
 import { onDemandOrder } from "../../utils/api"
-import { useCallback, useMemo } from "react"
+//import { useCallback, useMemo } from "react"
+import { useMemo } from "react"
 import {
    //  GET_ORDER_REQUEST,
    GET_ORDER_SUCCESS,
@@ -40,10 +41,10 @@ export const BurgerConstructor = ({ onOpen }) => {
    }
 
 
-   useCallback(
-      () => {
-         sendOrder()
-      })
+   // useCallback(
+   //    () => {
+   //       sendOrder()
+   //    }, )
    // useCallback(
    //    () => {
    const sendOrder = () => {
@@ -57,7 +58,7 @@ export const BurgerConstructor = ({ onOpen }) => {
       //    }, 500)
    }
 
-      // })
+   // })
 
 
 

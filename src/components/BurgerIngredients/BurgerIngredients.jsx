@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react"
+//import {  useMemo, useState } from "react"
 import { Ingridients } from "../Ingridients/Ingridients"
 import ingredientsStyles from "./BurgerIngredients.module.css"
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components"
@@ -16,27 +17,32 @@ export const BurgerIngredients = ({ onOpen }) => {
 
    const [current, setCurrent] = useState("one")
 
-   const buns = ingredients.filter((item) => item.type === "bun")
+   // const buns = ingredients.filter((item) => item.type === "bun")
 
-   // const buns = useMemo(() =>
-   //    ingredients.filter((item) => item.type === "bun"),
-   //    [ingredients])
+   const buns = useMemo(() =>
+      ingredients.filter((item) => item.type === "bun"),
+      [ingredients])
 
-   // const sauces = useMemo(() =>
-   //    ingredients.filter((item) => item.type === "sauce"),
-   //    [ingredients])
+   const sauces = useMemo(() =>
+      ingredients.filter((item) => item.type === "sauce"),
+      [ingredients])
 
-   const sauces = ingredients.filter((item) => item.type === "sauce")
+   // const sauces = ingredients.filter((item) => item.type === "sauce")
 
-   // const fillings = useMemo(() =>
-   //    ingredients.filter((item) => item.type === "main"),
-   //    [ingredients])
+   const fillings = useMemo(() =>
+      ingredients.filter((item) => item.type === "main"),
+      [ingredients])
 
-   const fillings = ingredients.filter((item) => item.type === "main")
+   //? как прокидывать рефы в пропсы?
 
-   const [bunsRef, inViewBuns] = useInView({ threshold: 0 })
-   const [saucesRef, inViewSauces] = useInView({ threshold: 0 })
-   const [fillingRef, inViewFilling] = useInView({ threshold: 0 })
+   // const fillings = ingredients.filter((item) => item.type === "main")
+
+   const [bunsRef, inViewBuns] = useInView(
+      { threshold: 1, trackVisibility: true, delay: 100 })
+   const [saucesRef, inViewSauces] = useInView(
+      { threshold: 1, trackVisibility: true, delay: 100 })
+   const [fillingRef, inViewFilling] = useInView(
+      { threshold: 1, trackVisibility: true, delay: 100 })
 
    useEffect(() => {
       if (inViewBuns) {
@@ -66,21 +72,22 @@ export const BurgerIngredients = ({ onOpen }) => {
             <article className={ingredientsStyles.article}>
 
                <h2 className={ingredientsStyles.subtitle} id="one">Булки</h2>
-               <div ref={bunsRef} >
-                  <Ingridients ingridients={buns} onOpen={onOpen} />
-               </div>
+               {/* <div  > */}
+               <Ingridients ingridients={buns} onOpen={onOpen} ref={bunsRef} />
+               {/* </div> */}
 
                <h2 className={ingredientsStyles.subtitle} id="two">Соусы</h2>
-               <div ref={saucesRef} >
-                  <Ingridients ingridients={sauces} onOpen={onOpen} />
-               </div>
+               {/* <div ref={saucesRef} > */}
+               <Ingridients ingridients={sauces} onOpen={onOpen} ref={saucesRef} />
+               {/* </div> */}
 
                <h2 className={ingredientsStyles.subtitle} id="three">Начинки</h2>
-               <div ref={fillingRef}>
-                  <Ingridients ingridients={fillings} onOpen={onOpen} />
-               </div>
+               {/* <div ref={fillingRef}> */}
+               <Ingridients ingridients={fillings} onOpen={onOpen} ref={fillingRef} />
+               {/* </div> */}
             </article>
          </section>
+
    )
 }
 
