@@ -1,5 +1,7 @@
 const initialStateDnd = {
-   items: [],
+   buns: [],
+   items: []
+
 }
 
 export const ADD_ITEM = "ADD_ITEM"

@@ -8,6 +8,7 @@ import { onDemandOrder } from "../../utils/api"
 //import { useCallback, useMemo } from "react"
 import { useMemo } from "react"
 
+
 import {
    //  GET_ORDER_REQUEST,
    GET_ORDER_SUCCESS,
@@ -19,6 +20,7 @@ import {
 } from "../../services/reducers/dnd"
 
 import { useDrop } from "react-dnd"
+
 
 
 export const BurgerConstructor = ({ onOpen }) => {
@@ -58,8 +60,8 @@ export const BurgerConstructor = ({ onOpen }) => {
 
 
    const buns = useMemo(() =>
-      ingredients.filter((item) => item.type === "bun"),
-      [ingredients])
+      items.filter((item) => item.type === "bun"),
+      [items])
 
    const totalPrice = (ingredients, sum = 0) => {
       for (let { price, type } of ingredients)
@@ -92,41 +94,53 @@ export const BurgerConstructor = ({ onOpen }) => {
    }
 
 
+   // if (items.length = 0) {
+   //    return (
+   //       <div className={ConstructorStyles.z}>
+
+   //       </div>
+   //    )
+   // } else {
 
    return (
-      buns.length > 0 &&
-      <section className={ConstructorStyles.section} ref={dropTarget}>
-         <div className={` ${ConstructorStyles.bun} mb-4 pr-4`}>
-            <ConstructorElement
-               type="top"
-               isLocked={true}
-               text={`${buns[0].name} (верх)`}
-               price={buns[0].price}
-               thumbnail={buns[0].image_mobile}
-            />
+      items.length <= 0 ? (
+         <div className={ConstructorStyles.z}  ref={dropTarget} >
+            <p> сюда  </p>
          </div>
-         <ul className={ConstructorStyles.list} >
-            <ConstructorList />
-         </ul>
-         <div className={` ${ConstructorStyles.bun} mb-10 pr-4`}>
-            <ConstructorElement
-               type="bottom"
-               isLocked={true}
-               text={`${buns[0].name} (низ)`}
-               price={buns[0].price}
-               thumbnail={buns[0].image_mobile}
-            />
-         </div>
-         <div className={ConstructorStyles.total}>
-            <p className={ConstructorStyles.value}>{totalPrice(items)}</p>
-            <div className={ConstructorStyles.icon} >
-               <CurrencyIcon />
+         ) : (
+         <section className={ConstructorStyles.section} ref={dropTarget}>
+            <div className={` ${ConstructorStyles.bun} mb-4 pr-4`}>
+               <ConstructorElement
+                  type="top"
+                  isLocked={true}
+                  text={`${buns[0].name} (верх)`}
+                  price={buns[0].price}
+                  thumbnail={buns[0].image_mobile}
+               />
             </div>
-            <div className="pr-4 pl-10">
-               <Button type="primary" size="large" onClick={sendOrder}>Оформить заказ</Button>
+            <ul className={ConstructorStyles.list} >
+               <ConstructorList />
+            </ul>
+            <div className={` ${ConstructorStyles.bun} mb-10 pr-4`}>
+               <ConstructorElement
+                  type="bottom"
+                  isLocked={true}
+                  text={`${buns[0].name} (низ)`}
+                  price={buns[0].price}
+                  thumbnail={buns[0].image_mobile}
+               />
             </div>
-         </div>
-      </section>
+            <div className={ConstructorStyles.total}>
+               <p className={ConstructorStyles.value}>{totalPrice(items)}</p>
+               <div className={ConstructorStyles.icon} >
+                  <CurrencyIcon />
+               </div>
+               <div className="pr-4 pl-10">
+                  <Button type="primary" size="large" onClick={sendOrder}>Оформить заказ</Button>
+               </div>
+            </div>
+         </section>
+      )
    )
 }
 
