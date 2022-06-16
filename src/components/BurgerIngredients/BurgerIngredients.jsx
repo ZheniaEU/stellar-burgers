@@ -1,6 +1,6 @@
 //import { useEffect, useMemo, useState } from "react"
 import { useMemo, useState } from "react"
-import { Ingridients } from "../Ingridients/Ingridients"
+import { Ingredients } from "../Ingredients/Ingredients"
 import ingredientsStyles from "./BurgerIngredients.module.css"
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components"
 //import { useInView } from 'react-hook-inview';
@@ -73,16 +73,16 @@ export const BurgerIngredients = ({ onOpen }) => {
 
                <h2 className={ingredientsStyles.subtitle} id="one">Булки</h2>
                {/* <div ref={bunsRef} > */}
-               <Ingridients ingredients={buns} onOpen={onOpen} item={ingredients} />
+               <Ingredients ingredients={buns} onOpen={onOpen} item={ingredients} />
                {/* </div> */}
                <h2 className={ingredientsStyles.subtitle} id="two">Соусы</h2>
                {/* <div ref={saucesRef} > */}
-               <Ingridients ingredients={sauces} onOpen={onOpen} item={ingredients} />
+               <Ingredients ingredients={sauces} onOpen={onOpen} item={ingredients} />
                {/* </div> */}
 
                <h2 className={ingredientsStyles.subtitle} id="three">Начинки</h2>
                {/* <div ref={fillingRef}> */}
-               <Ingridients ingredients={fillings} onOpen={onOpen} item={ingredients} />
+               <Ingredients ingredients={fillings} onOpen={onOpen} item={ingredients} />
                {/* </div> */}
             </article>
          </section>

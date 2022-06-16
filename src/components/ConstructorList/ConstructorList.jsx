@@ -1,11 +1,15 @@
 import { DragIcon, ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components"
+import { useSelector } from "react-redux"
 import { ingredientsPropTypes } from "../../utils/types"
 import style from "./ConstructorList.module.css"
 
-export const ConstructorList = ({ data }) => {
+export const ConstructorList = () => {
+
+   const { items } = useSelector(state => state.dnd)
+
    return (
-      data.map((item) => item.type !== "bun" && (
-         <li className={style.li} key={item._id}>
+      items.map((item, index) => item.type !== "bun" && (
+         <li className={style.li} key={item._id + index}>
             <div className={style.div}>
                <div className={`mr-2`}>
                   <DragIcon />
@@ -21,6 +25,6 @@ export const ConstructorList = ({ data }) => {
    )
 }
 
-ConstructorList.propTypes = {
-   data: ingredientsPropTypes.isRequired
-}
+// ConstructorList.propTypes = {
+//    data: ingredientsPropTypes.isRequired
+// }

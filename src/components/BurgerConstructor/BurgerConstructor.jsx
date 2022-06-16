@@ -7,34 +7,55 @@ import { useDispatch, useSelector } from "react-redux"
 import { onDemandOrder } from "../../utils/api"
 //import { useCallback, useMemo } from "react"
 import { useMemo } from "react"
+
 import {
    //  GET_ORDER_REQUEST,
    GET_ORDER_SUCCESS,
    //  GET_ORDER_FAILED
 } from "../../services/reducers/order"
+
+import {
+   ADD_ITEM
+} from "../../services/reducers/dnd"
+
 import { useDrop } from "react-dnd"
+
 
 export const BurgerConstructor = ({ onOpen }) => {
 
    const { ingredients } = useSelector(state => state.ingredients)
 
-//   console.log(ingredients)
+   const dispatch = useDispatch()
+
+   //   console.log(ingredients)
+   // const [ingredientss, setIngredients] = useState(ingredients)
 
    const [, dropTarget] = useDrop({
       accept: "ingredients",
-      drop(itemId) {
-         dropTarget(itemId)
+      drop(item) {
+         dispatch({
+            type: ADD_ITEM,
+            data: item.item
+         })
+         //        console.log(item)
+         // setIngredients([...ingredientss, item])
       },
       collect: monitor => ({
          isHover: monitor.isOver(),
       })
    })
 
- //  let a =[]
+   // console.log(ingredientss)
 
-//   console.log(dropTarget())
+   const { items } = useSelector(state => state.dnd)
 
-   const dispatch = useDispatch()
+   console.log(items)
+
+   // let a =[...items]
+
+   console.log(ingredients)
+   // console.log(a)
+
 
    const buns = useMemo(() =>
       ingredients.filter((item) => item.type === "bun"),
@@ -85,7 +106,7 @@ export const BurgerConstructor = ({ onOpen }) => {
             />
          </div>
          <ul className={ConstructorStyles.list} >
-            <ConstructorList data={ingredients} />
+            <ConstructorList />
          </ul>
          <div className={` ${ConstructorStyles.bun} mb-10 pr-4`}>
             <ConstructorElement
@@ -97,7 +118,7 @@ export const BurgerConstructor = ({ onOpen }) => {
             />
          </div>
          <div className={ConstructorStyles.total}>
-            <p className={ConstructorStyles.value}>{totalPrice(ingredients)}</p>
+            <p className={ConstructorStyles.value}>{totalPrice(items)}</p>
             <div className={ConstructorStyles.icon} >
                <CurrencyIcon />
             </div>

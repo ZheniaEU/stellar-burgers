@@ -6,7 +6,7 @@ import { Loader } from "../Loader/Loader"
 export const OrderDetals = () => {
 
    const { order } = useSelector(state => state.order)
-   console.log(order)
+//   console.log(order)
    return (
       order == null ? < Loader /> :
          <div className={styles.container}>
