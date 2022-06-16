@@ -12,17 +12,29 @@ import {
    GET_ORDER_SUCCESS,
    //  GET_ORDER_FAILED
 } from "../../services/reducers/order"
+import { useDrop } from "react-dnd"
 
 export const BurgerConstructor = ({ onOpen }) => {
 
    const { ingredients } = useSelector(state => state.ingredients)
 
-   // const buns = ingredients.filter((item) => {
-   //    return item.type === "bun"
-   // })
+//   console.log(ingredients)
+
+   const [, dropTarget] = useDrop({
+      accept: "ingredients",
+      drop(itemId) {
+         dropTarget(itemId)
+      },
+      collect: monitor => ({
+         isHover: monitor.isOver(),
+      })
+   })
+
+ //  let a =[]
+
+//   console.log(dropTarget())
 
    const dispatch = useDispatch()
-
 
    const buns = useMemo(() =>
       ingredients.filter((item) => item.type === "bun"),
@@ -58,25 +70,11 @@ export const BurgerConstructor = ({ onOpen }) => {
       //    }, 500)
    }
 
-   // })
 
-
-
-   // const handleSubmit = () => {
-   //    //    onOpen
-   // }
-
-   // const totalPrice = (ingredients, sum = 0) => {
-   //    for (let { price } of ingredients)
-   //       sum += price
-   //    return sum
-   // }
-
-   // //это в днд
 
    return (
       buns.length > 0 &&
-      <section className={ConstructorStyles.section}>
+      <section className={ConstructorStyles.section} ref={dropTarget}>
          <div className={` ${ConstructorStyles.bun} mb-4 pr-4`}>
             <ConstructorElement
                type="top"
@@ -114,4 +112,22 @@ export const BurgerConstructor = ({ onOpen }) => {
 // BurgerConstructor.propTypes = {
 //    data: ingredientsPropTypes.isRequired,
 //    onOpen: PropTypes.func.isRequired
+// }
+
+// export const dropTarget = () => {
+
+
+//    const [, dropTarget] = useDrop({
+//       accept: "ingredients",
+//       drop(itemId) {
+//          dropTarget(itemId)
+//       },
+//    })
+
+
+//    return (
+//       <div ref={dropTarget}>
+
+//       </div>
+//    )
 // }

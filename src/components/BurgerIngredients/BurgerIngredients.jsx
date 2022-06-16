@@ -1,9 +1,9 @@
-import { useEffect, useMemo, useState } from "react"
-//import {  useMemo, useState } from "react"
+//import { useEffect, useMemo, useState } from "react"
+import { useMemo, useState } from "react"
 import { Ingridients } from "../Ingridients/Ingridients"
 import ingredientsStyles from "./BurgerIngredients.module.css"
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components"
-import { useInView } from 'react-hook-inview';
+//import { useInView } from 'react-hook-inview';
 //import { ingredientsPropTypes } from "../../utils/types"
 //import PropTypes from "prop-types"
 import { useSelector } from "react-redux"
@@ -37,22 +37,22 @@ export const BurgerIngredients = ({ onOpen }) => {
 
    // const fillings = ingredients.filter((item) => item.type === "main")
 
-   const [bunsRef, inViewBuns] = useInView(
-      { threshold: 1, trackVisibility: true, delay: 100 })
-   const [saucesRef, inViewSauces] = useInView(
-      { threshold: 1, trackVisibility: true, delay: 100 })
-   const [fillingRef, inViewFilling] = useInView(
-      { threshold: 1, trackVisibility: true, delay: 100 })
+   // const [bunsRef, inViewBuns] = useInView(
+   //    { threshold: 0.1, trackVisibility: true, delay: 150 })
+   // const [saucesRef, inViewSauces] = useInView(
+   //    { threshold: 0.1, trackVisibility: true, delay: 150 })
+   // const [fillingRef, inViewFilling] = useInView(
+   //    { threshold: 0.1, trackVisibility: true, delay: 150 })
 
-   useEffect(() => {
-      if (inViewBuns) {
-         setCurrent("one")
-      } else if (inViewSauces) {
-         setCurrent("two")
-      } else if (inViewFilling) {
-         setCurrent("three")
-      }
-   }, [inViewBuns, inViewSauces, inViewFilling])
+   // useEffect(() => {
+   //    if (inViewBuns) {
+   //       setCurrent("one")
+   //    } else if (inViewSauces) {
+   //       setCurrent("two")
+   //    } else if (inViewFilling) {
+   //       setCurrent("three")
+   //    }
+   // }, [inViewBuns, inViewSauces, inViewFilling])
 
    const handleClick = (id) => {
       setCurrent(id)
@@ -72,18 +72,17 @@ export const BurgerIngredients = ({ onOpen }) => {
             <article className={ingredientsStyles.article}>
 
                <h2 className={ingredientsStyles.subtitle} id="one">Булки</h2>
-               {/* <div  > */}
-               <Ingridients ingridients={buns} onOpen={onOpen} ref={bunsRef} />
+               {/* <div ref={bunsRef} > */}
+               <Ingridients ingredients={buns} onOpen={onOpen} item={ingredients} />
                {/* </div> */}
-
                <h2 className={ingredientsStyles.subtitle} id="two">Соусы</h2>
                {/* <div ref={saucesRef} > */}
-               <Ingridients ingridients={sauces} onOpen={onOpen} ref={saucesRef} />
+               <Ingridients ingredients={sauces} onOpen={onOpen} item={ingredients} />
                {/* </div> */}
 
                <h2 className={ingredientsStyles.subtitle} id="three">Начинки</h2>
                {/* <div ref={fillingRef}> */}
-               <Ingridients ingridients={fillings} onOpen={onOpen} ref={fillingRef} />
+               <Ingridients ingredients={fillings} onOpen={onOpen} item={ingredients} />
                {/* </div> */}
             </article>
          </section>

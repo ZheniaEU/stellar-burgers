@@ -13,7 +13,7 @@
    width: 240px;
    height: 120px;
    padding: 0 16px 8px 16px;
-   cursor: pointer;
+   cursor: grab;
 }
 
 .price {
