@@ -1,33 +1,41 @@
 const initialStateDnd = {
-   buns: [],
-   items: []
+   bun:[],
+   fillings: []
 
 }
 
-export const ADD_ITEM = "ADD_ITEM"
+export const ADD_BUN = "ADD_BUN"
+export const ADD_FILLINGS = "ADD_FILLINGS"
+export const ADD_CONSTRUCTOR_ITEM = "ADD_CONSTRUCTOR_ITEM"
 export const DELETE_ITEM = "DELETE_ITEM"
 export const RESET_ITEMS = "RESET_ITEMS"
 
 
 export const dndReducer = (state = initialStateDnd, action) => {
    switch (action.type) {
-      case "ADD_ITEM": {
-         console.log(action.data)
+      case ADD_FILLINGS: {
          return {
             ...state,
-            items: [...state.items, action.data]
+            fillings: [...state.fillings, action.data],
+         }
+      }
+      case ADD_BUN: {
+         return {
+            ...state,
+            bun: action.data
+         }
+      }
 
-         }
-      }
-      case "DELETE_ITEM": {
+      case DELETE_ITEM: {
          return {
             ...state,
          }
       }
-      case "RESET_ITEMS": {
+      case RESET_ITEMS: {
          return {
             ...state,
-            items: []
+            fillings: [],
+            bun: []
          }
       }
       default:

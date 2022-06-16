@@ -6,7 +6,7 @@ import { ConstructorList } from "../ConstructorList/ConstructorList"
 import { useDispatch, useSelector } from "react-redux"
 import { onDemandOrder } from "../../utils/api"
 //import { useCallback, useMemo } from "react"
-import { useMemo } from "react"
+//import { useMemo } from "react"
 
 
 import {
@@ -16,7 +16,8 @@ import {
 } from "../../services/reducers/order"
 
 import {
-   ADD_ITEM
+   ADD_FILLINGS,
+   ADD_BUN
 } from "../../services/reducers/dnd"
 
 import { useDrop } from "react-dnd"
@@ -35,10 +36,18 @@ export const BurgerConstructor = ({ onOpen }) => {
    const [, dropTarget] = useDrop({
       accept: "ingredients",
       drop(item) {
-         dispatch({
-            type: ADD_ITEM,
-            data: item.item
-         })
+         console.log(item.item.type)
+         if (item.item.type === "bun") {
+            dispatch({
+               type: ADD_BUN,
+               data: item.item
+            })
+         } else {
+            dispatch({
+               type: ADD_FILLINGS,
+               data: item.item
+            })
+         }
          //        console.log(item)
          // setIngredients([...ingredientss, item])
       },
@@ -47,11 +56,15 @@ export const BurgerConstructor = ({ onOpen }) => {
       })
    })
 
+   const deleteItem = (item) => {
+
+   }
+
    // console.log(ingredientss)
 
-   const { items } = useSelector(state => state.dnd)
+   const { bun, fillings } = useSelector(state => state.dnd)
 
-   console.log(items)
+   console.log(bun.name)
 
    // let a =[...items]
 
@@ -59,15 +72,16 @@ export const BurgerConstructor = ({ onOpen }) => {
    // console.log(a)
 
 
-   const buns = useMemo(() =>
-      items.filter((item) => item.type === "bun"),
-      [items])
+   // const buns = useMemo(() =>
+   //    fillings.filter((item) => item.type === "bun"),
+   //    [fillings])
 
-   const totalPrice = (ingredients, sum = 0) => {
-      for (let { price, type } of ingredients)
-         sum += price * (type === "bun" ? 2 : 1)
-      return sum
+   const totalPrice = (bun, fillings, sum = 0) => {
+      for (let { price } of fillings)
+         sum += price
+      return sum + ((bun.price || 0) * 2)
    }
+   // }
 
    const totalIngredients = (ingredients, mass = []) => {
       for (let { _id } of ingredients)
@@ -103,44 +117,72 @@ export const BurgerConstructor = ({ onOpen }) => {
    // } else {
 
    return (
-      items.length <= 0 ? (
-         <div className={ConstructorStyles.z}  ref={dropTarget} >
-            <p> сюда  </p>
-         </div>
+      // bun.length === 0 ? (
+      //    <div className={ConstructorStyles.z} ref={dropTarget} >
+      //       <p> сюда  </p>
+      //    </div>
+      // ) : (
+      <section className={ConstructorStyles.section} ref={dropTarget}>
+
+         {bun.length === 0 ? (
+            <div className={ConstructorStyles.z} >
+               <p> сюда  </p>
+            </div>
          ) : (
-         <section className={ConstructorStyles.section} ref={dropTarget}>
             <div className={` ${ConstructorStyles.bun} mb-4 pr-4`}>
                <ConstructorElement
                   type="top"
                   isLocked={true}
-                  text={`${buns[0].name} (верх)`}
-                  price={buns[0].price}
-                  thumbnail={buns[0].image_mobile}
+                  text={`${bun.name} (верх)`}
+                  price={bun.price}
+                  thumbnail={bun.image_mobile}
                />
             </div>
+         )}
+
+         {fillings.length === 0 ? (
+            <div className={ConstructorStyles.z} >
+               <p> сюда  </p>
+            </div>
+         ) : (
             <ul className={ConstructorStyles.list} >
                <ConstructorList />
             </ul>
+         )}
+
+
+         {bun.length === 0 ? (
+            <div className={ConstructorStyles.z}  >
+               <p> сюда  </p>
+            </div>
+         ) : (
             <div className={` ${ConstructorStyles.bun} mb-10 pr-4`}>
                <ConstructorElement
                   type="bottom"
                   isLocked={true}
-                  text={`${buns[0].name} (низ)`}
-                  price={buns[0].price}
-                  thumbnail={buns[0].image_mobile}
+                  text={`${bun.name} (низ)`}
+                  price={bun.price}
+                  thumbnail={bun.image_mobile}
                />
             </div>
-            <div className={ConstructorStyles.total}>
-               <p className={ConstructorStyles.value}>{totalPrice(items)}</p>
-               <div className={ConstructorStyles.icon} >
-                  <CurrencyIcon />
-               </div>
-               <div className="pr-4 pl-10">
-                  <Button type="primary" size="large" onClick={sendOrder}>Оформить заказ</Button>
-               </div>
+         )}
+         {/* {bun.length === 0 && fillings.length === 0  ? (
+            <div className={ConstructorStyles.d} >
+               <p> сюда  </p>
             </div>
-         </section>
-      )
+         ) : ( */}
+         <div className={ConstructorStyles.total}>
+            <p className={ConstructorStyles.value}>{totalPrice(bun, fillings)}</p>
+            <div className={ConstructorStyles.icon} >
+               <CurrencyIcon />
+            </div>
+            <div className="pr-4 pl-10">
+               <Button type="primary" size="large" onClick={sendOrder}>Оформить заказ</Button>
+            </div>
+         </div>
+         {/* )} */}
+      </section >
+      // )
    )
 }
 

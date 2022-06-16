@@ -15,6 +15,7 @@ import { HTML5Backend } from "react-dnd-html5-backend"
 //import { useDispatch } from "react-redux"
 //import { onDemandOrder } from "../../utils/api"
 import { DELETE_ORDER } from "../../services/reducers/order"
+import { RESET_ITEMS } from "../../services/reducers/dnd"
 
 export const App = () => {
 
@@ -69,6 +70,7 @@ export const App = () => {
       //  setopenInfoModal(false)
       setopenOrderModal(false)
       dispatch({ type: DELETE_ORDER })
+      dispatch({type: RESET_ITEMS})
       //  setIngredient(null)
    }
 
@@ -77,12 +79,8 @@ export const App = () => {
          <AppHeader />
          <DndProvider backend={HTML5Backend}>
             <main className={appStyles.main}>
-               {/* {ingredients.length > 0 && */}
                <BurgerIngredients onOpen={handleOpenInfoModal} />
-               {/* } */}
-               {/* {ingredients.length > 0 && */}
                <BurgerConstructor onOpen={handleOpenOrderModal} />
-               {/* } */}
             </main>
          </DndProvider>
 
