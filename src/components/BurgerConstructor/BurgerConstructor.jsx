@@ -17,7 +17,8 @@ import {
 
 import {
    ADD_FILLINGS,
-   ADD_BUN
+   ADD_BUN,
+   DELETE_ITEM
 } from "../../services/reducers/dnd"
 
 import { useDrop } from "react-dnd"
@@ -33,10 +34,14 @@ export const BurgerConstructor = ({ onOpen }) => {
    //   console.log(ingredients)
    // const [ingredientss, setIngredients] = useState(ingredients)
 
+   /**Студент поделился своим замечанием от ревьюера что нужно реализовать id без
+    * использования сторонних библиотек, я конечно это одобряю, но тругого способа как
+    * через Date.now я не знаю
+    */
    const [, dropTarget] = useDrop({
       accept: "ingredients",
       drop(item) {
-         console.log(item.item.type)
+         // console.log(item.item.type)
          if (item.item.type === "bun") {
             dispatch({
                type: ADD_BUN,
@@ -45,7 +50,7 @@ export const BurgerConstructor = ({ onOpen }) => {
          } else {
             dispatch({
                type: ADD_FILLINGS,
-               data: item.item
+               data: {...item.item, id : Date.now()}
             })
          }
          //        console.log(item)
@@ -56,7 +61,11 @@ export const BurgerConstructor = ({ onOpen }) => {
       })
    })
 
-   const deleteItem = (item) => {
+   const deleteItem = (id) => {
+      console.log(id)
+      dispatch({
+         type: DELETE_ITEM, id: id
+      })
 
    }
 
@@ -64,11 +73,11 @@ export const BurgerConstructor = ({ onOpen }) => {
 
    const { bun, fillings } = useSelector(state => state.dnd)
 
-   console.log(bun.name)
+   // console.log(bun.name)
 
    // let a =[...items]
 
-   console.log(ingredients)
+   // console.log(ingredients)
    // console.log(a)
 
 
@@ -146,7 +155,7 @@ export const BurgerConstructor = ({ onOpen }) => {
             </div>
          ) : (
             <ul className={ConstructorStyles.list} >
-               <ConstructorList />
+               <ConstructorList handleDellItem={deleteItem}/>
             </ul>
          )}
 

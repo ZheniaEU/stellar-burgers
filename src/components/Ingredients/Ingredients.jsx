@@ -83,7 +83,7 @@ export const BurgerItem = ({ item, onOpen }) => {
       type: "ingredients",
       item: { item },
       end: (item, monitor) => {
-         console.log(item, monitor)
+         // console.log(item, monitor)
       },
       collect: monitor => ({
 

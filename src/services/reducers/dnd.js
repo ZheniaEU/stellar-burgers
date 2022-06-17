@@ -1,5 +1,5 @@
 const initialStateDnd = {
-   bun:[],
+   bun: [],
    fillings: []
 
 }
@@ -29,6 +29,9 @@ export const dndReducer = (state = initialStateDnd, action) => {
       case DELETE_ITEM: {
          return {
             ...state,
+            fillings: [...state.fillings].filter(item => {
+               return item.id  !== action.id
+            })
          }
       }
       case RESET_ITEMS: {

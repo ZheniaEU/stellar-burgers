@@ -3,13 +3,14 @@ import { useSelector } from "react-redux"
 //import { ingredientsPropTypes } from "../../utils/types"
 import style from "./ConstructorList.module.css"
 
-export const ConstructorList = () => {
+export const ConstructorList = ({ handleDellItem }) => {
 
    const { fillings } = useSelector(state => state.dnd)
 
+
    return (
-      fillings.map((item, index) => item.type !== "bun" && (
-         <li className={style.li} key={item._id + index}>
+      fillings.map((item) => item.type !== "bun" && (
+         <li className={style.li} key={item.id}>
             <div className={style.div}>
                <div className={`mr-2`}>
                   <DragIcon />
@@ -18,6 +19,8 @@ export const ConstructorList = () => {
                   text={item.name}
                   price={item.price}
                   thumbnail={item.image_mobile}
+                  handleClose={() => handleDellItem(item.id)}
+                  // handleClose={() => console.log("здеся")}
                />
             </div>
          </li>
