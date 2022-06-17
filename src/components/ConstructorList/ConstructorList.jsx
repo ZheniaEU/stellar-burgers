@@ -5,6 +5,7 @@ import { useSelector } from "react-redux"
 import { useDrag, useDrop } from "react-dnd"
 import { useRef } from "react"
 import { useCallback } from "react"
+import { useState } from "react"
 //import { forwardRef } from "react"
 import style from "./ConstructorList.module.css"
 
@@ -14,20 +15,25 @@ export const ConstructorList = ({ handleDellItem }, props) => {
 
    const { item, index } = props
 
+   const [cards, setCards] = useState([])
+
+   //   import update from 'immutability-helper'
+
    const moveCard = useCallback(
-      (dragIndex: number, hoverIndex: number) => {
-        const dragCard = cards[dragIndex]
-        setCards(
-          update(cards, {
-            $splice: [
-              [dragIndex, 1],
-              [hoverIndex, 0, dragCard],
-            ],
-          }),
-        )
+      (dragIndex, hoverIndex) => {
+         const dragCard = cards[dragIndex]
+         setCards(
+            (cards, {
+               $splice: [
+                  [dragIndex, 1],
+                  [hoverIndex, 0, dragCard],
+               ],
+               // }),
+            })
+         )
       },
       [cards],
-    )
+   )
 
    // const [, dragFillings] = useDrag({
    //    type: "fillings",
@@ -47,7 +53,7 @@ export const ConstructorList = ({ handleDellItem }, props) => {
    // })
    //export const Card: React.FC<CardProps> = ({ id, text, index, moveCard }) => {
 
-   const [{ isDragging }, drag] = useDrag({
+   const [, drag] = useDrag({
       tyoe: "fillings",
       item: item,
       collect: monitor => ({
@@ -55,11 +61,10 @@ export const ConstructorList = ({ handleDellItem }, props) => {
       })
    });
 
-   const opacity = isDragging ? 0 : 0.999;
    const ref = useRef(null);
-   const [, drop] = useDrop({
+   const [{isDragging}, drop] = useDrop({
       accept: "fillings",
-      hover(item) {
+      hover(item, monitor) {
          if (!ref.current) {
             return;
          }
@@ -70,7 +75,7 @@ export const ConstructorList = ({ handleDellItem }, props) => {
          }
          const hoverBoundingRect = ref.current?.getBoundingClientRect();
          const hoverMiddleY =
-            (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
+         (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
          const clientOffset = monitor.getClientOffset();
          const hoverClientY = (clientOffset).y - hoverBoundingRect.top;
          if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
@@ -83,6 +88,7 @@ export const ConstructorList = ({ handleDellItem }, props) => {
          item.index = hoverIndex;
       }
    });
+   const opacity = isDragging ? 0 : 0.999;
 
    drag(drop(ref))
    //    return (
@@ -97,7 +103,7 @@ export const ConstructorList = ({ handleDellItem }, props) => {
 
    return (
       fillings.map((item, index) => item.type !== "bun" && (
-         <li className={style.li} key={item.id} index={index} ref={drag(drop(ref))}>
+         <li className={style.li} key={item.id} index={index} ref={drag(drop(ref))} style={{ ...style, opacity }}>
             <div className={style.div}>
                <div className={`mr-2`}>
                   <DragIcon />
@@ -107,8 +113,8 @@ export const ConstructorList = ({ handleDellItem }, props) => {
                   price={item.price}
                   thumbnail={item.image_mobile}
                   handleClose={() => handleDellItem(item.id)}
+                  // handleClose={() => console.log(index)}
                   moveCard={moveCard}
-               // handleClose={() => console.log(index)}
                />
             </div>
          </li>
