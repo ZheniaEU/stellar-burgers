@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { onDemandOrder } from "../../utils/api"
 //import { useCallback, useMemo } from "react"
 //import { useMemo } from "react"
-
+import { useDrag, useDrop } from "react-dnd"
 
 import {
    //  GET_ORDER_REQUEST,
@@ -20,8 +20,9 @@ import {
    ADD_BUN,
    DELETE_ITEM
 } from "../../services/reducers/dnd"
+//import { useRef } from "react"
 
-import { useDrop } from "react-dnd"
+//import { useDrop } from "react-dnd"
 
 
 
@@ -50,7 +51,7 @@ export const BurgerConstructor = ({ onOpen }) => {
          } else {
             dispatch({
                type: ADD_FILLINGS,
-               data: {...item.item, id : Date.now()}
+               data: { ...item.item, id: Date.now() }
             })
          }
          //        console.log(item)
@@ -116,6 +117,9 @@ export const BurgerConstructor = ({ onOpen }) => {
       //    }, 500)
    }
 
+//   const ref = useRef(null)
+
+
 
    // if (items.length = 0) {
    //    return (
@@ -135,7 +139,7 @@ export const BurgerConstructor = ({ onOpen }) => {
 
          {bun.length === 0 ? (
             <div className={ConstructorStyles.z} >
-               <p> сюда  </p>
+               <p>Заглушка для верхней булки</p>
             </div>
          ) : (
             <div className={` ${ConstructorStyles.bun} mb-4 pr-4`}>
@@ -151,18 +155,18 @@ export const BurgerConstructor = ({ onOpen }) => {
 
          {fillings.length === 0 ? (
             <div className={ConstructorStyles.z} >
-               <p> сюда  </p>
+               <p> Заглушка для ингредиетов  </p>
             </div>
          ) : (
             <ul className={ConstructorStyles.list} >
-               <ConstructorList handleDellItem={deleteItem}/>
+               <ConstructorList handleDellItem={deleteItem} />
             </ul>
          )}
 
 
          {bun.length === 0 ? (
             <div className={ConstructorStyles.z}  >
-               <p> сюда  </p>
+               <p> Заглушка для нижней булки  </p>
             </div>
          ) : (
             <div className={` ${ConstructorStyles.bun} mb-10 pr-4`}>
