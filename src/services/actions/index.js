@@ -28,8 +28,8 @@ export const getData = () => {
 const getIngredientsRequest = () => {
    return {
       type: GET_INGREDIENTS_REQUEST
-   };
-};
+   }
+}
 
 const getIngredientsSuccess = (data) => {
    return {
@@ -41,5 +41,5 @@ const getIngredientsSuccess = (data) => {
 const getIngredientsFailed = () => {
    return {
       type: GET_INGREDIENTS_FAILED
-   };
-};
+   }
+}

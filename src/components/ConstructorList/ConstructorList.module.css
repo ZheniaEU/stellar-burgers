@@ -11,6 +11,7 @@
    width: 600px;
    height: 80px;
    list-style: none;
+   cursor: grab;
 }
 
 .li:not(:last-child) {

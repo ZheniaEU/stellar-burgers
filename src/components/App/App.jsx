@@ -19,16 +19,7 @@ import { RESET_ITEMS } from "../../services/reducers/dnd"
 
 export const App = () => {
 
-   // onDemandOrder()
-   //    .then(res => {
-   //       console.log(res.order)
-   //    })
-
-   //  const [ingredientLoading, setIngredientLoading] = useState(true)
-
    const dispatch = useDispatch()
-   //   const { ingredients } = useSelector(state => state.ingredients)
-
 
    useEffect(() => {
       dispatch(getData())
@@ -51,13 +42,6 @@ export const App = () => {
       setopenInfoModal(true)
       setIngredient(card)
    }
-
-   //закрыть
-   // const onCloseModal = () => {
-   //    setopenInfoModal(false)
-   //    setopenOrderModal(false)
-   //    setIngredient(null)
-   // }
 
    //ингредиеты
    const onCloseModalingredient = () => {

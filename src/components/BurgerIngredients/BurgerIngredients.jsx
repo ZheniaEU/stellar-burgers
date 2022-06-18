@@ -3,7 +3,7 @@ import { useMemo, useState } from "react"
 import { Ingredients } from "../Ingredients/Ingredients"
 import ingredientsStyles from "./BurgerIngredients.module.css"
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components"
-//import { useInView } from 'react-hook-inview';
+//import { useInView } from "react-hook-inview"
 //import { ingredientsPropTypes } from "../../utils/types"
 //import PropTypes from "prop-types"
 import { useSelector } from "react-redux"

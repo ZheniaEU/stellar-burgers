@@ -5,10 +5,11 @@ import { ConstructorList } from "../ConstructorList/ConstructorList"
 //import PropTypes from "prop-types"
 import { useDispatch, useSelector } from "react-redux"
 import { onDemandOrder } from "../../utils/api"
-//import { useCallback, useMemo } from "react"
+// import { useCallback, useMemo } from "react"
+//import { useCallback } from "react"
 //import { useMemo } from "react"
-import { useDrag, useDrop } from "react-dnd"
-
+// import { useDrag, useDrop } from "react-dnd"
+import { useDrop } from "react-dnd"
 import {
    //  GET_ORDER_REQUEST,
    GET_ORDER_SUCCESS,
@@ -29,6 +30,7 @@ import {
 export const BurgerConstructor = ({ onOpen }) => {
 
    const { ingredients } = useSelector(state => state.ingredients)
+   const { bun, fillings } = useSelector(state => state.dnd)
 
    const dispatch = useDispatch()
 
@@ -38,11 +40,11 @@ export const BurgerConstructor = ({ onOpen }) => {
    /**Студент поделился своим замечанием от ревьюера что нужно реализовать id без
     * использования сторонних библиотек, я конечно это одобряю, но тругого способа как
     * через Date.now я не знаю
+    * Во всяком случае, мы не можем перетащить 2 ингридиента одновременно
     */
    const [, dropTarget] = useDrop({
       accept: "ingredients",
       drop(item) {
-         // console.log(item.item.type)
          if (item.item.type === "bun") {
             dispatch({
                type: ADD_BUN,
@@ -63,20 +65,10 @@ export const BurgerConstructor = ({ onOpen }) => {
    })
 
    const deleteItem = (id) => {
-      console.log(id)
       dispatch({
          type: DELETE_ITEM, id: id
       })
-
    }
-
-   // console.log(ingredientss)
-
-   const { bun, fillings } = useSelector(state => state.dnd)
-
-   // console.log(bun.name)
-
-   // let a =[...items]
 
    // console.log(ingredients)
    // console.log(a)
@@ -100,12 +92,6 @@ export const BurgerConstructor = ({ onOpen }) => {
    }
 
 
-   // useCallback(
-   //    () => {
-   //       sendOrder()
-   //    }, )
-   // useCallback(
-   //    () => {
    const sendOrder = () => {
       //      setTimeout(() => {
       onDemandOrder(totalIngredients(ingredients))
@@ -117,24 +103,8 @@ export const BurgerConstructor = ({ onOpen }) => {
       //    }, 500)
    }
 
-//   const ref = useRef(null)
-
-
-
-   // if (items.length = 0) {
-   //    return (
-   //       <div className={ConstructorStyles.z}>
-
-   //       </div>
-   //    )
-   // } else {
-
    return (
-      // bun.length === 0 ? (
-      //    <div className={ConstructorStyles.z} ref={dropTarget} >
-      //       <p> сюда  </p>
-      //    </div>
-      // ) : (
+
       <section className={ConstructorStyles.section} ref={dropTarget}>
 
          {bun.length === 0 ? (
@@ -159,10 +129,18 @@ export const BurgerConstructor = ({ onOpen }) => {
             </div>
          ) : (
             <ul className={ConstructorStyles.list} >
-               <ConstructorList handleDellItem={deleteItem} />
+               {fillings.map((item, index) => (
+                  < ConstructorList
+                     key={item.id}
+                     id={item.id}
+                     item={item}
+                     index={index}
+                     handleDellItem={deleteItem}
+                   //  moveCard={moveCard}
+                  />
+               ))}
             </ul>
          )}
-
 
          {bun.length === 0 ? (
             <div className={ConstructorStyles.z}  >
