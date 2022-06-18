@@ -22,8 +22,6 @@ export const Modal = ({ active, onClickClose, children }) => {
       }
    })
 
-
-
    return ReactDOM.createPortal(
       <>
          <div className={modalStyles.wrapper}>

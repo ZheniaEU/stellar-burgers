@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from "react-redux"
 import { onDemandOrder } from "../../utils/api"
 import { useDrop } from "react-dnd"
 import ConstructorStyles from "./BurgerConstructor.module.css"
-// import { useMemo } from "react"
 import { GET_ORDER_SUCCESS } from "../../services/reducers/order"
 
 import {
@@ -14,8 +13,6 @@ import {
    ADD_BUN,
    DELETE_ITEM
 } from "../../services/reducers/dnd"
-
-
 
 export const BurgerConstructor = ({ onOpen }) => {
 
@@ -56,15 +53,12 @@ export const BurgerConstructor = ({ onOpen }) => {
    }
 
    /**ругается, ругается не оборачивается! */
-   // const totalPrice = useMemo(() => {
-   //    return (
-   //       (bun, fillings, sum = 0) => {
-   //          for (let { price } of fillings)
-   //             sum += price
-   //          return sum + ((bun.price || 0) * 2)
-   //       }
-   //    )
-   // }, [bun, fillings])
+   // const totalPrice = useMemo(() =>
+   //    (sum = 0) => {
+   //       for (let { price } of fillings)
+   //          sum += price
+   //       return sum + ((bun.price || 0) * 2)
+   //    }, [bun, fillings])
 
    const totalPrice = (bun, fillings, sum = 0) => {
       for (let { price } of fillings)
@@ -77,7 +71,6 @@ export const BurgerConstructor = ({ onOpen }) => {
          mass.push(_id)
       return mass
    }
-
 
    const sendOrder = () => {
       onDemandOrder(totalIngredients(ingredients))

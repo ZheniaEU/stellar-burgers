@@ -7,6 +7,14 @@
    padding-right: 8px;
    width: 272px;
    list-style: none;
+   position: relative;
+}
+
+.counter {
+   position: absolute;
+
+   right: 8px;
+   opacity: 1;
 }
 
 .img {

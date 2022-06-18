@@ -66,22 +66,3 @@ ConstructorList.propTypes = {
    index: PropTypes.number.isRequired,
    handleDellItem: PropTypes.func.isRequired
 }
-
-
-/**
- * Это какой-то бесполезный кусок кода, для перемещения начинки внутри контенера.
- */
-         // if (dragIndex === hoverIndex) {
-         //    return
-         // }
-         // const hoverBoundingRect = ref.current?.getBoundingClientRect()
-         // const hoverMiddleY =
-         //    (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2
-         // const clientOffset = monitor.getClientOffset()
-         // const hoverClientY = (clientOffset).y - hoverBoundingRect.top
-         // if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
-         //    return
-         // }
-         // if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
-         //    return
-         // }
