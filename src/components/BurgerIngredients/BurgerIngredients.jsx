@@ -6,12 +6,10 @@ import { useInView } from "react-hook-inview"
 import { ingredientsPropTypes } from "../../utils/types"
 import PropTypes from "prop-types"
 import { useSelector } from "react-redux"
-import { Loader } from "../Loader/Loader"
-
 
 export const BurgerIngredients = ({ onOpen }) => {
 
-   const { ingredients, isLoading } = useSelector(state => state.ingredients)
+   const { ingredients } = useSelector(state => state.ingredients)
 
    const [current, setCurrent] = useState("one")
 
@@ -53,7 +51,6 @@ export const BurgerIngredients = ({ onOpen }) => {
    }
 
    return (
-      isLoading ? < Loader /> :
          <section className={styles.section}>
             <h1 className={styles.title}>Соберите бургер</h1>
             <nav className={styles.nav}>
