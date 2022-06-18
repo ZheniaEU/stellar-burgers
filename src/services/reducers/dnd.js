@@ -3,7 +3,6 @@ import update from "immutability-helper"
 const initialStateDnd = {
    bun: [],
    fillings: []
-
 }
 
 export const ADD_BUN = "ADD_BUN"

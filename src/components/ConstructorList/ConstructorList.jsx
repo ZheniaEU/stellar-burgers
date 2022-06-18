@@ -1,7 +1,7 @@
 import { DragIcon, ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components"
 import { useDrag, useDrop } from "react-dnd"
 import { useRef } from "react"
-import { ingredientsPropTypes } from "../../utils/types"
+import PropTypes from "prop-types"
 import { useDispatch } from "react-redux"
 import style from "./ConstructorList.module.css"
 
@@ -9,23 +9,23 @@ import {
    MOVE_CONSTRUCTOR_ITEM
 } from "../../services/reducers/dnd"
 
-export const ConstructorList = ({ item, index, handleDellItem, id }) => {
+export const ConstructorList = ({ filling, index, handleDellItem, id }) => {
 
    const dispatch = useDispatch()
    const ref = useRef(null)
    const [, drop] = useDrop({
       accept: "item",
-      hover(item) {
+      hover(filling) {
          if (!ref.current) {
             return
          }
-         const dragIndex = item.index
+         const dragIndex = filling.index
          const hoverIndex = index
          dispatch({
             type: MOVE_CONSTRUCTOR_ITEM,
             data: { dragIndex, hoverIndex }
          })
-         item.index = hoverIndex
+         filling.index = hoverIndex
       }
    })
 
@@ -50,10 +50,10 @@ export const ConstructorList = ({ item, index, handleDellItem, id }) => {
                <DragIcon />
             </div>
             <ConstructorElement
-               text={item.name}
-               price={item.price}
-               thumbnail={item.image_mobile}
-               handleClose={() => handleDellItem(item.id)}
+               text={filling.name}
+               price={filling.price}
+               thumbnail={filling.image_mobile}
+               handleClose={() => handleDellItem(id)}
             />
          </div>
       </li>
@@ -61,7 +61,10 @@ export const ConstructorList = ({ item, index, handleDellItem, id }) => {
 }
 
 ConstructorList.propTypes = {
-   fillings: ingredientsPropTypes.isRequired
+   filling: PropTypes.object.isRequired,
+   id: PropTypes.number.isRequired,
+   index: PropTypes.number.isRequired,
+   handleDellItem: PropTypes.func.isRequired
 }
 
 

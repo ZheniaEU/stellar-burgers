@@ -38,10 +38,3 @@
 .name:not(:nth-last-of-type(-n+2)) {
    margin: 8px 0 32px 0;
 }
-
-.ul {
-   display: flex;
-   flex-wrap: wrap;
-   margin: 0;
-   padding: 0;
-}

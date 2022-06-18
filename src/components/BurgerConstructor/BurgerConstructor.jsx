@@ -1,29 +1,19 @@
-import ConstructorStyles from "./BurgerConstructor.module.css"
 import { Button, CurrencyIcon, ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components"
 import { ConstructorList } from "../ConstructorList/ConstructorList"
-//import { ingredientsPropTypes } from "../../utils/types"
-//import PropTypes from "prop-types"
+import { ingredientsPropTypes } from "../../utils/types"
+import PropTypes from "prop-types"
 import { useDispatch, useSelector } from "react-redux"
 import { onDemandOrder } from "../../utils/api"
-// import { useCallback, useMemo } from "react"
-//import { useCallback } from "react"
-//import { useMemo } from "react"
-// import { useDrag, useDrop } from "react-dnd"
 import { useDrop } from "react-dnd"
-import {
-   //  GET_ORDER_REQUEST,
-   GET_ORDER_SUCCESS,
-   //  GET_ORDER_FAILED
-} from "../../services/reducers/order"
+import ConstructorStyles from "./BurgerConstructor.module.css"
+// import { useMemo } from "react"
+import { GET_ORDER_SUCCESS } from "../../services/reducers/order"
 
 import {
    ADD_FILLINGS,
    ADD_BUN,
    DELETE_ITEM
 } from "../../services/reducers/dnd"
-//import { useRef } from "react"
-
-//import { useDrop } from "react-dnd"
 
 
 
@@ -33,9 +23,6 @@ export const BurgerConstructor = ({ onOpen }) => {
    const { bun, fillings } = useSelector(state => state.dnd)
 
    const dispatch = useDispatch()
-
-   //   console.log(ingredients)
-   // const [ingredientss, setIngredients] = useState(ingredients)
 
    /**Студент поделился своим замечанием от ревьюера что нужно реализовать id без
     * использования сторонних библиотек, я конечно это одобряю, но тругого способа как
@@ -56,8 +43,6 @@ export const BurgerConstructor = ({ onOpen }) => {
                data: { ...item.item, id: Date.now() }
             })
          }
-         //        console.log(item)
-         // setIngredients([...ingredientss, item])
       },
       collect: monitor => ({
          isHover: monitor.isOver(),
@@ -70,20 +55,22 @@ export const BurgerConstructor = ({ onOpen }) => {
       })
    }
 
-   // console.log(ingredients)
-   // console.log(a)
-
-
-   // const buns = useMemo(() =>
-   //    fillings.filter((item) => item.type === "bun"),
-   //    [fillings])
+   /**ругается, ругается не оборачивается! */
+   // const totalPrice = useMemo(() => {
+   //    return (
+   //       (bun, fillings, sum = 0) => {
+   //          for (let { price } of fillings)
+   //             sum += price
+   //          return sum + ((bun.price || 0) * 2)
+   //       }
+   //    )
+   // }, [bun, fillings])
 
    const totalPrice = (bun, fillings, sum = 0) => {
       for (let { price } of fillings)
          sum += price
       return sum + ((bun.price || 0) * 2)
    }
-   // }
 
    const totalIngredients = (ingredients, mass = []) => {
       for (let { _id } of ingredients)
@@ -93,23 +80,19 @@ export const BurgerConstructor = ({ onOpen }) => {
 
 
    const sendOrder = () => {
-      //      setTimeout(() => {
       onDemandOrder(totalIngredients(ingredients))
          .then(res => {
             dispatch({ type: GET_ORDER_SUCCESS, data: res.order.number })
-            //      console.log(res.order.number)
          })
       onOpen()
-      //    }, 500)
    }
 
    return (
-
       <section className={ConstructorStyles.section} ref={dropTarget}>
-
          {bun.length === 0 ? (
             <div className={ConstructorStyles.z} >
                <p>Заглушка для верхней булки</p>
+               <p>нужно перетащить сюда  </p>
             </div>
          ) : (
             <div className={` ${ConstructorStyles.bun} mb-4 pr-4`}>
@@ -125,7 +108,8 @@ export const BurgerConstructor = ({ onOpen }) => {
 
          {fillings.length === 0 ? (
             <div className={ConstructorStyles.z} >
-               <p> Заглушка для ингредиетов  </p>
+               <p> Заглушка для ингредиетов</p>
+               <p>нужно перетащить сюда  </p>
             </div>
          ) : (
             <ul className={ConstructorStyles.list} >
@@ -133,10 +117,9 @@ export const BurgerConstructor = ({ onOpen }) => {
                   < ConstructorList
                      key={item.id}
                      id={item.id}
-                     item={item}
+                     filling={item}
                      index={index}
                      handleDellItem={deleteItem}
-                   //  moveCard={moveCard}
                   />
                ))}
             </ul>
@@ -145,6 +128,7 @@ export const BurgerConstructor = ({ onOpen }) => {
          {bun.length === 0 ? (
             <div className={ConstructorStyles.z}  >
                <p> Заглушка для нижней булки  </p>
+               <p>нужно перетащить сюда  </p>
             </div>
          ) : (
             <div className={` ${ConstructorStyles.bun} mb-10 pr-4`}>
@@ -157,11 +141,6 @@ export const BurgerConstructor = ({ onOpen }) => {
                />
             </div>
          )}
-         {/* {bun.length === 0 && fillings.length === 0  ? (
-            <div className={ConstructorStyles.d} >
-               <p> сюда  </p>
-            </div>
-         ) : ( */}
          <div className={ConstructorStyles.total}>
             <p className={ConstructorStyles.value}>{totalPrice(bun, fillings)}</p>
             <div className={ConstructorStyles.icon} >
@@ -171,31 +150,13 @@ export const BurgerConstructor = ({ onOpen }) => {
                <Button type="primary" size="large" onClick={sendOrder}>Оформить заказ</Button>
             </div>
          </div>
-         {/* )} */}
       </section >
-      // )
    )
 }
 
-// BurgerConstructor.propTypes = {
-//    data: ingredientsPropTypes.isRequired,
-//    onOpen: PropTypes.func.isRequired
-// }
-
-// export const dropTarget = () => {
-
-
-//    const [, dropTarget] = useDrop({
-//       accept: "ingredients",
-//       drop(itemId) {
-//          dropTarget(itemId)
-//       },
-//    })
-
-
-//    return (
-//       <div ref={dropTarget}>
-
-//       </div>
-//    )
-// }
+BurgerConstructor.propTypes = {
+   buns: PropTypes.object,
+   fillings: PropTypes.object,
+   ingredients: ingredientsPropTypes,
+   onOpen: PropTypes.func.isRequired
+}

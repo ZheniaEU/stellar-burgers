@@ -1,7 +1,7 @@
 //import { useEffect, useMemo, useState } from "react"
 import { useMemo, useState } from "react"
 import { Ingredients } from "../Ingredients/Ingredients"
-import ingredientsStyles from "./BurgerIngredients.module.css"
+import styles from "./BurgerIngredients.module.css"
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components"
 //import { useInView } from "react-hook-inview"
 //import { ingredientsPropTypes } from "../../utils/types"
@@ -62,30 +62,42 @@ export const BurgerIngredients = ({ onOpen }) => {
 
    return (
       isLoading ? < Loader /> :
-         <section className={ingredientsStyles.section}>
-            <h1 className={ingredientsStyles.title}>Соберите бургер</h1>
-            <nav className={ingredientsStyles.nav}>
+         <section className={styles.section}>
+            <h1 className={styles.title}>Соберите бургер</h1>
+            <nav className={styles.nav}>
                <Tab value="one" active={current === "one"} onClick={() => handleClick("one")}>Булки</Tab>
                <Tab value="two" active={current === "two"} onClick={() => handleClick("two")}>Соусы</Tab>
                <Tab value="three" active={current === "three"} onClick={() => handleClick("three")}>Начинки</Tab>
             </nav>
-            <article className={ingredientsStyles.article}>
+            <article className={styles.article}>
 
-               <h2 className={ingredientsStyles.subtitle} id="one">Булки</h2>
+               <h2 className={styles.subtitle} id="one">Булки</h2>
                {/* <div ref={bunsRef} > */}
-               <Ingredients ingredients={buns} onOpen={onOpen} item={ingredients} />
+               <ul className={styles.ul}>
+                  {buns.map((item) => (
+                     <Ingredients ingredients={buns} onOpen={onOpen} item={item} key={item._id} />
+                  ))}
+               </ul>
                {/* </div> */}
-               <h2 className={ingredientsStyles.subtitle} id="two">Соусы</h2>
+               <h2 className={styles.subtitle} id="two">Соусы</h2>
                {/* <div ref={saucesRef} > */}
-               <Ingredients ingredients={sauces} onOpen={onOpen} item={ingredients} />
+               <ul className={styles.ul}>
+                  {sauces.map((item) => (
+                     <Ingredients ingredients={sauces} onOpen={onOpen} item={item} key={item._id} />
+                  ))}
+               </ul>
                {/* </div> */}
 
-               <h2 className={ingredientsStyles.subtitle} id="three">Начинки</h2>
+               <h2 className={styles.subtitle} id="three">Начинки</h2>
                {/* <div ref={fillingRef}> */}
-               <Ingredients ingredients={fillings} onOpen={onOpen} item={ingredients} />
-               {/* </div> */}
-            </article>
-         </section>
+               <ul className={styles.ul}>
+               {fillings.map((item) => (
+                  <Ingredients ingredients={fillings} onOpen={onOpen} item={item} key={item._id} />
+               ))}
+            </ul>
+            {/* </div> */}
+         </article>
+         </section >
 
    )
 }
