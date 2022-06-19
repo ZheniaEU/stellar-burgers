@@ -6,14 +6,15 @@ import { Modal } from "../Modal/Modal"
 import { IngredientDetails } from "../IngredientDetails/IngredientDetails"
 import { OrderDetals } from "../OrderDetails/OrderDetals"
 import styles from "./App.module.css"
-import { getData } from "../../services/actions/index"
-import { useDispatch } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
 import { DndProvider } from "react-dnd"
 import { HTML5Backend } from "react-dnd-html5-backend"
-import { DELETE_ORDER } from "../../services/reducers/order"
-import { RESET_ITEMS } from "../../services/reducers/dnd"
-import { useSelector } from "react-redux"
 import { Loader } from "../Loader/Loader"
+import {
+   getData,
+   DELETE_ORDER,
+   RESET_ITEMS
+} from "../../services/actions/index"
 
 export const App = () => {
 

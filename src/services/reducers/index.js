@@ -2,20 +2,18 @@ import { combineReducers } from "redux"
 import { orderReducer } from "./order"
 import { dndReducer } from "./dnd"
 
-export const GET_INGREDIENTS_REQUEST = "GET_INGREDIENTS_REQUEST"
-export const GET_INGREDIENTS_SUCCESS = "GET_INGREDIENTS_SUCCESS"
-export const GET_INGREDIENTS_FAILED = "GET_INGREDIENTS_FAILED"
+import {
+   GET_INGREDIENTS_REQUEST,
+   GET_INGREDIENTS_SUCCESS,
+   GET_INGREDIENTS_FAILED
+} from "../actions/index"
 
 const initialState = {
    ingredients: [],
    ingredientsRequest: false,
    ingredientsFailed: false,
-
-
-
-   loader: true,
    isLoading: false,
-   errorLoading: false
+   //   errorLoading: false
 }
 
 const ingredientsReducer = (state = initialState, action) => {
@@ -26,7 +24,7 @@ const ingredientsReducer = (state = initialState, action) => {
             ingredientsRequest: true,
             ingredientsFailed: false,
             isLoading: true,
-            errorLoading: false
+            //            errorLoading: false
          }
       }
       case GET_INGREDIENTS_SUCCESS: {
@@ -35,7 +33,7 @@ const ingredientsReducer = (state = initialState, action) => {
             ingredientsRequest: false,
             ingredientsFailed: false,
             isLoading: false,
-            errorLoading: false,
+            //          errorLoading: false,
             ingredients: action.ingredients
          }
       }
@@ -44,7 +42,7 @@ const ingredientsReducer = (state = initialState, action) => {
             ...state,
             ingredientsRequest: true,
             isLoading: false,
-            errorLoading: false
+            //        errorLoading: false
          }
       }
 

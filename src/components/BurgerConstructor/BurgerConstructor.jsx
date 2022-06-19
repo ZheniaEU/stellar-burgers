@@ -6,13 +6,14 @@ import { useDispatch, useSelector } from "react-redux"
 import { onDemandOrder } from "../../utils/api"
 import { useDrop } from "react-dnd"
 import ConstructorStyles from "./BurgerConstructor.module.css"
-import { GET_ORDER_SUCCESS } from "../../services/reducers/order"
+import { GET_ORDER_SUCCESS } from "../../services/actions/index"
+import { useMemo } from "react"
 
 import {
    ADD_FILLINGS,
    ADD_BUN,
    DELETE_ITEM
-} from "../../services/reducers/dnd"
+} from "../../services/actions/index"
 
 export const BurgerConstructor = ({ onOpen }) => {
 
@@ -21,11 +22,6 @@ export const BurgerConstructor = ({ onOpen }) => {
 
    const dispatch = useDispatch()
 
-   /**Студент поделился своим замечанием от ревьюера что нужно реализовать id без
-    * использования сторонних библиотек, я конечно это одобряю, но тругого способа как
-    * через Date.now я не знаю
-    * Во всяком случае, мы не можем перетащить 2 ингридиента одновременно
-    */
    const [, dropTarget] = useDrop({
       accept: "ingredients",
       drop(item) {
@@ -52,28 +48,21 @@ export const BurgerConstructor = ({ onOpen }) => {
       })
    }
 
-   /**ругается, ругается не оборачивается! */
-   // const totalPrice = useMemo(() =>
-   //    (sum = 0) => {
-   //       for (let { price } of fillings)
-   //          sum += price
-   //       return sum + ((bun.price || 0) * 2)
-   //    }, [bun, fillings])
+   const countTotalPrice = useMemo(() =>
+      (bun, fillings, sum = 0) => {
+         for (let { price } of fillings)
+            sum += price
+         return sum + ((bun.price || 0) * 2)
+      }, [])
 
-   const totalPrice = (bun, fillings, sum = 0) => {
-      for (let { price } of fillings)
-         sum += price
-      return sum + ((bun.price || 0) * 2)
-   }
-
-   const totalIngredients = (ingredients, mass = []) => {
+   const countTotalIngredients = (ingredients, mass = []) => {
       for (let { _id } of ingredients)
          mass.push(_id)
       return mass
    }
 
    const sendOrder = () => {
-      onDemandOrder(totalIngredients(ingredients))
+      onDemandOrder(countTotalIngredients(ingredients))
          .then(res => {
             dispatch({ type: GET_ORDER_SUCCESS, data: res.order.number })
          })
@@ -81,7 +70,7 @@ export const BurgerConstructor = ({ onOpen }) => {
    }
 
    return (
-      <section className={ConstructorStyles.section} ref={dropTarget}>
+      <section className={ConstructorStyles.section} ref={dropTarget} >
          {bun.length === 0 ? (
             <div className={ConstructorStyles.z} >
                <p>Заглушка для верхней булки</p>
@@ -135,12 +124,13 @@ export const BurgerConstructor = ({ onOpen }) => {
             </div>
          )}
          <div className={ConstructorStyles.total}>
-            <p className={ConstructorStyles.value}>{totalPrice(bun, fillings)}</p>
+            <p className={ConstructorStyles.value}>{countTotalPrice(bun, fillings)}</p>
             <div className={ConstructorStyles.icon} >
                <CurrencyIcon />
             </div>
             <div className="pr-4 pl-10">
-               <Button type="primary" size="large" onClick={sendOrder}>Оформить заказ</Button>
+               <Button type="primary" size="large" onClick={sendOrder}
+                  disabled={(bun.length === 0) || (fillings.length === 0)} >Оформить заказ</Button>
             </div>
          </div>
       </section >

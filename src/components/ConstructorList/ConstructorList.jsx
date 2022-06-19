@@ -7,7 +7,7 @@ import style from "./ConstructorList.module.css"
 
 import {
    MOVE_CONSTRUCTOR_ITEM
-} from "../../services/reducers/dnd"
+} from "../../services/actions/"
 
 export const ConstructorList = ({ filling, index, handleDellItem, id }) => {
 
@@ -29,17 +29,16 @@ export const ConstructorList = ({ filling, index, handleDellItem, id }) => {
       }
    })
 
-   const [{ isDragging }, drag] = useDrag({
+   const [{ opacity }, drag] = useDrag({
       type: "item",
       item: { id, index },
       collect: monitor => {
          return {
-            isDragging: monitor.isDragging()
+            opacity: monitor.isDragging() ? 0.5 : 1
          }
       }
    })
 
-   const opacity = isDragging ? 0.5 : 1
    drag(drop(ref))
 
    return (
