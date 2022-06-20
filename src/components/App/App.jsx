@@ -1,42 +1,34 @@
-import React from "react"
+import { useState, useEffect } from "react"
 import { AppHeader } from "../AppHeader/AppHeader"
 import { BurgerIngredients } from "../BurgerIngredients/BurgerIngredients"
 import { BurgerConstructor } from "../BurgerConstructor/BurgerConstructor"
 import { Modal } from "../Modal/Modal"
 import { IngredientDetails } from "../IngredientDetails/IngredientDetails"
 import { OrderDetals } from "../OrderDetails/OrderDetals"
-import appStyles from "./App.module.css"
-
-
-const API_URL = "https://norma.nomoreparties.space/api"
+import styles from "./App.module.css"
+import { useSelector, useDispatch } from "react-redux"
+import { DndProvider } from "react-dnd"
+import { HTML5Backend } from "react-dnd-html5-backend"
+import { Loader } from "../Loader/Loader"
+import {
+   getData,
+   DELETE_ORDER,
+   RESET_ITEMS
+} from "../../services/actions/index"
 
 export const App = () => {
 
-   //получение данных с сервера
-   const [data, setData] = React.useState([])
-   const getData = () => {
-      fetch(`${API_URL}/ingredients`)
-         .then(res => {
-            if (res.ok) {
-               return res.json()
-            } else {
-               return Promise.reject(`Проблемы с запросом: ${res.status}`)
-            }
-         })
-         .then(data => { setData(data.data) })
-         .catch(err => { console.log(` Не переключайтесь, мы скоро вернёмся: ${err} `) })
-   }
+   const { isLoading } = useSelector(state => state.ingredients)
+   const dispatch = useDispatch()
 
-
-   React.useEffect(() => {
-      getData();
-   }, []);
+   useEffect(() => {
+      dispatch(getData())
+   }, [dispatch])
 
    //состояния
-   const [openOrderModal, setopenOrderModal] = React.useState(false)
-   const [openInfoModal, setopenInfoModal] = React.useState(false)
-   const [ingredient, setIngredient] = React.useState(null)
-
+   const [openOrderModal, setopenOrderModal] = useState(false)
+   const [openInfoModal, setopenInfoModal] = useState(false)
+   const [ingredient, setIngredient] = useState(null)
 
    //открыть
    const handleOpenOrderModal = () => {
@@ -48,26 +40,34 @@ export const App = () => {
       setIngredient(card)
    }
 
-   //закрыть
-   const onCloseModal = () => {
+   //ингредиеты
+   const onCloseModalingredient = () => {
       setopenInfoModal(false)
-      setopenOrderModal(false)
       setIngredient(null)
    }
 
+   //ордер
+   const onCloseModalOrder = () => {
+      setopenOrderModal(false)
+      dispatch({ type: DELETE_ORDER })
+      dispatch({ type: RESET_ITEMS })
+   }
+
    return (
-      <React.Fragment>
+      <>
          <AppHeader />
-         <main className={appStyles.main}>
-            <BurgerIngredients data={data} onOpen={handleOpenInfoModal} />
-
-            <BurgerConstructor data={data} onOpen={handleOpenOrderModal} />
-         </main>
-
+         {isLoading ? < Loader /> :
+            <DndProvider backend={HTML5Backend}>
+               <main className={styles.main}>
+                  <BurgerIngredients onOpen={handleOpenInfoModal} />
+                  <BurgerConstructor onOpen={handleOpenOrderModal} />
+               </main>
+            </DndProvider>
+         }
          {openInfoModal && (
             <Modal
                active={openInfoModal}
-               onClickClose={onCloseModal} >
+               onClickClose={onCloseModalingredient} >
                <IngredientDetails card={ingredient} />
             </Modal>
          )}
@@ -75,11 +75,10 @@ export const App = () => {
          {openOrderModal && (
             <Modal
                active={openOrderModal}
-               onClickClose={onCloseModal}>
+               onClickClose={onCloseModalOrder}>
                <OrderDetals />
             </Modal>
          )}
-
-      </React.Fragment>
-   );
+      </>
+   )
 }

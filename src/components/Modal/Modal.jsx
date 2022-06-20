@@ -1,11 +1,11 @@
-import React from "react"
+import { useEffect } from "react"
 import ReactDOM from "react-dom"
 import modalStyles from "./Modal.module.css"
 import { ModalOverlay } from "./ModalOverlay/ModalOverlay"
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components"
 import PropTypes from "prop-types"
 
-const modalRoot = document.getElementById("modal");
+const modalRoot = document.getElementById("modal")
 
 export const Modal = ({ active, onClickClose, children }) => {
 
@@ -15,14 +15,12 @@ export const Modal = ({ active, onClickClose, children }) => {
       }
    }
 
-   React.useEffect(() => {
+   useEffect(() => {
       document.addEventListener("keydown", handleCloseModal)
       return () => {
          document.removeEventListener("keydown", handleCloseModal)
       }
-   }, )
-
-
+   })
 
    return ReactDOM.createPortal(
       <>

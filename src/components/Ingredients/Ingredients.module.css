@@ -7,13 +7,21 @@
    padding-right: 8px;
    width: 272px;
    list-style: none;
+   position: relative;
+}
+
+.counter {
+   position: absolute;
+
+   right: 8px;
+   opacity: 1;
 }
 
 .img {
    width: 240px;
    height: 120px;
    padding: 0 16px 8px 16px;
-   cursor: pointer;
+   cursor: grab;
 }
 
 .price {
@@ -37,11 +45,4 @@
 
 .name:not(:nth-last-of-type(-n+2)) {
    margin: 8px 0 32px 0;
-}
-
-.ul {
-   display: flex;
-   flex-wrap: wrap;
-   margin: 0;
-   padding: 0;
 }
