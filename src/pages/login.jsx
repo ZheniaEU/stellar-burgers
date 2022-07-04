@@ -28,9 +28,9 @@ export const Login = () => {
          <h2 className={styles.title}>Вход</h2>
          <div className={styles.input}>
             <Input
+               onChange={onChangeForm}
                type="text"
                placeholder="E-mail"
-               onChange={onChangeForm}
                value={form}
                name="email"
                error={false}
@@ -39,10 +39,11 @@ export const Login = () => {
          </div>
          <div className={styles.input}>
             <PasswordInput
+               onChange={onChangePassword}
                placeholder="Пароль"
                value={password}
                error={false}
-               onChange={onChangePassword} />
+            />
          </div>
          <Button type="primary" size="medium">Войти</Button>
          <p className={styles.text}>Вы — новый пользователь?&nbsp;

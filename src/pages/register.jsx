@@ -28,20 +28,20 @@ export const Register = () => {
          <h2 className={styles.title}>Регистрация</h2>
          <div className={styles.input}>
             <Input
+               onChange={onChangeForm}
                type="text"
                placeholder="Имя"
-               onChange={onChangeForm}
                value={form}
                name="email"
                error={false}
-               errorText="Введите корректный E-mail"
+               errorText="Введите корректное имя"
             />
          </div>
          <div className={styles.input}>
             <Input
+               onChange={onChangeForm}
                type="text"
                placeholder="E-mail"
-               onChange={onChangeForm}
                value={form}
                name="email"
                error={false}
@@ -51,9 +51,11 @@ export const Register = () => {
          <div className={styles.input}>
             <PasswordInput
                placeholder="Пароль"
+               onChange={onChangePassword}
                value={password}
                error={false}
-               onChange={onChangePassword} />
+               errorText="Введите корректный E-mail"
+            />
          </div>
          <Button type="primary" size="medium">Зарегистрироваться</Button>
          <p className={styles.text}>Уже зарегистрированы?&nbsp;
