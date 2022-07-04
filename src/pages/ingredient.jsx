@@ -2,11 +2,11 @@
 
 import styles from "./index.module.css"
 
-export const ForgotPassword = () => {
+export const Ingredient = () => {
    return (
       <>
          <div className={styles.a}>
-            <p >forgot-password — страница восстановления пароля.</p>
+            <p >ingredients/:id — страница ингредиента.</p>
          </div>
       </>
    )

@@ -1,8 +1,9 @@
 import ReactDOM from "react-dom/client"
-import "./index.css"
-import { App } from "./components/App/App"
+import { BrowserRouter } from "react-router-dom"
 import { Provider } from "react-redux"
+import { App } from "./components/App/App"
 import { state } from "./services/store"
+import "./index.css"
 
 const root = ReactDOM.createRoot(
    document.getElementById("root") as HTMLElement
@@ -11,9 +12,28 @@ const root = ReactDOM.createRoot(
 // ReactDOM.render(
 root.render(
    //   <React.StrictMode>
-   <Provider store={state}>
-      <App />
-   </Provider>
-   //   </React.StrictMode>,
-   // document.getElementById("root")
+   <BrowserRouter>
+      <Provider store={state}>
+         <App />
+      </Provider>
+   </BrowserRouter>
+   // document.getElementById('root')
 )
+
+
+
+// import ReactDOM from "react-dom"
+// import { BrowserRouter } from "react-router-dom"
+// import { Provider } from "react-redux"
+// import { App } from "./components/App/App"
+// import { state } from "./services/store"
+// import "./index.css"
+
+// ReactDOM.render(
+//    <BrowserRouter>
+//       <Provider store={state}>
+//          <App />
+//       </Provider>
+//    </BrowserRouter>,
+//    document.getElementById('root')
+//)

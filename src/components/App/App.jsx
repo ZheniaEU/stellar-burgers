@@ -1,3 +1,5 @@
+/* eslint-disable */
+import { Switch, Route } from "react-router-dom"
 import { useState, useEffect } from "react"
 import { AppHeader } from "../AppHeader/AppHeader"
 import { BurgerIngredients } from "../BurgerIngredients/BurgerIngredients"
@@ -10,6 +12,13 @@ import { useSelector, useDispatch } from "react-redux"
 import { DndProvider } from "react-dnd"
 import { HTML5Backend } from "react-dnd-html5-backend"
 import { Loader } from "../Loader/Loader"
+import { Profile } from "../../pages/index"
+import { Login } from "../../pages/index"
+import { Register } from "../../pages/index"
+import { ForgotPassword } from "../../pages/index"
+import { ResetPassword } from "../../pages/index"
+import {  Ingredient } from "../../pages/index"
+
 import {
    getData,
    DELETE_ORDER,
@@ -56,14 +65,43 @@ export const App = () => {
    return (
       <>
          <AppHeader />
-         {isLoading ? < Loader /> :
-            <DndProvider backend={HTML5Backend}>
-               <main className={styles.main}>
-                  <BurgerIngredients onOpen={handleOpenInfoModal} />
-                  <BurgerConstructor onOpen={handleOpenOrderModal} />
-               </main>
-            </DndProvider>
-         }
+         <Switch>
+            <Route path="/" exact={true}>
+               {isLoading ? < Loader /> :
+                  <DndProvider backend={HTML5Backend}>
+                     <main className={styles.main}>
+                        <BurgerIngredients onOpen={handleOpenInfoModal} />
+                        <BurgerConstructor onOpen={handleOpenOrderModal} />
+                     </main>
+                  </DndProvider>
+               }
+            </Route>
+
+            <Route path="/profile" exact={true}>
+               <Profile />
+            </Route>
+
+            <Route path="/login" exact={true}>
+               <Login />
+            </Route>
+
+            <Route path="/register">
+               <Register />
+            </Route>
+
+            <Route path="/forgot-password" exact={true}>
+               <ForgotPassword />
+            </Route>
+
+            <Route path="/reset-password" exact={true}>
+               <ResetPassword />
+            </Route>
+
+            <Route path="/ingredient" exact={true}>
+               <Ingredient />
+            </Route>
+
+         </Switch>
          {openInfoModal && (
             <Modal
                active={openInfoModal}
