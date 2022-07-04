@@ -1,15 +1,15 @@
 /* eslint-disable */
 
 import { useState } from "react"
-import { Input, PasswordInput, EmailInput, Button } from "@ya.praktikum/react-developer-burger-ui-components"
+
+import { Link } from "react-router-dom"
+import { Input, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components"
 import styles from "./index.module.css"
 
 export const Login = () => {
 
    const [form, setForm] = useState("")
    const [password, setPassword] = useState("")
-
-   //  console.log(value)
 
    const handleSubmit = (e) => {
       e.preventDefault()
@@ -23,41 +23,33 @@ export const Login = () => {
       setPassword(e.target.value)
    }
 
-   // () => {
-   //    const [value, setValue] = React.useState('password')
-   //    return <PasswordInput onChange={onChange} value={value} name={'password'} />
-   // }
-
    return (
       <>
          <form className={styles.form} onSubmit={handleSubmit}>
             <h2 className={styles.title}>Вход</h2>
-            {/* <div className={styles.a}> */}
-               <div className={styles.input}>
-                  <Input
-                     type="text"
-                     placeholder="E-mail"
-                     onChange={onChangeForm}
-                     // icon={'CurrencyIcon'}
-                     value={form}
-                     name="email"
-                     error={false}
-                     errorText="Введите корректный E-mail"
-                  //валидация не работает по дефолту?
-
-
-                  />
-               </div>
-               <div className={styles.input}>
-                  <PasswordInput
-                     placeholder="Пароль"
-                     value={password}
-                     onChange={onChangePassword} />
-               </div>
-            {/* </div> */}
+            <div className={styles.input}>
+               <Input
+                  type="text"
+                  placeholder="E-mail"
+                  onChange={onChangeForm}
+                  value={form}
+                  name="email"
+                  error={false}
+                  errorText="Введите корректный E-mail"
+               />
+            </div>
+            <div className={styles.input}>
+               <PasswordInput
+                  placeholder="Пароль"
+                  value={password}
+                  error={false}
+                  onChange={onChangePassword} />
+            </div>
             <Button type="primary" size="medium">Войти</Button>
-            <p></p>
-            <p></p>
+            <p className={styles.text}>Вы — новый пользователь?&nbsp;
+               <Link to="/register" className={styles.link}>Зарегистрироваться</Link></p>
+            <p className={styles.text}>Забыли пароль?&nbsp;
+               <Link to="/forgot-password" className={styles.link}>Восстановить пароль</Link></p>
          </form>
       </>
    )
