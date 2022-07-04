@@ -1,6 +1,6 @@
 /* eslint-disable */
 
-import styles from "./index.module.css"
+import styles from "./profile.module.css"
 
 export const Profile = () => {
    return (

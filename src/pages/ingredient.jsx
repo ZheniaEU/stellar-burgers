@@ -1,6 +1,6 @@
 /* eslint-disable */
 
-import styles from "./index.module.css"
+import styles from "./ingredient.module.css"
 
 export const Ingredient = () => {
    return (

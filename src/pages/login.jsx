@@ -4,7 +4,7 @@ import { useState } from "react"
 
 import { Link } from "react-router-dom"
 import { Input, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components"
-import styles from "./index.module.css"
+import styles from "./login.module.css"
 
 export const Login = () => {
 
@@ -24,33 +24,31 @@ export const Login = () => {
    }
 
    return (
-      <>
-         <form className={styles.form} onSubmit={handleSubmit}>
-            <h2 className={styles.title}>Вход</h2>
-            <div className={styles.input}>
-               <Input
-                  type="text"
-                  placeholder="E-mail"
-                  onChange={onChangeForm}
-                  value={form}
-                  name="email"
-                  error={false}
-                  errorText="Введите корректный E-mail"
-               />
-            </div>
-            <div className={styles.input}>
-               <PasswordInput
-                  placeholder="Пароль"
-                  value={password}
-                  error={false}
-                  onChange={onChangePassword} />
-            </div>
-            <Button type="primary" size="medium">Войти</Button>
-            <p className={styles.text}>Вы — новый пользователь?&nbsp;
-               <Link to="/register" className={styles.link}>Зарегистрироваться</Link></p>
-            <p className={styles.text}>Забыли пароль?&nbsp;
-               <Link to="/forgot-password" className={styles.link}>Восстановить пароль</Link></p>
-         </form>
-      </>
+      <form className={styles.form} onSubmit={handleSubmit}>
+         <h2 className={styles.title}>Вход</h2>
+         <div className={styles.input}>
+            <Input
+               type="text"
+               placeholder="E-mail"
+               onChange={onChangeForm}
+               value={form}
+               name="email"
+               error={false}
+               errorText="Введите корректный E-mail"
+            />
+         </div>
+         <div className={styles.input}>
+            <PasswordInput
+               placeholder="Пароль"
+               value={password}
+               error={false}
+               onChange={onChangePassword} />
+         </div>
+         <Button type="primary" size="medium">Войти</Button>
+         <p className={styles.text}>Вы — новый пользователь?&nbsp;
+            <Link to="/register" className={styles.link}>Зарегистрироваться</Link></p>
+         <p className={styles.text}>Забыли пароль?&nbsp;
+            <Link to="/forgot-password" className={styles.link}>Восстановить пароль</Link></p>
+      </form>
    )
 }

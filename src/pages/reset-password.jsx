@@ -1,6 +1,6 @@
 /* eslint-disable */
 
-import styles from "./index.module.css"
+import styles from "./reset-password.module.css"
 
 export const ResetPassword = () => {
    return (

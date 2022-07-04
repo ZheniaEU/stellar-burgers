@@ -1,6 +1,6 @@
 /* eslint-disable */
 
-import styles from "./index.module.css"
+import styles from "./forgot-password.module.css"
 
 export const ForgotPassword = () => {
    return (
