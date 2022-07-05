@@ -5,7 +5,7 @@ import { useState } from "react"
 import { Link } from "react-router-dom"
 import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-components"
 
-import styles from "./forgot-password.module.css"
+import styles from "./index.module.css"
 
 export const ForgotPassword = () => {
    const [form, setForm] = useState("")

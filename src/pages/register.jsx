@@ -5,7 +5,7 @@ import { useState } from "react"
 import { Link } from "react-router-dom"
 import { Input, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components"
 
-import styles from "./register.module.css"
+import styles from "./index.module.css"
 
 export const Register = () => {
    const [form, setForm] = useState("")
@@ -32,7 +32,7 @@ export const Register = () => {
                type="text"
                placeholder="Имя"
                value={form}
-               name="email"
+               name="name"
                error={false}
                errorText="Введите корректное имя"
             />
@@ -40,7 +40,7 @@ export const Register = () => {
          <div className={styles.input}>
             <Input
                onChange={onChangeForm}
-               type="text"
+               type="email"
                placeholder="E-mail"
                value={form}
                name="email"
@@ -50,9 +50,11 @@ export const Register = () => {
          </div>
          <div className={styles.input}>
             <PasswordInput
-               placeholder="Пароль"
                onChange={onChangePassword}
+               type="password"
+               placeholder="Пароль"
                value={password}
+               name="password"
                error={false}
                errorText="Введите корректный E-mail"
             />

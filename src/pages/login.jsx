@@ -4,7 +4,7 @@ import { useState } from "react"
 
 import { Link } from "react-router-dom"
 import { Input, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components"
-import styles from "./login.module.css"
+import styles from "./index.module.css"
 
 export const Login = () => {
 
@@ -40,9 +40,12 @@ export const Login = () => {
          <div className={styles.input}>
             <PasswordInput
                onChange={onChangePassword}
+               type="password"
                placeholder="Пароль"
                value={password}
+               name="password"
                error={false}
+               errorText="Введите корректный пароль"
             />
          </div>
          <Button type="primary" size="medium">Войти</Button>
