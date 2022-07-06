@@ -14,7 +14,7 @@ export const onDemandOrder = async (massId) => {
    return await fetch(`${API_URL}/orders`, {
       method: "POST",
       headers: {
-         "Content-Type": "application/json",
+         "Content-Type": "application/json"
       },
       body: JSON.stringify({
          ingredients: massId
@@ -23,4 +23,17 @@ export const onDemandOrder = async (massId) => {
 
       .then(res => checkResponse(res))
 
+}
+
+export const forgotenPassword = async (email) => {
+   return await fetch(`${API_URL}/password-reset`, {
+      method: "POST",
+      headers: {
+         "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+         "email": email
+      })
+   })
+      .then(res => checkResponse(res))
 }

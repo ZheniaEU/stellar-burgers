@@ -4,23 +4,21 @@ import { useState } from "react"
 
 import { Link } from "react-router-dom"
 import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-components"
-
+import { forgotenPassword } from "../utils/api"
 import styles from "./index.module.css"
 
 export const ForgotPassword = () => {
-   const [form, setForm] = useState("")
-   const [password, setPassword] = useState("")
+   const [email, setEmail] = useState("")
 
    const handleSubmit = (e) => {
       e.preventDefault()
+      forgotenPassword(email)
+      console.log(email)
+      setEmail("")
    }
 
-   const onChangeForm = (e) => {
-      setForm(e.target.value)
-   }
-
-   const onChangePassword = (e) => {
-      setPassword(e.target.value)
+   const onChangeEmail = (e) => {
+      setEmail(e.target.value)
    }
 
    return (
@@ -28,10 +26,10 @@ export const ForgotPassword = () => {
          <h2 className={styles.title}>Восстановление пароля</h2>
          <div className={styles.input}>
             <Input
-               onChange={onChangeForm}
+               onChange={onChangeEmail}
                type="text"
                placeholder="Укажите e-mail"
-               value={form}
+               value={email}
                name="email"
                error={false}
                errorText="Введите корректный E-mail"

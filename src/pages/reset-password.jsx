@@ -23,6 +23,32 @@ export const ResetPassword = () => {
       setPassword(e.target.value)
    }
 
+   // На экране /reset-password пользователь вводит новый пароль и код из почты,
+   //  а после нажимает кнопку «Сохранить». После этого происходит POST-запрос
+   //   к эндпоинту https://norma.nomoreparties.space/api/password-reset/reset.
+
+   // Тело запроса:
+   // {
+   //    "password": "",
+   //       "token": ""
+   // }
+
+   // Тело успешного ответа:
+   // {
+   //    "success": true,
+   //       "message": "Password successfully reset"
+   // }
+
+   // Для реализации этой функциональности потребуется создать пользователя.
+   //  Вы можете сделать это, отправив POST - запрос к эндпоинту:
+   // https://norma.nomoreparties.space/api/auth/register. Пример тела запроса:
+
+   // {
+   //    "email": "test-data@yandex.ru",
+   //       "password": "password",
+   //          "name": "Username"
+   // }
+
    return (
       <form className={styles.form} onSubmit={handleSubmit}>
          <h2 className={styles.title}>Восстановление пароля</h2>
