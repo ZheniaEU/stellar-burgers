@@ -4,19 +4,25 @@ import { useState } from "react"
 
 import { Link } from "react-router-dom"
 import { Input, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components"
-
+import { createUser } from "../utils/api"
 import styles from "./index.module.css"
 
 export const Register = () => {
-   const [form, setForm] = useState("")
+   const [name, setName] = useState("")
+   const [email, setEmail] = useState("")
    const [password, setPassword] = useState("")
 
    const handleSubmit = (e) => {
       e.preventDefault()
+      createUser(name, email, password)
    }
 
-   const onChangeForm = (e) => {
-      setForm(e.target.value)
+   const onChangeName = (e) => {
+      setName(e.target.value)
+   }
+
+   const onChangeEmail = (e) => {
+      setEmail(e.target.value)
    }
 
    const onChangePassword = (e) => {
@@ -28,10 +34,10 @@ export const Register = () => {
          <h2 className={styles.title}>Регистрация</h2>
          <div className={styles.input}>
             <Input
-               onChange={onChangeForm}
+               onChange={onChangeName}
                type="text"
                placeholder="Имя"
-               value={form}
+               value={name}
                name="name"
                error={false}
                errorText="Введите корректное имя"
@@ -39,10 +45,10 @@ export const Register = () => {
          </div>
          <div className={styles.input}>
             <Input
-               onChange={onChangeForm}
+               onChange={onChangeEmail}
                type="email"
                placeholder="E-mail"
-               value={form}
+               value={email}
                name="email"
                error={false}
                errorText="Введите корректный E-mail"

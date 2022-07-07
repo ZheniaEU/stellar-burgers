@@ -28,17 +28,17 @@ export const Profile = () => {
          <nav className={styles.nav}>
             <ul className={styles.ul}>
                <li>
-                  <NavLink to="login" className={`${styles.li} ${styles.active}`}>
+                  <NavLink to="/login" className={`${styles.li} ${styles.active}`}>
                      Профиль
                   </NavLink>
                </li>
                <li>
-                  <NavLink to="login" className={styles.li}>
+                  <NavLink to="/profile/orders" className={styles.li}>
                      История заказов
                   </NavLink>
                </li>
                <li>
-                  <NavLink to="login" className={styles.li}>
+                  <NavLink to="/login" className={styles.li}>
                      Выход
                   </NavLink>
                </li>

@@ -63,19 +63,8 @@ export const resetPassword = async (password, token) => {
    })
 }
 
-/**создание юзера */
-// POST https://norma.nomoreparties.space/api/auth/register - эндпоинт для регистрации пользователя.
-
-//Формат тела запроса регистрации:
-// {
-//    "email": "",
-//    "password": "",
-//    "name": ""
-// }
-
-//!это набросок
-//register
-export const createUser = async (email, password, Username) => {
+//register -работает
+export const createUser = async (userName, email, password) => {
    return await fetch(`${API_URL}/auth/register`, {
       method: "POST",
       headers: {
@@ -84,7 +73,7 @@ export const createUser = async (email, password, Username) => {
       body: JSON.stringify({
          email: email,
          password: password,
-         name: Username
+         name: userName
       })
    })
 }
