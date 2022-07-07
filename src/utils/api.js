@@ -64,18 +64,16 @@ export const resetPassword = async (password, token) => {
 }
 
 /**создание юзера */
+// POST https://norma.nomoreparties.space/api/auth/register - эндпоинт для регистрации пользователя.
 
-// Для реализации этой функциональности потребуется создать пользователя.
-//  Вы можете сделать это, отправив POST - запрос к эндпоинту:
-// https://norma.nomoreparties.space/api/auth/register. Пример тела запроса:
-
+//Формат тела запроса регистрации:
 // {
-//    "email": "test-data@yandex.ru",
-//       "password": "password",
-//          "name": "Username"
+//    "email": "",
+//    "password": "",
+//    "name": ""
 // }
 
-
+//!это набросок
 //register
 export const createUser = async (email, password, Username) => {
    return await fetch(`${API_URL}/auth/register`, {
@@ -90,3 +88,41 @@ export const createUser = async (email, password, Username) => {
       })
    })
 }
+
+// POST https://norma.nomoreparties.space/api/auth/login - эндпоинт для авторизации.
+// POST https://norma.nomoreparties.space/api/auth/token - эндпоинт обновления токена.
+
+
+
+
+
+// POST https://norma.nomoreparties.space/api/auth/logout - эндпоинт для выхода из системы.
+
+// Формат тела запроса для выхода из системы:
+// {
+//    "token": "{{refreshToken}}"
+// }
+
+// Для выхода из системы или обновления токена используется именно refreshToken,
+//  который можно получить после успешной регистрации или авторизации.
+
+//!это набросок
+export const logout = async ({ refreshToken }) => {
+   return await fetch(`${API_URL}/auth/logout`, {
+      method: "POST",
+      headers: {
+         "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+         token: { refreshToken }
+      })
+   })
+}
+
+// Куки
+// Чтобы пользователю не требовалось повторно проходить авторизацию при каждом заходе в приложение,
+// реализуйте механизм хранения и удаления токена в куках.Информация о токене возвращается
+// сервером при прохождении процесса регистрации, авторизации и обновления токена.
+// Для операций с пользователем(обновление токена, выход из системы) используется refreshToken.
+// Храните его в local storage или session storage, или куках.
+// Для работы с данными о пользователе используется token.Про это поговорим в следующем пункте.

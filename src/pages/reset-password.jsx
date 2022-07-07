@@ -13,7 +13,6 @@ export const ResetPassword = () => {
    const handleSubmit = (e) => {
       e.preventDefault()
       resetPassword(password, token)
-      console.log(password, token)
    }
 
    const onChangePassword = (e) => {
