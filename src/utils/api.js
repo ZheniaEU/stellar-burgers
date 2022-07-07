@@ -25,7 +25,7 @@ export const onDemandOrder = async (massId) => {
       .then(res => checkResponse(res))
 }
 
-//востановление пароля
+//pages forgot-password
 export const forgotenPassword = async (email) => {
    return await fetch(`${API_URL}/password-reset`, {
       method: "POST",
@@ -37,4 +37,56 @@ export const forgotenPassword = async (email) => {
       })
    })
       .then(res => checkResponse(res))
+}
+
+// На экране /reset-password пользователь вводит новый пароль и код из почты,
+//  а после нажимает кнопку «Сохранить». После этого происходит POST-запрос
+//   к эндпоинту https://norma.nomoreparties.space/api/password-reset/reset.
+
+// Тело запроса:
+// {
+//    "password": "",
+//       "token": ""
+// }
+
+//pages reset-password
+export const resetPassword = async (password, token) => {
+   return await fetch(`${API_URL}/password-reset/reset`, {
+      method: "POST",
+      headers: {
+         "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+         password: password,
+         token: token
+      })
+   })
+}
+
+/**создание юзера */
+
+// Для реализации этой функциональности потребуется создать пользователя.
+//  Вы можете сделать это, отправив POST - запрос к эндпоинту:
+// https://norma.nomoreparties.space/api/auth/register. Пример тела запроса:
+
+// {
+//    "email": "test-data@yandex.ru",
+//       "password": "password",
+//          "name": "Username"
+// }
+
+
+//register
+export const createUser = async (email, password, Username) => {
+   return await fetch(`${API_URL}/auth/register`, {
+      method: "POST",
+      headers: {
+         "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+         email: email,
+         password: password,
+         name: Username
+      })
+   })
 }

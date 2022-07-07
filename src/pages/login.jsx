@@ -15,7 +15,7 @@ export const Login = () => {
       e.preventDefault()
    }
 
-   const onChangeForm = (e) => {
+   const onChangeEmail = (e) => {
       setForm(e.target.value)
    }
 
@@ -28,7 +28,7 @@ export const Login = () => {
          <h2 className={styles.title}>Вход</h2>
          <div className={styles.input}>
             <Input
-               onChange={onChangeForm}
+               onChange={onChangeEmail}
                type="text"
                placeholder="E-mail"
                value={form}
