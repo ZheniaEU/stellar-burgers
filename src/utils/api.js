@@ -10,6 +10,7 @@ export const getIngredients = async () => {
       .then(res => checkResponse(res))
 }
 
+//получение ингридиентов
 export const onDemandOrder = async (massId) => {
    return await fetch(`${API_URL}/orders`, {
       method: "POST",
@@ -22,9 +23,9 @@ export const onDemandOrder = async (massId) => {
    })
 
       .then(res => checkResponse(res))
-
 }
 
+//востановление пароля
 export const forgotenPassword = async (email) => {
    return await fetch(`${API_URL}/password-reset`, {
       method: "POST",
@@ -32,7 +33,7 @@ export const forgotenPassword = async (email) => {
          "Content-Type": "application/json"
       },
       body: JSON.stringify({
-         "email": email
+         email: email
       })
    })
       .then(res => checkResponse(res))
