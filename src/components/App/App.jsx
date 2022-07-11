@@ -17,7 +17,7 @@ import { Login } from "../../pages/index"
 import { Register } from "../../pages/index"
 import { ForgotPassword } from "../../pages/index"
 import { ResetPassword } from "../../pages/index"
-import {  Ingredient } from "../../pages/index"
+import { Ingredient } from "../../pages/index"
 
 import {
    getData,
@@ -77,30 +77,14 @@ export const App = () => {
                }
             </Route>
 
-            <Route path="/profile" exact={true}>
-               <Profile />
-            </Route>
-
-            <Route path="/login" exact={true}>
-               <Login />
-            </Route>
-
-            <Route path="/register">
-               <Register />
-            </Route>
-
-            <Route path="/forgot-password" exact={true}>
-               <ForgotPassword />
-            </Route>
-
-            <Route path="/reset-password" exact={true}>
-               <ResetPassword />
-            </Route>
-
+            <Route path="/profile" exact={true} children={<Profile />} />
+            <Route path="/login" exact={true} children={<Login />} />
+            <Route path="/register" exact={true} children={<Register />} />
+            <Route path="/forgot-password" exact={true} children={<ForgotPassword />} />
+            <Route path="/reset-password" exact={true} children={<ResetPassword />} />
             <Route path="/ingredient" exact={true}>
                <Ingredient />
             </Route>
-
          </Switch>
          {openInfoModal && (
             <Modal

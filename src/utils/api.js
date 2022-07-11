@@ -1,3 +1,6 @@
+/* eslint-disable */
+import { getCookie } from "./cookie"
+
 const API_URL = "https://norma.nomoreparties.space/api"
 
 const checkResponse = (res) => {
@@ -64,16 +67,16 @@ export const resetPassword = async (password, token) => {
 }
 
 //register -работает
-export const createUser = async (userName, email, password) => {
+export const createUser = async (name, email, password) => {
    return await fetch(`${API_URL}/auth/register`, {
       method: "POST",
       headers: {
          "Content-Type": "application/json"
       },
       body: JSON.stringify({
-         email: email,
-         password: password,
-         name: userName
+         email,
+         password,
+         name
       })
    })
 }
