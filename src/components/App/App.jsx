@@ -66,7 +66,7 @@ export const App = () => {
       <>
          <AppHeader />
          <Switch>
-            <Route path="/" exact={true}>
+            <Route path="/" exact>
                {isLoading ? < Loader /> :
                   <DndProvider backend={HTML5Backend}>
                      <main className={styles.main}>
@@ -77,14 +77,15 @@ export const App = () => {
                }
             </Route>
 
-            <Route path="/profile" exact={true} children={<Profile />} />
-            <Route path="/login" exact={true} children={<Login />} />
-            <Route path="/register" exact={true} children={<Register />} />
-            <Route path="/forgot-password" exact={true} children={<ForgotPassword />} />
-            <Route path="/reset-password" exact={true} children={<ResetPassword />} />
-            <Route path="/ingredient" exact={true}>
+            <Route path="/profile" exact component={Profile} />
+            <Route path="/login" exact component={Login} />
+            <Route path="/register" exact component={Register} />
+            <Route path="/forgot-password" exact component={ForgotPassword} />
+            <Route path="/reset-password" exact component={ResetPassword} />
+            <Route path="/ingredient" exact>
                <Ingredient />
             </Route>
+
          </Switch>
          {openInfoModal && (
             <Modal
