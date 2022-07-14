@@ -4,7 +4,8 @@ import { Link } from "react-router-dom"
 import { Input, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components"
 import { } from "../utils/api";
 import { useDispatch } from "react-redux";
-import { LOGIN_USER } from "../services/reducers/auth";
+import { LOGIN_USER, LOGIN_USER_ERROR } from "../services/reducers/auth";
+import { setCookie } from "../utils/cookie";
 import styles from "./index.module.css"
 
 const API_URL = "https://norma.nomoreparties.space/api"
@@ -19,27 +20,7 @@ export const Login = () => {
    const [email, setEmail] = useState("")
    const [password, setPassword] = useState("")
 
-   dispatch = useDispatch()
-
-   // const getData = () => {
-   //    return (dispatch) => {
-   //       dispatch(getIngredientsRequest())
-   //       getIngredients()
-   //          .then(res => {
-   //             if (res.success) {
-   //                dispatch(getIngredientsSuccess(res.data))
-   //             } else {
-   //                dispatch(getIngredientsFailed())
-   //             }
-   //          })
-   //          .catch(err => {
-   //             dispatch(getIngredientsFailed())
-   //             console.log(`Обнаружено жжение в нижней части таза ${err}`)
-   //          })
-   //    }
-   // }
-
-   //success: true
+   const dispatch = useDispatch()
 
    const loginin = async (email, password) => {
       return await fetch(`${API_URL}/auth/login`, {
@@ -53,6 +34,26 @@ export const Login = () => {
          })
       })
          .then(res => checkResponse(res))
+         .then(res => {
+            if (res.success) {
+               setCookie("accessToken", res.accessToken)
+               setCookie("refreshToken", res.refreshToken)
+               dispatch({
+                  type: LOGIN_USER,
+                  user: res.user
+               })
+            }
+         })
+         .catch(err => {
+            dispatch(loginFailed())
+            console.log(`Обнаружено жжение в нижней части таза ${err}`)
+         })
+   }
+
+   const loginFailed = () => {
+      return {
+         type: LOGIN_USER_ERROR
+      }
    }
 
    const handleSubmit = (e) => {

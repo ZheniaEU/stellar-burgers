@@ -1,15 +1,15 @@
 export const CREATE_USER = "CREATE_USER"
 export const LOGIN_USER = "LOGIN_USER"
+export const LOGIN_USER_ERROR = "LOGIN_USER_ERROR"
 export const LOGOUT_USER = "DELETE_USER"
 export const GET_NEW_PASSWORD = "GET_NEW_PASSWORD"
+
 
 const initialStateAuth = {
    user: {
       userName: "",
       userEmail: ""
    },
-//   token: "",
-//   refreshToken: "",
    isAuth: false,
    createUserError: false,
    passwordResetError: false,
@@ -36,6 +36,11 @@ export const authReducer = (state = initialStateAuth, action) => {
                userEmail: action.user.email
             },
             isAuth: true
+         }
+      } case LOGIN_USER_ERROR: {
+         return {
+            ...state,
+            isAuth: false
          }
       }
       case LOGOUT_USER: {
