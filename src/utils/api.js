@@ -1,5 +1,5 @@
 /* eslint-disable */
-import { getCookie } from "./cookie"
+import { getCookie, setCookie, deleteCookie } from "./cookie"
 
 const API_URL = "https://norma.nomoreparties.space/api"
 
@@ -24,7 +24,6 @@ export const onDemandOrder = async (massId) => {
          ingredients: massId
       })
    })
-
       .then(res => checkResponse(res))
 }
 
@@ -118,3 +117,35 @@ export const logout = async ({ refreshToken }) => {
 // Для операций с пользователем(обновление токена, выход из системы) используется refreshToken.
 // Храните его в local storage или session storage, или куках.
 // Для работы с данными о пользователе используется token.Про это поговорим в следующем пункте.
+
+
+//!это наш логин и логаут из тренажёра
+const signIn = async form => {
+   const data = await loginRequest(form)
+      .then(res => {
+         let authToken;
+         res.headers.forEach(header => {
+            if (header.indexOf('Bearer') === 0) {
+               authToken = header.split('Bearer ')[1];
+            }
+         });
+         if (authToken) {
+            setCookie('token', authToken);
+         }
+         return res.json();
+      })
+      .then(data => data);
+
+   if (data.success) {
+      setUser({ ...data.user, id: data.user._id });
+   }
+};
+
+const signOut = async () => {
+   // Отправляем запрос на сервер
+   await logoutRequest();
+   // Удаляем пользователя из хранилища
+   setUser(null);
+   // Удаляем куку token
+   deleteCookie('token');
+};

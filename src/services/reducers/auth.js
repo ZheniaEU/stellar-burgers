@@ -6,20 +6,22 @@ export const GET_NEW_PASSWORD = "GET_NEW_PASSWORD"
 const initialStateAuth = {
    user: {
       userName: "",
-      userEmail: "",
-      userPassword: "",
+      userEmail: ""
    },
-   token: "",
-   refreshToken: "",
+//   token: "",
+//   refreshToken: "",
    isAuth: false,
    createUserError: false,
    passwordResetError: false,
-   sendMailError: false,
+   emailError: false,
    loginError: false
 }
 
 export const authReducer = (state = initialStateAuth, action) => {
    switch (action.type) {
+
+      //? хм нам нужен экшен на крейт юзер? мне кажется мне
+      //? нужен только редирект на главную
       case CREATE_USER: {
          return {
             ...state,
@@ -29,7 +31,11 @@ export const authReducer = (state = initialStateAuth, action) => {
       case LOGIN_USER: {
          return {
             ...state,
-            bun: action.data
+            user: {
+               userName: action.user.name,
+               userEmail: action.user.email
+            },
+            isAuth: true
          }
       }
       case LOGOUT_USER: {
