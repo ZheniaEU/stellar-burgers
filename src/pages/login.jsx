@@ -3,7 +3,7 @@ import { useState } from "react"
 import { Link } from "react-router-dom"
 import { Input, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components"
 import { } from "../utils/api";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { LOGIN_USER, LOGIN_USER_ERROR } from "../services/reducers/auth";
 import { setCookie } from "../utils/cookie";
 import styles from "./index.module.css"
@@ -21,6 +21,7 @@ export const Login = () => {
    const [password, setPassword] = useState("")
 
    const dispatch = useDispatch()
+   const { isAuth, user } = useSelector(state => state.auth)
 
    const loginin = async (email, password) => {
       return await fetch(`${API_URL}/auth/login`, {
