@@ -47,9 +47,7 @@ const loginFailed = () => {
 
 export const logoutUser = () => {
    return (dispatch) => {
-      console.log("работаем1")
-      let t = getCookie("refreshToken")
-      logout(t)
+      logout(getCookie("refreshToken"))
          .then(res => {
             if (res.success) {
                deleteCookie("accessToken")
@@ -57,7 +55,6 @@ export const logoutUser = () => {
                dispatch({
                   type: LOGOUT_USER
                })
-               console.log("работаем2")
             }
          })
       // .catch(err => {

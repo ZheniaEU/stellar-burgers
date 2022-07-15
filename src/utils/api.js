@@ -97,28 +97,17 @@ export const login = async (email, password) => {
       .then(res => checkResponse(res))
 }
 
-
-// POST https://norma.nomoreparties.space/api/auth/logout - эндпоинт для выхода из системы.
-
-// Формат тела запроса для выхода из системы:
-// {
-//    "token": "{{refreshToken}}"
-// }
-
-// Для выхода из системы или обновления токена используется именно refreshToken,
-//  который можно получить после успешной регистрации или авторизации.
-
-//!это набросок
-export const logout = async ({ refreshToken }) => {
+export const logout = async (refreshToken) => {
    return await fetch(`${API_URL}/auth/logout`, {
       method: "POST",
       headers: {
          "Content-Type": "application/json"
       },
       body: JSON.stringify({
-         token: { refreshToken }
+         token: refreshToken
       })
    })
+      .then(res => checkResponse(res))
 }
 
 // Куки
@@ -128,35 +117,3 @@ export const logout = async ({ refreshToken }) => {
 // Для операций с пользователем(обновление токена, выход из системы) используется refreshToken.
 // Храните его в local storage или session storage, или куках.
 // Для работы с данными о пользователе используется token.Про это поговорим в следующем пункте.
-
-
-//!это наш логин и логаут из тренажёра
-const signIn = async form => {
-   const data = await loginRequest(form)
-      .then(res => {
-         let authToken;
-         res.headers.forEach(header => {
-            if (header.indexOf('Bearer') === 0) {
-               authToken = header.split('Bearer ')[1];
-            }
-         });
-         if (authToken) {
-            setCookie('token', authToken);
-         }
-         return res.json();
-      })
-      .then(data => data);
-
-   if (data.success) {
-      setUser({ ...data.user, id: data.user._id });
-   }
-};
-
-const signOut = async () => {
-   // Отправляем запрос на сервер
-   await logoutRequest();
-   // Удаляем пользователя из хранилища
-   setUser(null);
-   // Удаляем куку token
-   deleteCookie('token');
-};
