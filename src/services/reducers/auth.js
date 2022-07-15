@@ -1,9 +1,8 @@
+import { LOGIN_USER, LOGIN_USER_ERROR, LOGIN_R } from "../actions/auth"
+
 export const CREATE_USER = "CREATE_USER"
-export const LOGIN_USER = "LOGIN_USER"
-export const LOGIN_USER_ERROR = "LOGIN_USER_ERROR"
 export const LOGOUT_USER = "DELETE_USER"
 export const GET_NEW_PASSWORD = "GET_NEW_PASSWORD"
-
 
 const initialStateAuth = {
    user: {
@@ -47,6 +46,12 @@ export const authReducer = (state = initialStateAuth, action) => {
          return {
             ...state,
             bun: action.data
+         }
+      }
+      case LOGIN_R: {
+         return {
+            ...state,
+            isAuth: false
          }
       }
       default:

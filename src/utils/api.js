@@ -83,8 +83,19 @@ export const createUser = async (name, email, password) => {
 // POST https://norma.nomoreparties.space/api/auth/login - эндпоинт для авторизации.
 // POST https://norma.nomoreparties.space/api/auth/token - эндпоинт обновления токена.
 
-
-
+export const login = async (email, password) => {
+   return await fetch(`${API_URL}/auth/login`, {
+      method: "POST",
+      headers: {
+         "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+         email,
+         password,
+      })
+   })
+      .then(res => checkResponse(res))
+}
 
 
 // POST https://norma.nomoreparties.space/api/auth/logout - эндпоинт для выхода из системы.
