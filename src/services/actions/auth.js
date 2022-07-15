@@ -1,20 +1,16 @@
 /* eslint-disable */
 import { setCookie, getCookie, deleteCookie } from "../../utils/cookie"
-import { login } from "../../utils/api"
+import { login, logout } from "../../utils/api"
 
 import {
    CREATE_USER,
-   LOGOUT_USER,
    GET_NEW_PASSWORD
 } from "../reducers/auth"
 
 export const LOGIN_USER = "LOGIN_USER"
 export const LOGIN_USER_ERROR = "LOGIN_USER_ERROR"
 export const LOGIN_R = "LOGIN_USER_ERROR"
-
-//!реализовать редирект при логине на главную
-//!реальзовать разлогин
-//!расчухать почему не чистится useState
+export const LOGOUT_USER = "LOGOUT_USER"
 
 export const loginUser = (email, password) => {
    return (dispatch) => {
@@ -48,3 +44,25 @@ const loginFailed = () => {
 //       type: LOGIN_R
 //    }
 // }
+
+export const logoutUser = () => {
+   return (dispatch) => {
+      console.log("работаем1")
+      let t = getCookie("refreshToken")
+      logout(t)
+         .then(res => {
+            if (res.success) {
+               deleteCookie("accessToken")
+               deleteCookie("refreshToken")
+               dispatch({
+                  type: LOGOUT_USER
+               })
+               console.log("работаем2")
+            }
+         })
+      // .catch(err => {
+      //    dispatch(loginFailed())
+      //    console.log(`Ошибка при логауте ${err}`)
+      // })
+   }
+}

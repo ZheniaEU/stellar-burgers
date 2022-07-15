@@ -4,10 +4,61 @@ import { useState } from "react"
 
 import { Link, NavLink } from "react-router-dom"
 import { Input, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components"
-
+import { logoutUser } from "../services/actions/auth"
+import { useDispatch, useSelector } from "react-redux"
 import styles from "./profile.module.css"
 
 export const Profile = () => {
+
+   return (
+      <>
+         <ProfileMenu />
+         < ProfileForm />
+      </>
+   )
+}
+
+export const ProfileMenu = () => {
+
+   const dispath = useDispatch()
+   const { isAuth, user } = useSelector(state => state.auth)
+
+   const logoutUserOnPageProfile = () => {
+      dispath(logoutUser())
+   }
+
+   return (
+      <>
+         <nav className={styles.nav}>
+            <ul className={styles.ul}>
+               <li>
+                  <Link to="/login" className={`${styles.li} ${styles.active}`}>
+                     Профиль
+                  </Link>
+               </li>
+               <li>
+                  <Link to="/profile/orders" className={styles.li}>
+                     История заказов
+                  </Link>
+               </li>
+               <li>
+                  {/* to="/login" */}
+                  <button className={styles.li}
+                     onClick={logoutUserOnPageProfile}
+                  >
+                     Выход
+                  </button>
+               </li>
+            </ul>
+            <p className={styles.text}>В этом разделе вы можете
+               изменить свои персональные данные</p>
+         </nav>
+      </>
+   )
+}
+
+export const ProfileForm = () => {
+
    const [form, setForm] = useState("")
    const [password, setPassword] = useState("")
 
@@ -22,31 +73,8 @@ export const Profile = () => {
    const onChangePassword = (e) => {
       setPassword(e.target.value)
    }
-
    return (
       <>
-         <nav className={styles.nav}>
-            <ul className={styles.ul}>
-               <li>
-                  <NavLink to="/login" className={`${styles.li} ${styles.active}`}>
-                     Профиль
-                  </NavLink>
-               </li>
-               <li>
-                  <NavLink to="/profile/orders" className={styles.li}>
-                     История заказов
-                  </NavLink>
-               </li>
-               <li>
-                  <NavLink to="/login" className={styles.li}>
-                     Выход
-                  </NavLink>
-               </li>
-            </ul>
-            <p className={styles.text}>В этом разделе вы можете
-               изменить свои персональные данные</p>
-         </nav>
-
          <form className={styles.form} onSubmit={handleSubmit}>
             <div className={styles.input}>
                <Input

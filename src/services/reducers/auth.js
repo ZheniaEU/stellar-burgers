@@ -1,7 +1,6 @@
-import { LOGIN_USER, LOGIN_USER_ERROR, LOGIN_R } from "../actions/auth"
+import { LOGIN_USER, LOGIN_USER_ERROR, LOGOUT_USER, LOGIN_R } from "../actions/auth"
 
 export const CREATE_USER = "CREATE_USER"
-export const LOGOUT_USER = "DELETE_USER"
 export const GET_NEW_PASSWORD = "GET_NEW_PASSWORD"
 
 const initialStateAuth = {
@@ -36,7 +35,8 @@ export const authReducer = (state = initialStateAuth, action) => {
             },
             isAuth: true
          }
-      } case LOGIN_USER_ERROR: {
+      }
+      case LOGIN_USER_ERROR: {
          return {
             ...state,
             isAuth: false
@@ -45,7 +45,11 @@ export const authReducer = (state = initialStateAuth, action) => {
       case LOGOUT_USER: {
          return {
             ...state,
-            bun: action.data
+            user: {
+               userName: "",
+               userEmail: ""
+            },
+            isAuth: false
          }
       }
       case LOGIN_R: {

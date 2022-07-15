@@ -1,6 +1,6 @@
 /* eslint-disable */
 import { useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, Redirect } from "react-router-dom"
 import { Input, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components"
 import { loginUser } from "../services/actions/auth"
 import { useDispatch, useSelector } from "react-redux"
@@ -17,17 +17,8 @@ export const Login = () => {
    const handleSubmit = (e) => {
       e.preventDefault()
       dispatch(loginUser(email, password))
-      //?да за шо? за шо такое? почему не очищается?
-      // setTimeout(() => {
-      //    setEmail("")
-      //    setPassword("")
-      //    console.log("должно почиститься")
-      // }, 1000)
-
-
-      // setTimeout(() => {
-      //    console.log(email, password)
-      // }, 5000)
+         setEmail("")
+         setPassword("")
    }
 
    const onChangeEmail = (e) => {
@@ -36,6 +27,16 @@ export const Login = () => {
 
    const onChangePassword = (e) => {
       setPassword(e.target.value)
+   }
+
+   if (isAuth) {
+      return (
+         <Redirect
+            to={{
+               pathname: '/'
+            }}
+         />
+      )
    }
 
    return (
