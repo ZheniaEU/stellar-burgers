@@ -18,7 +18,7 @@ export const loginUser = (email, password) => {
       login(email, password)
          .then(res => {
             if (res.success) {
-               setCookie("accessToken", res.accessToken.split("Bearer ")[1], { expires: 600000 })
+               setCookie("accessToken", res.accessToken.split("Bearer ")[1])
                setCookie("refreshToken", res.refreshToken)
                dispatch({
                   type: LOGIN_USER,
@@ -62,4 +62,65 @@ export const logoutUser = () => {
       //    console.log(`Ошибка при логауте ${err}`)
       // })
    }
+}
+
+//!задание номер 5
+const API_URL = "https://norma.nomoreparties.space/api"
+
+const checkResponse = (res) => {
+   return res.ok ? res.json() : res.json().then((err) =>
+      Promise.reject(`Почему я это вижу? : ${err}`))
+}
+export const аuthenticationUser = () => {
+   return (dispatch) => {
+      console.log("1")
+      getUser(getCookie("accessToken"))
+         .then(res => {
+            console.log("2")
+            if (res.success) {
+               dispatch({
+                  type: LOGIN_USER,
+                  user: res.user
+               })
+               reRequestUser(getCookie("refreshToken"))
+                  .then(res => {
+                     if (res.success) {
+                        console.log("5")
+                        setCookie("accessToken", res.accessToken.split("Bearer ")[1])
+                        setCookie("refreshToken", res.refreshToken)
+                     }
+                  })
+
+            }
+         })
+   }
+}
+
+
+
+//GET`${API_URL}/auth/user` - эндпоинт получения данных о пользователе.
+export const getUser = async (accessToken) => {
+   return await fetch(`${API_URL}/auth/user`, {
+      method: "GET",
+      headers: {
+         "Content-Type": "application/json",
+         Authorization: "Bearer " + accessToken
+      }
+   })
+      .then(res => checkResponse(res))
+}
+
+//   PATCH`${API_URL}/auth/user` - эндпоинт обновления данных о пользователе.
+export const reRequestUser = async (accessToken) => {
+   return await fetch(`${API_URL}/auth/user`, {
+      method: "PATCH",
+      headers: {
+         "Content-Type": "application/json",
+         Authorization: "Bearer " + accessToken
+      },
+      body: JSON.stringify({
+         token: accessToken
+      })
+   })
+      .then(res => checkResponse(res))
 }

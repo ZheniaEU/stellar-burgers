@@ -97,8 +97,10 @@ export const logout = async (refreshToken) => {
       .then(res => checkResponse(res))
 }
 
-// POST https://norma.nomoreparties.space/api/auth/token - эндпоинт обновления токена.
 
+//Если токен просрочился и данные о пользователе нельзя получить или обновить,
+// то используйте маршрут /auth/token и отправляйте
+// на него второй токен — refreshToken для получения нового accessToken
 //? ну и что мне с ним делать?
 export const refreshToken = async (refreshToken) => {
    return await fetch(`${API_URL}/auth/token`, {
@@ -112,3 +114,5 @@ export const refreshToken = async (refreshToken) => {
    })
       .then(res => checkResponse(res))
 }
+
+

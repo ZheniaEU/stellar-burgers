@@ -4,26 +4,25 @@ import { useState, useEffect } from "react"
 import { AppHeader } from "../AppHeader/AppHeader"
 import { BurgerIngredients } from "../BurgerIngredients/BurgerIngredients"
 import { BurgerConstructor } from "../BurgerConstructor/BurgerConstructor"
-import { Modal } from "../Modal/Modal"
 import { IngredientDetails } from "../IngredientDetails/IngredientDetails"
+import { Modal } from "../Modal/Modal"
 import { OrderDetals } from "../OrderDetails/OrderDetals"
-import styles from "./App.module.css"
 import { useSelector, useDispatch } from "react-redux"
 import { DndProvider } from "react-dnd"
 import { HTML5Backend } from "react-dnd-html5-backend"
+import { ProtectedRoute } from "../ProtectedRoute/ProtectedRoute"
 import { Loader } from "../Loader/Loader"
-import { Profile } from "../../pages/index"
-import { Login } from "../../pages/index"
-import { Register } from "../../pages/index"
-import { ForgotPassword } from "../../pages/index"
-import { ResetPassword } from "../../pages/index"
-import { Ingredient } from "../../pages/index"
-
+import { getData, DELETE_ORDER, RESET_ITEMS } from "../../services/actions/index"
+import { аuthenticationUser } from "../../services/actions/auth"
 import {
-   getData,
-   DELETE_ORDER,
-   RESET_ITEMS
-} from "../../services/actions/index"
+   Profile,
+   Login,
+   Register,
+   ForgotPassword,
+   ResetPassword,
+   Ingredient
+} from "../../pages/index"
+import styles from "./App.module.css"
 
 export const App = () => {
 
@@ -32,6 +31,7 @@ export const App = () => {
 
    useEffect(() => {
       dispatch(getData())
+      dispatch(аuthenticationUser())
    }, [dispatch])
 
    //состояния
@@ -77,11 +77,18 @@ export const App = () => {
                }
             </Route>
 
+            {/* !не авторизованый пользователь */}
+            {/* <ProtectedRoute></ProtectedRoute> */}
             <Route path="/profile" exact component={Profile} />
+
+            {/* авторизованый пользователь */}
+            {/* <ProtectedRoute></ProtectedRoute> */}
             <Route path="/login" exact component={Login} />
             <Route path="/register" exact component={Register} />
             <Route path="/forgot-password" exact component={ForgotPassword} />
             <Route path="/reset-password" exact component={ResetPassword} />
+
+
             <Route path="/ingredient" exact>
                <Ingredient />
             </Route>
