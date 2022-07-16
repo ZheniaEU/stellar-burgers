@@ -20,7 +20,8 @@ import {
    Register,
    ForgotPassword,
    ResetPassword,
-   Ingredient
+   Ingredient,
+   Error404
 } from "../../pages/index"
 import styles from "./App.module.css"
 
@@ -92,7 +93,9 @@ export const App = () => {
             <Route path="/ingredient" exact>
                <Ingredient />
             </Route>
-
+            <Route>
+               <Error404 />
+            </Route>
          </Switch>
          {openInfoModal && (
             <Modal

@@ -4,6 +4,6 @@ import { Register } from "./register"
 import { ForgotPassword } from "./forgot-password"
 import { ResetPassword } from "./reset-password"
 import { Ingredient } from "./ingredient"
+import { Error404 } from "./error404"
 
-
-export { Login, Profile, Register, ForgotPassword, ResetPassword, Ingredient }
+export { Login, Profile, Register, ForgotPassword, ResetPassword, Ingredient, Error404 }

@@ -5,7 +5,7 @@ const API_URL = "https://norma.nomoreparties.space/api"
 
 const checkResponse = (res) => {
    return res.ok ? res.json() : res.json().then((err) =>
-      Promise.reject(`Папаша у нас проблемы на сервере : ${err}`))
+      Promise.reject(`У нас проблемы с ответом или я накосячил где-то в логике : ${err}`))
 }
 
 export const getIngredients = async () => {
@@ -116,3 +116,14 @@ export const refreshToken = async (refreshToken) => {
 }
 
 
+//GET`${API_URL}/auth/user` - эндпоинт получения данных о пользователе.
+export const getUser = async (accessToken) => {
+   return await fetch(`${API_URL}/auth/user`, {
+      method: "GET",
+      headers: {
+         "Content-Type": "application/json",
+         Authorization: "Bearer " + accessToken
+      }
+   })
+      .then(res => checkResponse(res))
+}

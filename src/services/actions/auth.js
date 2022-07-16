@@ -1,6 +1,6 @@
 /* eslint-disable */
 import { setCookie, getCookie, deleteCookie } from "../../utils/cookie"
-import { login, logout } from "../../utils/api"
+import { login, logout, getUser } from "../../utils/api"
 
 import {
    CREATE_USER,
@@ -71,47 +71,31 @@ const checkResponse = (res) => {
    return res.ok ? res.json() : res.json().then((err) =>
       Promise.reject(`Почему я это вижу? : ${err}`))
 }
+
+//аутентификация юзера при посещении сайта или при перезагрузки его
 export const аuthenticationUser = () => {
    return (dispatch) => {
-      console.log("1")
-      getUser(getCookie("accessToken"))
-         .then(res => {
-            console.log("2")
-            if (res.success) {
-               dispatch({
-                  type: LOGIN_USER,
-                  user: res.user
-               })
-               reRequestUser(getCookie("refreshToken"))
-                  .then(res => {
-                     if (res.success) {
-                        console.log("5")
-                        setCookie("accessToken", res.accessToken.split("Bearer ")[1])
-                        setCookie("refreshToken", res.refreshToken)
-                     }
+      if (getCookie("accessToken") !== undefined) {
+         getUser(getCookie("accessToken"))
+            .then(res => {
+               if (res.success) {
+                  dispatch({
+                     type: LOGIN_USER,
+                     user: res.user
                   })
-
-            }
-         })
+               }
+            })
+            .catch(err => {
+               dispatch(loginFailed())
+               console.log(`Ошибка авторизации пользователя ${err}`)
+            })
+         //вроде по идеи если токен протух его нужно отрефрешить стоит ли его тут рефрешить?
+      }
    }
 }
 
-
-
-//GET`${API_URL}/auth/user` - эндпоинт получения данных о пользователе.
-export const getUser = async (accessToken) => {
-   return await fetch(`${API_URL}/auth/user`, {
-      method: "GET",
-      headers: {
-         "Content-Type": "application/json",
-         Authorization: "Bearer " + accessToken
-      }
-   })
-      .then(res => checkResponse(res))
-}
-
 //   PATCH`${API_URL}/auth/user` - эндпоинт обновления данных о пользователе.
-export const reRequestUser = async (accessToken) => {
+export const updateUser = async (accessToken) => {
    return await fetch(`${API_URL}/auth/user`, {
       method: "PATCH",
       headers: {

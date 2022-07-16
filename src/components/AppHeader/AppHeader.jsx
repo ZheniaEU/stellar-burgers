@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
 import { Logo, BurgerIcon, ListIcon, ProfileIcon, } from "@ya.praktikum/react-developer-burger-ui-components"
-import { useSelector } from "react-redux";
+import { useSelector } from "react-redux"
 import styles from "./AppHeader.module.css"
 
 export const AppHeader = () => {
@@ -22,15 +22,15 @@ export const AppHeader = () => {
                      <p className={` ${styles.p} `}>Лента заказов</p>
                   </Link>
                </li>
-               <Link to="/">
+               <Link to="/login">
                   <Logo />
                </Link>
                <li className={styles.li}>
                   <Link to="/profile" className={styles.a}>
                      <ProfileIcon type="secondary" text="Личный кабинет" />
-                     {isAuth ? (
-                        <p className={` ${styles.p} `}>{user.userName}</p>)
-                        : (<p className={` ${styles.p} `}>Личный кабинет</p>)
+                     {isAuth ?
+                        <p className={` ${styles.p} `}>{user.userName}</p>
+                        : <p className={` ${styles.p} `}>Личный кабинет</p>
                      }
                   </Link>
                </li>
