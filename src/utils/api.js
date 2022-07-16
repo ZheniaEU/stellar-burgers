@@ -35,21 +35,11 @@ export const forgotenPassword = async (email) => {
          "Content-Type": "application/json"
       },
       body: JSON.stringify({
-         email: email
+         email,
       })
    })
       .then(res => checkResponse(res))
 }
-
-// На экране /reset-password пользователь вводит новый пароль и код из почты,
-//  а после нажимает кнопку «Сохранить». После этого происходит POST-запрос
-//   к эндпоинту https://norma.nomoreparties.space/api/password-reset/reset.
-
-// Тело запроса:
-// {
-//    "password": "",
-//       "token": ""
-// }
 
 //pages reset-password
 export const resetPassword = async (password, token) => {
@@ -59,8 +49,8 @@ export const resetPassword = async (password, token) => {
          "Content-Type": "application/json"
       },
       body: JSON.stringify({
-         password: password,
-         token: token
+         password,
+         token,
       })
    })
 }
@@ -79,9 +69,6 @@ export const createUser = async (name, email, password) => {
       })
    })
 }
-
-// POST https://norma.nomoreparties.space/api/auth/login - эндпоинт для авторизации.
-// POST https://norma.nomoreparties.space/api/auth/token - эндпоинт обновления токена.
 
 export const login = async (email, password) => {
    return await fetch(`${API_URL}/auth/login`, {
@@ -110,10 +97,18 @@ export const logout = async (refreshToken) => {
       .then(res => checkResponse(res))
 }
 
-// Куки
-// Чтобы пользователю не требовалось повторно проходить авторизацию при каждом заходе в приложение,
-// реализуйте механизм хранения и удаления токена в куках.Информация о токене возвращается
-// сервером при прохождении процесса регистрации, авторизации и обновления токена.
-// Для операций с пользователем(обновление токена, выход из системы) используется refreshToken.
-// Храните его в local storage или session storage, или куках.
-// Для работы с данными о пользователе используется token.Про это поговорим в следующем пункте.
+// POST https://norma.nomoreparties.space/api/auth/token - эндпоинт обновления токена.
+
+//? ну и что мне с ним делать?
+export const refreshToken = async (refreshToken) => {
+   return await fetch(`${API_URL}/auth/token`, {
+      method: "POST",
+      headers: {
+         "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+         token: refreshToken
+      })
+   })
+      .then(res => checkResponse(res))
+}

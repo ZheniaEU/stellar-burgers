@@ -18,7 +18,7 @@ export const loginUser = (email, password) => {
       login(email, password)
          .then(res => {
             if (res.success) {
-               setCookie("accessToken", res.accessToken)
+               setCookie("accessToken", res.accessToken.split("Bearer ")[1], { expires: 600000 })
                setCookie("refreshToken", res.refreshToken)
                dispatch({
                   type: LOGIN_USER,
