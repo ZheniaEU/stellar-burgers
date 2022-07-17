@@ -108,3 +108,4 @@ export const updateUser = async (accessToken) => {
    })
       .then(res => checkResponse(res))
 }
+

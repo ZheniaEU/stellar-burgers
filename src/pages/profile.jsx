@@ -6,6 +6,8 @@ import { Link, NavLink } from "react-router-dom"
 import { Input, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components"
 import { logoutUser } from "../services/actions/auth"
 import { useDispatch, useSelector } from "react-redux"
+
+import { updateUser } from "../services/actions/auth"
 import styles from "./profile.module.css"
 
 export const Profile = () => {
@@ -59,30 +61,36 @@ export const ProfileMenu = () => {
 
 export const ProfileForm = () => {
 
-   const [form, setForm] = useState("")
+   const [name, setForm] = useState("")
+   const [email, setEmail] = useState("")
    const [password, setPassword] = useState("")
 
    const handleSubmit = (e) => {
       e.preventDefault()
    }
 
-   const onChangeForm = (e) => {
+   const onChangeName = (e) => {
       setForm(e.target.value)
+   }
+
+   const onChangeEmail = (e) => {
+      setPassword(e.target.value)
    }
 
    const onChangePassword = (e) => {
       setPassword(e.target.value)
    }
+
    return (
       <>
          <form className={styles.form} onSubmit={handleSubmit}>
             <div className={styles.input}>
                <Input
-                  onChange={onChangeForm}
+                  onChange={onChangeName}
                   type="text"
                   placeholder="Имя"
-                  value={form}
-                  name="email"
+                  value={name}
+                  name="name"
                   error={false}
                   errorText="Введите корректное имя"
                   icon="EditIcon"
@@ -90,7 +98,7 @@ export const ProfileForm = () => {
             </div>
             <div className={styles.input}>
                <Input
-                  onChange={onChangeForm}
+                  onChange={onChangeEmail}
                   type="email"
                   placeholder="E-mail"
                   value={form}
@@ -110,9 +118,10 @@ export const ProfileForm = () => {
                   errorText="Введите корректный пароль"
                />
             </div>
-            {/* <Button type="primary" size="medium">Зарегистрироваться</Button> */}
-            {/* <p className={styles.text}>Уже зарегистрированы?&nbsp;
-               <Link to="/login" className={styles.link}>Войти</Link></p> */}
+            <div className={styles.buttons}>
+               <Button type="secondary" size="medium">Отмена</Button>
+               <Button disabled={password.length < 6} type="primary" size="medium">Сохранить</Button>
+            </div>
          </form>
       </>
    )
