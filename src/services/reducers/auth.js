@@ -1,4 +1,4 @@
-import { LOGIN_USER, LOGIN_USER_ERROR, LOGOUT_USER, LOGIN_R } from "../actions/auth"
+import { LOGIN_USER, LOGIN_USER_ERROR, LOGOUT_USER, UPDATE_USER, LOGIN_R } from "../actions/auth"
 
 export const CREATE_USER = "CREATE_USER"
 export const GET_NEW_PASSWORD = "GET_NEW_PASSWORD"
@@ -50,6 +50,16 @@ export const authReducer = (state = initialStateAuth, action) => {
                userEmail: ""
             },
             isAuth: false
+         }
+      }
+      case UPDATE_USER: {
+         return {
+            ...state,
+            user: {
+               userName: action.user.name,
+               userEmail: action.user.email
+            },
+            isAuth: true
          }
       }
       case LOGIN_R: {

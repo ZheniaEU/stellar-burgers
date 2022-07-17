@@ -13,7 +13,6 @@ export const getIngredients = async () => {
       .then(res => checkResponse(res))
 }
 
-//получение ингридиентов
 export const onDemandOrder = async (massId) => {
    return await fetch(`${API_URL}/orders`, {
       method: "POST",
@@ -27,7 +26,6 @@ export const onDemandOrder = async (massId) => {
       .then(res => checkResponse(res))
 }
 
-//pages forgot-password
 export const forgotenPassword = async (email) => {
    return await fetch(`${API_URL}/password-reset`, {
       method: "POST",
@@ -41,7 +39,6 @@ export const forgotenPassword = async (email) => {
       .then(res => checkResponse(res))
 }
 
-//pages reset-password
 export const resetPassword = async (password, token) => {
    return await fetch(`${API_URL}/password-reset/reset`, {
       method: "POST",
@@ -55,7 +52,6 @@ export const resetPassword = async (password, token) => {
    })
 }
 
-//register -работает
 export const createUser = async (name, email, password) => {
    return await fetch(`${API_URL}/auth/register`, {
       method: "POST",
@@ -97,10 +93,6 @@ export const logout = async (refreshToken) => {
       .then(res => checkResponse(res))
 }
 
-
-//Если токен просрочился и данные о пользователе нельзя получить или обновить,
-// то используйте маршрут /auth/token и отправляйте
-// на него второй токен — refreshToken для получения нового accessToken
 //? ну и что мне с ним делать?
 export const refreshToken = async (refreshToken) => {
    return await fetch(`${API_URL}/auth/token`, {
@@ -115,7 +107,6 @@ export const refreshToken = async (refreshToken) => {
       .then(res => checkResponse(res))
 }
 
-
 //GET`${API_URL}/auth/user` - эндпоинт получения данных о пользователе.
 export const getUser = async (accessToken) => {
    return await fetch(`${API_URL}/auth/user`, {
@@ -124,6 +115,23 @@ export const getUser = async (accessToken) => {
          "Content-Type": "application/json",
          Authorization: "Bearer " + accessToken
       }
+   })
+      .then(res => checkResponse(res))
+}
+
+//   PATCH`${API_URL}/auth/user` - эндпоинт обновления данных о пользователе.
+export const updateUser = async (name, email, password, accessToken) => {
+   return await fetch(`${API_URL}/auth/user`, {
+      method: "PATCH",
+      headers: {
+         "Content-Type": "application/json",
+         Authorization: "Bearer " + accessToken
+      },
+      body: JSON.stringify({
+         name,
+         email,
+         password,
+      })
    })
       .then(res => checkResponse(res))
 }

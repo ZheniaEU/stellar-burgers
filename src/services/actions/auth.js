@@ -1,6 +1,6 @@
 /* eslint-disable */
 import { setCookie, getCookie, deleteCookie } from "../../utils/cookie"
-import { login, logout, getUser } from "../../utils/api"
+import { login, logout, getUser, updateUser } from "../../utils/api"
 
 import {
    CREATE_USER,
@@ -11,6 +11,7 @@ export const LOGIN_USER = "LOGIN_USER"
 export const LOGIN_USER_ERROR = "LOGIN_USER_ERROR"
 export const LOGIN_R = "LOGIN_USER_ERROR"
 export const LOGOUT_USER = "LOGOUT_USER"
+export const UPDATE_USER = "UPDATE_USER"
 
 export const loginUser = (email, password) => {
    return (dispatch) => {
@@ -85,6 +86,7 @@ export const аuthenticationUser = () => {
                   })
                }
             })
+            //!тут дописать зафейлиную авторизацию, может прикрутить рефреш токен
             .catch(err => {
                dispatch(loginFailed())
                console.log(`Ошибка авторизации пользователя ${err}`)
@@ -94,18 +96,19 @@ export const аuthenticationUser = () => {
    }
 }
 
-//   PATCH`${API_URL}/auth/user` - эндпоинт обновления данных о пользователе.
-export const updateUser = async (accessToken) => {
-   return await fetch(`${API_URL}/auth/user`, {
-      method: "PATCH",
-      headers: {
-         "Content-Type": "application/json",
-         Authorization: "Bearer " + accessToken
-      },
-      body: JSON.stringify({
-         token: accessToken
-      })
-   })
-      .then(res => checkResponse(res))
-}
 
+
+export const updateUserInfo = (name, email, password) => {
+   return (dispatch) => {
+      updateUser(name, email, password, getCookie("accessToken"))
+         .then(res => {
+            if (res.success) {
+               dispatch({
+                  type: UPDATE_USER,
+                  user: res.user
+               })
+            }
+         })
+      //!тут дописать зафейленую смену инфы об юзвере
+   }
+}

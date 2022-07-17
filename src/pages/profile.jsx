@@ -7,7 +7,7 @@ import { Input, PasswordInput, Button } from "@ya.praktikum/react-developer-burg
 import { logoutUser } from "../services/actions/auth"
 import { useDispatch, useSelector } from "react-redux"
 
-import { updateUser } from "../services/actions/auth"
+import { updateUserInfo } from "../services/actions/auth"
 import styles from "./profile.module.css"
 
 export const Profile = () => {
@@ -61,20 +61,25 @@ export const ProfileMenu = () => {
 
 export const ProfileForm = () => {
 
-   const [name, setForm] = useState("")
+   const [name, setName] = useState("")
    const [email, setEmail] = useState("")
    const [password, setPassword] = useState("")
+   const dispath = useDispatch()
 
    const handleSubmit = (e) => {
       e.preventDefault()
+      dispath(updateUserInfo(name, email, password))
+      setName("")
+      setEmail("")
+      setPassword("")
    }
 
    const onChangeName = (e) => {
-      setForm(e.target.value)
+      setName(e.target.value)
    }
 
    const onChangeEmail = (e) => {
-      setPassword(e.target.value)
+      setEmail(e.target.value)
    }
 
    const onChangePassword = (e) => {
@@ -101,7 +106,7 @@ export const ProfileForm = () => {
                   onChange={onChangeEmail}
                   type="email"
                   placeholder="E-mail"
-                  value={form}
+                  value={email}
                   name="email"
                   error={false}
                   errorText="Введите корректный E-mail"
