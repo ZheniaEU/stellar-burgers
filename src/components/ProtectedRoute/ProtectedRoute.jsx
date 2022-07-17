@@ -1,11 +1,21 @@
 /* eslint-disable */
+import { Route, Redirect } from "react-router-dom"
 import { useSelector } from "react-redux"
 
-export const ProtectedRoute = () => {
+export const ProtectedRoute = ({ children, ...rest }) => {
 
    const { isAuth } = useSelector(state => state.auth)
 
+   console.log(isAuth)
    return (
-      <></>
+      <Route  {...rest} render={({ location }) =>
+         isAuth ? (
+            children
+         ) : (
+            <Redirect to={{
+               pathname: "/login",
+               state: { from: location }
+            }} />
+         )} />
    )
 }

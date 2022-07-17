@@ -27,6 +27,8 @@ import styles from "./App.module.css"
 
 export const App = () => {
 
+   //const { isAuth } = useSelector(state => state.auth)
+
    const { isLoading } = useSelector(state => state.ingredients)
    const dispatch = useDispatch()
 
@@ -80,14 +82,17 @@ export const App = () => {
 
             {/* !не авторизованый пользователь */}
             {/* <ProtectedRoute></ProtectedRoute> */}
-            <Route path="/profile" exact component={Profile} />
-
-            {/* авторизованый пользователь */}
-            {/* <ProtectedRoute></ProtectedRoute> */}
-            <Route path="/login" exact component={Login} />
+            <Route>
+               <Login path="/login" exact />
+            </Route>
             <Route path="/register" exact component={Register} />
             <Route path="/forgot-password" exact component={ForgotPassword} />
             <Route path="/reset-password" exact component={ResetPassword} />
+
+
+            <ProtectedRoute path="/profile" exact={true} >
+               <Profile />
+            </ProtectedRoute>
 
 
             <Route path="/ingredient" exact>

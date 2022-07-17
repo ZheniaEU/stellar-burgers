@@ -1,13 +1,13 @@
 /* eslint-disable */
 import { useState } from "react"
-import { Link, Redirect } from "react-router-dom"
+import { Link, Redirect, useLocation } from "react-router-dom"
 import { Input, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components"
 import { loginUser } from "../services/actions/auth"
 import { useDispatch, useSelector } from "react-redux"
 import styles from "./index.module.css"
 
 export const Login = () => {
-
+   const location = useLocation()
    const [email, setEmail] = useState("")
    const [password, setPassword] = useState("")
 
@@ -17,8 +17,8 @@ export const Login = () => {
    const handleSubmit = (e) => {
       e.preventDefault()
       dispatch(loginUser(email, password))
-         setEmail("")
-         setPassword("")
+      setEmail("")
+      setPassword("")
    }
 
    const onChangeEmail = (e) => {
@@ -31,11 +31,7 @@ export const Login = () => {
 
    if (isAuth) {
       return (
-         <Redirect
-            to={{
-               pathname: '/'
-            }}
-         />
+         <Redirect to={location.state?.from || '/'} />
       )
    }
 
