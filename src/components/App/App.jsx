@@ -82,8 +82,8 @@ export const App = () => {
 
             {/* !не авторизованый пользователь */}
             {/* <ProtectedRoute></ProtectedRoute> */}
-            <Route>
-               <Login path="/login" exact />
+            <Route path="/login" exact>
+               <Login />
             </Route>
             <Route path="/register" exact component={Register} />
             <Route path="/forgot-password" exact component={ForgotPassword} />
@@ -91,7 +91,9 @@ export const App = () => {
 
 
             <ProtectedRoute path="/profile" exact={true} >
+               {/* <Route> */}
                <Profile />
+               {/* </Route> */}
             </ProtectedRoute>
 
 

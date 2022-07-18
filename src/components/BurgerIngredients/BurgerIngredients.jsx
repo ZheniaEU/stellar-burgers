@@ -25,8 +25,6 @@ export const BurgerIngredients = ({ onOpen }) => {
       ingredients.filter((item) => item.type === "main"),
       [ingredients])
 
-   /**Варнинг в консоли из-за этого хука, безпонятия как убрать этот варнинг
-    *  и сделать корректно или как то реализовать по другому */
    const [bunsRef, inViewBuns] = useInView(
       { threshold: 0.1, trackVisibility: true, delay: 150 })
    const [saucesRef, inViewSauces] = useInView(
