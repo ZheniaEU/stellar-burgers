@@ -90,7 +90,7 @@ export const App = () => {
             <Route path="/reset-password" exact component={ResetPassword} />
 
 
-            <ProtectedRoute path="/profile" exact={true} >
+            <ProtectedRoute path="/profile" exact >
                {/* <Route> */}
                <Profile />
                {/* </Route> */}
@@ -105,11 +105,13 @@ export const App = () => {
             </Route>
          </Switch>
          {openInfoModal && (
-            <Modal
-               active={openInfoModal}
-               onClickClose={onCloseModalingredient} >
-               <IngredientDetails card={ingredient} />
-            </Modal>
+            // <Route path="/ingredients">
+               <Modal
+                  active={openInfoModal}
+                  onClickClose={onCloseModalingredient} >
+                  <IngredientDetails card={ingredient} />
+               </Modal>
+            // </Route>
          )}
 
          {openOrderModal && (
