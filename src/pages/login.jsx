@@ -7,12 +7,15 @@ import { useDispatch, useSelector } from "react-redux"
 import styles from "./index.module.css"
 
 export const Login = () => {
+
    const location = useLocation()
-   const [email, setEmail] = useState("")
-   const [password, setPassword] = useState("")
+
+   const { isAuth } = useSelector(state => state.auth)
 
    const dispatch = useDispatch()
-   const { isAuth, user } = useSelector(state => state.auth)
+
+   const [email, setEmail] = useState("")
+   const [password, setPassword] = useState("")
 
    const handleSubmit = (e) => {
       e.preventDefault()
