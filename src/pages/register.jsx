@@ -1,13 +1,16 @@
 /* eslint-disable */
 
 import { useState } from "react"
-
 import { Link } from "react-router-dom"
 import { Input, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components"
+import { useSelector } from "react-redux"
 import { createUser } from "../utils/api"
 import styles from "./index.module.css"
 
 export const Register = () => {
+
+   const { isAuth } = useSelector(state => state.auth)
+
    const [name, setName] = useState("")
    const [email, setEmail] = useState("")
    const [password, setPassword] = useState("")
@@ -27,6 +30,12 @@ export const Register = () => {
 
    const onChangePassword = (e) => {
       setPassword(e.target.value)
+   }
+
+   if (isAuth) {
+      return (
+         <Redirect to='/' />
+      )
    }
 
    return (

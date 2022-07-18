@@ -4,9 +4,13 @@ import { useState } from "react"
 import { Link } from "react-router-dom"
 import { Input, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components"
 import { resetPassword } from "../utils/api"
+import { useSelector } from "react-redux"
 import styles from "./index.module.css"
 
 export const ResetPassword = () => {
+
+   const { isAuth } = useSelector(state => state.auth)
+
    const [password, setPassword] = useState("")
    const [token, setToken] = useState("")
 
@@ -21,6 +25,12 @@ export const ResetPassword = () => {
 
    const onChangeToken = (e) => {
       setToken(e.target.value)
+   }
+
+   if (isAuth) {
+      return (
+         <Redirect to='/' />
+      )
    }
 
    return (
