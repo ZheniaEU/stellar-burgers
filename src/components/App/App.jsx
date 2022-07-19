@@ -1,5 +1,5 @@
 /* eslint-disable */
-import { Switch, Route } from "react-router-dom"
+import { Switch, Route, useHistory, useRouteMatch } from "react-router-dom"
 import { useState, useEffect } from "react"
 import { AppHeader } from "../AppHeader/AppHeader"
 import { BurgerIngredients } from "../BurgerIngredients/BurgerIngredients"
@@ -14,6 +14,8 @@ import { ProtectedRoute } from "../ProtectedRoute/ProtectedRoute"
 import { Loader } from "../Loader/Loader"
 import { getData, DELETE_ORDER, RESET_ITEMS } from "../../services/actions/index"
 import { аuthenticationUser } from "../../services/actions/auth"
+import { useLocation } from "react-router-dom"
+import { useCallback } from "react"
 import {
    Profile,
    Login,
@@ -26,6 +28,16 @@ import {
 import styles from "./App.module.css"
 
 export const App = () => {
+
+   const match = useRouteMatch("/ingredients/:id")
+
+   useEffect(() => {
+      if (match) {
+         setopenInfoModal(true)
+      }
+   }, [match])
+
+   const history = useHistory()
 
    //const { isAuth } = useSelector(state => state.auth)
 
@@ -51,13 +63,15 @@ export const App = () => {
    const handleOpenInfoModal = (card) => {
       setopenInfoModal(true)
       setIngredient(card)
+
    }
 
    //ингредиеты
-   const onCloseModalingredient = () => {
+   const onCloseModalingredient = useCallback((url) => {
       setopenInfoModal(false)
       setIngredient(null)
-   }
+      history.push(url)
+   }, [history])
 
    //ордер
    const onCloseModalOrder = () => {
@@ -66,10 +80,13 @@ export const App = () => {
       dispatch({ type: RESET_ITEMS })
    }
 
+   const location = useLocation()
+   const background = location.state?.background
+
    return (
       <>
          <AppHeader />
-         <Switch>
+         <Switch location={background || location}>
             <Route path="/" exact>
                {isLoading ? < Loader /> :
                   <DndProvider backend={HTML5Backend}>
@@ -81,8 +98,6 @@ export const App = () => {
                }
             </Route>
 
-            {/* !не авторизованый пользователь */}
-            {/* <ProtectedRoute></ProtectedRoute> */}
             <Route path="/login" exact children={<Login />} />
             <Route path="/register" exact children={<Register />} />
             <Route path="/forgot-password" exact children={<ForgotPassword />} />
@@ -94,27 +109,24 @@ export const App = () => {
 
             <Route children={<Error404 />} />
          </Switch>
-         {
-            openInfoModal && (
-               <Route path="/ingredients/:id">
-                  <Modal
-                     active={openInfoModal}
-                     onClickClose={onCloseModalingredient} >
-                     <IngredientDetails card={ingredient} />
-                  </Modal>
-               </Route>
-            )
-         }
 
-         {
-            openOrderModal && (
+         {background && openInfoModal && (
+            <Route path="/ingredients/:id">
                <Modal
-                  active={openOrderModal}
-                  onClickClose={onCloseModalOrder}>
-                  <OrderDetals />
+                  active={openInfoModal}
+                  onClickClose={() => { onCloseModalingredient("/") }} >
+                  <IngredientDetails card={ingredient} />
                </Modal>
-            )
-         }
+            </Route>
+         )}
+
+         {openOrderModal && (
+            <Modal
+               active={openOrderModal}
+               onClickClose={onCloseModalOrder}>
+               <OrderDetals />
+            </Modal>
+         )}
       </>
    )
 }
