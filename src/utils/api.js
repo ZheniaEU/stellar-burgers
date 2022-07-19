@@ -1,12 +1,10 @@
-/* eslint-disable */
-import { getCookie, setCookie, deleteCookie } from "./cookie"
-
 const API_URL = "https://norma.nomoreparties.space/api"
 
 const checkResponse = (res) => {
-   return res.ok ? res.json() : res.json().then((err) =>
-      Promise.reject(`У нас проблемы с ответом или я накосячил где-то в логике : ${err}`))
-   //   return res.ok ? res.json() : Promise.reject(new Error(res.status))
+   // return res.ok ? res.json() : res.json().then((err) =>
+   //    Promise.reject(`У нас проблемы с ответом или я накосячил где-то в логике : ${err}`))
+   return res.ok ? res.json() : res.json().then((res) =>
+      Promise.reject({ res }))
 }
 
 export const getIngredients = async () => {
@@ -117,7 +115,7 @@ export const getUser = async (accessToken) => {
          Authorization: "Bearer " + accessToken
       }
    })
-     .then(res => checkResponse(res))
+      .then(res => checkResponse(res))
 }
 
 //   PATCH`${API_URL}/auth/user` - эндпоинт обновления данных о пользователе.

@@ -1,18 +1,15 @@
 import styles from "./IngredientDetails.module.css"
-import { ingredientsPropTypes } from "../../utils/types"
-import { useSelector, useDispatch } from "react-redux"
+import { useSelector } from "react-redux"
 import { useParams } from "react-router-dom"
 import { Loader } from "../Loader/Loader"
 
 export const IngredientDetails = () => {
 
    const { ingredients } = useSelector(state => state.ingredients)
-   // console.log(ingredients)
 
    const { id } = useParams()
 
    const card = ingredients.find((el) => el._id === id)
-   // console.log(card)
 
    return (
       <>
@@ -44,7 +41,3 @@ export const IngredientDetails = () => {
       </>
    )
 }
-
-// IngredientDetails.propTypes = {
-//    card: ingredientsPropTypes.isRequired
-// }

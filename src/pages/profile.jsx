@@ -1,12 +1,8 @@
-/* eslint-disable */
-
 import { useState } from "react"
-
-import { Link, NavLink } from "react-router-dom"
+import { Link} from "react-router-dom"
 import { Input, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components"
 import { logoutUser } from "../services/actions/auth"
-import { useDispatch, useSelector } from "react-redux"
-
+import { useDispatch } from "react-redux"
 import { updateUserInfo } from "../services/actions/auth"
 import styles from "./profile.module.css"
 
@@ -23,7 +19,6 @@ export const Profile = () => {
 export const ProfileMenu = () => {
 
    const dispath = useDispatch()
-   const { isAuth, user } = useSelector(state => state.auth)
 
    const logoutUserOnPageProfile = () => {
       dispath(logoutUser())
@@ -44,7 +39,6 @@ export const ProfileMenu = () => {
                   </Link>
                </li>
                <li>
-                  {/* to="/login" */}
                   <Link to="/" className={styles.li}
                      onClick={logoutUserOnPageProfile}>
                      Выход

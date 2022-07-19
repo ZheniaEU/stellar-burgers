@@ -1,4 +1,4 @@
-/* eslint-disable */
+
 import { Switch, Route, useHistory, useRouteMatch } from "react-router-dom"
 import { useState, useEffect } from "react"
 import { AppHeader } from "../AppHeader/AppHeader"
@@ -22,28 +22,28 @@ import {
    Register,
    ForgotPassword,
    ResetPassword,
-   Ingredient,
    Error404
 } from "../../pages/index"
 import styles from "./App.module.css"
 
 export const App = () => {
 
+   const { isLoading } = useSelector(state => state.ingredients)
+   const dispatch = useDispatch()
+
    const match = useRouteMatch("/ingredients/:id")
+
+   const history = useHistory()
+
+   const location = useLocation()
+
+   const background = location.state?.background
 
    useEffect(() => {
       if (match) {
          setopenInfoModal(true)
       }
    }, [match])
-
-   const history = useHistory()
-
-   //const { isAuth } = useSelector(state => state.auth)
-
-   const { isLoading, ingredients } = useSelector(state => state.ingredients)
-   const dispatch = useDispatch()
-
 
    useEffect(() => {
       dispatch(getData())
@@ -53,23 +53,19 @@ export const App = () => {
    //состояния
    const [openOrderModal, setopenOrderModal] = useState(false)
    const [openInfoModal, setopenInfoModal] = useState(false)
-   const [ingredient, setIngredient] = useState(null)
 
    //открыть
    const handleOpenOrderModal = () => {
       setopenOrderModal(true)
    }
 
-   const handleOpenInfoModal = (card) => {
+   const handleOpenInfoModal = () => {
       setopenInfoModal(true)
-      setIngredient(card)
-
    }
 
    //ингредиеты
    const onCloseModalingredient = useCallback((url) => {
       setopenInfoModal(false)
-      setIngredient(null)
       history.push(url)
    }, [history])
 
@@ -79,9 +75,6 @@ export const App = () => {
       dispatch({ type: DELETE_ORDER })
       dispatch({ type: RESET_ITEMS })
    }
-
-   const location = useLocation()
-   const background = location.state?.background
 
    return (
       <>
@@ -103,7 +96,10 @@ export const App = () => {
             <Route path="/forgot-password" exact children={<ForgotPassword />} />
             <Route path="/reset-password" exact children={<ResetPassword />} />
 
-            <Route path="/ingredients/:id" children={<Ingredient />} />
+            <Route path="/ingredients/:id">
+               <div className={styles.maket} />
+               <IngredientDetails />
+            </Route>
 
             <ProtectedRoute path="/profile" exact children={<Profile />} />
 
@@ -115,7 +111,7 @@ export const App = () => {
                <Modal
                   active={openInfoModal}
                   onClickClose={() => { onCloseModalingredient("/") }} >
-                  <IngredientDetails card={ingredient} />
+                  <IngredientDetails />
                </Modal>
             </Route>
          )}

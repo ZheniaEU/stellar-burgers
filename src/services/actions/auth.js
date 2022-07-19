@@ -2,21 +2,14 @@
 import { setCookie, getCookie, deleteCookie } from "../../utils/cookie"
 import { login, logout, getUser, refreshToken, updateUser } from "../../utils/api"
 
-import {
-   CREATE_USER,
-   GET_NEW_PASSWORD
-} from "../reducers/auth"
-
 export const LOGIN_USER = "LOGIN_USER"
 export const LOGIN_USER_ERROR = "LOGIN_USER_ERROR"
-export const LOGIN_R = "LOGIN_USER_ERROR"
 export const LOGOUT_USER = "LOGOUT_USER"
 export const UPDATE_USER = "UPDATE_USER"
 export const REFRESH_USER = "REFRESH_USER"
 
 export const loginUser = (email, password) => {
    return (dispatch) => {
-      //dispatch(loginR())
       login(email, password)
          .then(res => {
             if (res.success) {
@@ -41,12 +34,6 @@ const loginFailed = () => {
    }
 }
 
-// const loginR = () => {
-//    return {
-//       type: LOGIN_R
-//    }
-// }
-
 export const logoutUser = () => {
    return (dispatch) => {
       logout(getCookie("refreshToken"))
@@ -59,84 +46,45 @@ export const logoutUser = () => {
                })
             }
          })
-      // .catch(err => {
-      //    dispatch(loginFailed())
-      //    console.log(`Ошибка при логауте ${err}`)
-      // })
    }
-}
-
-//!задание номер 5
-const API_URL = "https://norma.nomoreparties.space/api"
-
-const checkResponse = (res) => {
-   return res.ok ? res.json() : res.json().then((err) =>
-      Promise.reject(`Почему я это вижу? : ${err}`))
 }
 
 //аутентификация юзера при посещении сайта или при перезагрузки его
 export const аuthenticationUser = () => {
-   return (dispatch) => {
-      if (getCookie("accessToken") !== undefined) {
-         console.log(getCookie("accessToken"))
-         console.log(getCookie("refreshToken"))
-         getUser(getCookie("accessToken"))
-            .then(res => {
-               if (res.success) {
-                  console.log("a")
-                  dispatch({
-                     type: LOGIN_USER,
-                     user: res.user
-                  })
-               }
-            })
-            .catch(res => {
-               console.log("b")
-               if (res.message === "jwt expired") {
-                  console.log("c")
-                  refreshToken(getCookie("refreshToken"))
-                     .then(res => {
-                        console.log("d")
-                        if (res.success) {
-                           setCookie("accessToken", res.accessToken.split("Bearer ")[1])
-                           setCookie("refreshToken", res.refreshToken)
-                        }
-                     })
-                  console.log("e")
-                  getUser(getCookie("accessToken"))
-                     .then(res => {
-                        console.log("f")
-                        if (res.success) {
-                           console.log("g")
-                           dispatch({
-                              type: LOGIN_USER,
-                              user: res.user
-                           })
-                        }
-                     })
-               }
+   if (getCookie("accessToken") === undefined) {
+      return
+   }
 
-            })
-
+   return async (dispatch) => {
+      try {
+         await getUserInfo(dispatch)
       }
-      //     })
-      //вроде по идеи если токен протух его нужно отрефрешить стоит ли его тут рефрешить?
+      catch (res) {
+         if (res.res.message === "jwt expired") {
+            await refreshTokenUsert()
+            await getUserInfo(dispatch)
+         }
+      }
    }
 }
 
-export const refreshTokenUsert = () => {
-   //  return (dispatch) => {
-   refreshToken(getCookie("refreshToken"))
-      .then(res => {
-         if (res.success) {
-            setCookie("accessToken", res.accessToken.split("Bearer ")[1])
-            setCookie("refreshToken", res.refreshToken)
-         }
+const getUserInfo = async (dispatch) => {
+   const res = await getUser(getCookie("accessToken"))
+   if (res.success) {
+      dispatch({
+         type: LOGIN_USER,
+         user: res.user
       })
-   // }
+   }
 }
 
-
+const refreshTokenUsert = async () => {
+   const res = await refreshToken(getCookie("refreshToken"))
+   if (res.success) {
+      setCookie("accessToken", res.accessToken.split("Bearer ")[1])
+      setCookie("refreshToken", res.refreshToken)
+   }
+}
 
 export const updateUserInfo = (name, email, password) => {
    return (dispatch) => {
@@ -149,6 +97,5 @@ export const updateUserInfo = (name, email, password) => {
                })
             }
          })
-      //!тут дописать зафейленую смену инфы об юзвере
    }
 }

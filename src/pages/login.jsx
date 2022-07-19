@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { useState } from "react"
 import { Link, Redirect, useLocation } from "react-router-dom"
 import { Input, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components"
