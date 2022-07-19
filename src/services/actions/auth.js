@@ -88,30 +88,31 @@ export const аuthenticationUser = () => {
                      type: LOGIN_USER,
                      user: res.user
                   })
-               }
-               console.log("b")
-               if (res.message === "jwt expired") {
-                  console.log("c")
-                  refreshToken(getCookie("refreshToken"))
-                     .then(res => {
-                        console.log("d")
-                        if (res.success) {
-                           setCookie("accessToken", res.accessToken.split("Bearer ")[1])
-                           setCookie("refreshToken", res.refreshToken)
-                        }
-                     })
-                  console.log("e")
-                  getUser(getCookie("accessToken"))
-                     .then(res => {
-                        console.log("f")
-                        if (res.success) {
-                           console.log("g")
-                           dispatch({
-                              type: LOGIN_USER,
-                              user: res.user
-                           })
-                        }
-                     })
+               } else {
+                  console.log("b")
+                  if (res.message === "jwt expired") {
+                     console.log("c")
+                     refreshToken(getCookie("refreshToken"))
+                        .then(res => {
+                           console.log("d")
+                           if (res.success) {
+                              setCookie("accessToken", res.accessToken.split("Bearer ")[1])
+                              setCookie("refreshToken", res.refreshToken)
+                           }
+                        })
+                     console.log("e")
+                     getUser(getCookie("accessToken"))
+                        .then(res => {
+                           console.log("f")
+                           if (res.success) {
+                              console.log("g")
+                              dispatch({
+                                 type: LOGIN_USER,
+                                 user: res.user
+                              })
+                           }
+                        })
+                  }
                }
             })
          //     })
