@@ -45,7 +45,7 @@ export const ProfileMenu = () => {
                </li>
                <li>
                   {/* to="/login" */}
-                  <Link className={styles.li}
+                  <Link to="/" className={styles.li}
                      onClick={logoutUserOnPageProfile}>
                      Выход
                   </Link>

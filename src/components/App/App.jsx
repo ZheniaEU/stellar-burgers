@@ -47,7 +47,7 @@ export const App = () => {
 
    useEffect(() => {
       dispatch(getData())
-      //      dispatch(аuthenticationUser())
+      dispatch(аuthenticationUser())
    }, [dispatch])
 
    //состояния

@@ -1,6 +1,6 @@
 /* eslint-disable */
 import { setCookie, getCookie, deleteCookie } from "../../utils/cookie"
-import { login, logout, getUser, updateUser } from "../../utils/api"
+import { login, logout, getUser, refreshToken, updateUser } from "../../utils/api"
 
 import {
    CREATE_USER,
@@ -12,6 +12,7 @@ export const LOGIN_USER_ERROR = "LOGIN_USER_ERROR"
 export const LOGIN_R = "LOGIN_USER_ERROR"
 export const LOGOUT_USER = "LOGOUT_USER"
 export const UPDATE_USER = "UPDATE_USER"
+export const REFRESH_USER = "REFRESH_USER"
 
 export const loginUser = (email, password) => {
    return (dispatch) => {
@@ -77,23 +78,58 @@ const checkResponse = (res) => {
 export const аuthenticationUser = () => {
    return (dispatch) => {
       if (getCookie("accessToken") !== undefined) {
+         console.log(getCookie("accessToken"))
+         console.log(getCookie("refreshToken"))
          getUser(getCookie("accessToken"))
             .then(res => {
                if (res.success) {
+                  console.log("a")
                   dispatch({
                      type: LOGIN_USER,
                      user: res.user
                   })
                }
+               console.log("b")
+               if (res.message === "jwt expired") {
+                  console.log("c")
+                  refreshToken(getCookie("refreshToken"))
+                     .then(res => {
+                        console.log("d")
+                        if (res.success) {
+                           setCookie("accessToken", res.accessToken.split("Bearer ")[1])
+                           setCookie("refreshToken", res.refreshToken)
+                        }
+                     })
+                  console.log("e")
+                  getUser(getCookie("accessToken"))
+                     .then(res => {
+                        console.log("f")
+                        if (res.success) {
+                           console.log("g")
+                           dispatch({
+                              type: LOGIN_USER,
+                              user: res.user
+                           })
+                        }
+                     })
+               }
             })
-            //!тут дописать зафейлиную авторизацию, может прикрутить рефреш токен
-            .catch(err => {
-               dispatch(loginFailed())
-               console.log(`Ошибка авторизации пользователя ${err}`)
-            })
+         //     })
          //вроде по идеи если токен протух его нужно отрефрешить стоит ли его тут рефрешить?
       }
    }
+}
+
+export const refreshTokenUsert = () => {
+   //  return (dispatch) => {
+   refreshToken(getCookie("refreshToken"))
+      .then(res => {
+         if (res.success) {
+            setCookie("accessToken", res.accessToken.split("Bearer ")[1])
+            setCookie("refreshToken", res.refreshToken)
+         }
+      })
+   // }
 }
 
 
