@@ -34,7 +34,7 @@ export const App = () => {
 
    useEffect(() => {
       dispatch(getData())
-      dispatch(аuthenticationUser())
+      //      dispatch(аuthenticationUser())
    }, [dispatch])
 
    //состояния
@@ -89,6 +89,10 @@ export const App = () => {
             <Route path="/forgot-password" exact component={ForgotPassword} />
             <Route path="/reset-password" exact component={ResetPassword} />
 
+//!здесь
+            <Route path="/ingredients/:id">
+               <Ingredient />
+            </Route>
 
             <ProtectedRoute path="/profile" exact >
                {/* <Route> */}
@@ -105,13 +109,13 @@ export const App = () => {
             </Route>
          </Switch>
          {openInfoModal && (
-            // <Route path="/ingredients">
+            <Route path="/ingredients/:id">
                <Modal
                   active={openInfoModal}
                   onClickClose={onCloseModalingredient} >
                   <IngredientDetails card={ingredient} />
                </Modal>
-            // </Route>
+            </Route>
          )}
 
          {openOrderModal && (
