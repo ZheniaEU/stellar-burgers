@@ -12,15 +12,15 @@ export const Ingredient = () => {
 
    const { ingredients } = useSelector(state => state.ingredients)
 
-   const { id } = useParams()
+   // const { id } = useParams()
 
-   const card = ingredients.find((el) => el._id === id)
+   // const card = ingredients.find((el) => el._id === id)
 
    return (
       <>
          <div className={styles.maket} />
-         {!card ? < Loader /> :
-               <IngredientDetails card={card} />
+         {!ingredients ? < Loader /> :
+            <IngredientDetails />
          }
       </>
    )

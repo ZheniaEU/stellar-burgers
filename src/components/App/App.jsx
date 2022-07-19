@@ -96,13 +96,13 @@ export const App = () => {
          </Switch>
          {
             openInfoModal && (
-               // <Route path="/ingredients/:id">
-               <Modal
-                  active={openInfoModal}
-                  onClickClose={onCloseModalingredient} >
-                  <IngredientDetails card={ingredient} />
-               </Modal>
-               // </Route>
+               <Route path="/ingredients/:id">
+                  <Modal
+                     active={openInfoModal}
+                     onClickClose={onCloseModalingredient} >
+                     <IngredientDetails card={ingredient} />
+                  </Modal>
+               </Route>
             )
          }
 
