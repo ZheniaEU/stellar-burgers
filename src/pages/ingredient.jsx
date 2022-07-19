@@ -1,23 +1,27 @@
 /* eslint-disable */
 
 import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
+import { useHistory, useParams } from "react-router-dom"
+import { Loader } from "../components/Loader/Loader"
 import { IngredientDetails } from "../components/IngredientDetails/IngredientDetails"
+import { useSelector, useDispatch } from "react-redux"
 
-import styles from "./ingredient.module.css"
+import styles from "./index.module.css"
 
 export const Ingredient = () => {
 
-   const { id } = useParams()
-   const { a, setA } = useState()
-   useEffect(() => {
+   const { ingredients } = useSelector(state => state.ingredients)
 
-   })
+   const { id } = useParams()
+
+   const card = ingredients.find((el) => el._id === id)
 
    return (
       <>
-         <h2 className={styles.h2}>Детали ингредиента</h2>
-         {/* <IngredientDetails /> */}
+         <div className={styles.maket} />
+         {!card ? < Loader /> :
+               <IngredientDetails card={card} />
+         }
       </>
    )
 }

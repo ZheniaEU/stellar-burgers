@@ -29,8 +29,9 @@ export const App = () => {
 
    //const { isAuth } = useSelector(state => state.auth)
 
-   const { isLoading } = useSelector(state => state.ingredients)
+   const { isLoading, ingredients } = useSelector(state => state.ingredients)
    const dispatch = useDispatch()
+
 
    useEffect(() => {
       dispatch(getData())
@@ -82,49 +83,38 @@ export const App = () => {
 
             {/* !не авторизованый пользователь */}
             {/* <ProtectedRoute></ProtectedRoute> */}
-            <Route path="/login" exact>
-               <Login />
-            </Route>
-            <Route path="/register" exact component={Register} />
-            <Route path="/forgot-password" exact component={ForgotPassword} />
-            <Route path="/reset-password" exact component={ResetPassword} />
+            <Route path="/login" exact children={<Login />} />
+            <Route path="/register" exact children={<Register />} />
+            <Route path="/forgot-password" exact children={<ForgotPassword />} />
+            <Route path="/reset-password" exact children={<ResetPassword />} />
 
-//!здесь
-            <Route path="/ingredients/:id">
-               <Ingredient />
-            </Route>
+            <Route path="/ingredients/:id" children={<Ingredient />} />
 
-            <ProtectedRoute path="/profile" exact >
-               {/* <Route> */}
-               <Profile />
-               {/* </Route> */}
-            </ProtectedRoute>
+            <ProtectedRoute path="/profile" exact children={<Profile />} />
 
-
-            <Route path="/ingredient" exact>
-               <Ingredient />
-            </Route>
-            <Route>
-               <Error404 />
-            </Route>
+            <Route children={<Error404 />} />
          </Switch>
-         {openInfoModal && (
-            <Route path="/ingredients/:id">
+         {
+            openInfoModal && (
+               // <Route path="/ingredients/:id">
                <Modal
                   active={openInfoModal}
                   onClickClose={onCloseModalingredient} >
                   <IngredientDetails card={ingredient} />
                </Modal>
-            </Route>
-         )}
+               // </Route>
+            )
+         }
 
-         {openOrderModal && (
-            <Modal
-               active={openOrderModal}
-               onClickClose={onCloseModalOrder}>
-               <OrderDetals />
-            </Modal>
-         )}
+         {
+            openOrderModal && (
+               <Modal
+                  active={openOrderModal}
+                  onClickClose={onCloseModalOrder}>
+                  <OrderDetals />
+               </Modal>
+            )
+         }
       </>
    )
 }

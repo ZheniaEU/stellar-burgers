@@ -1,10 +1,10 @@
 import styles from "./IngredientDetails.module.css"
 import { ingredientsPropTypes } from "../../utils/types"
-import { useParams } from "react-router-dom"
+//import { useParams } from "react-router-dom"
 
 export const IngredientDetails = ({ card }) => {
 
-   const { id } = useParams()
+//   const { id } = useParams()
 
    return (
       <div className={styles.container}>
@@ -33,6 +33,6 @@ export const IngredientDetails = ({ card }) => {
    )
 }
 
-// IngredientDetails.propTypes = {
-//    card: ingredientsPropTypes.isRequired
-// }
+IngredientDetails.propTypes = {
+   card: ingredientsPropTypes.isRequired
+}

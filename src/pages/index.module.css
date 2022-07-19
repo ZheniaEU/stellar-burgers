@@ -57,25 +57,6 @@
    opacity: 0.8;
 }
 
-.a {
-   outline: 2px dodgerblue solid;
-   max-width: 1920px;
-   margin: 0 auto;
-}
-
-.b {
-   display: flex;
-   flex-direction: row;
-   width: 860px;
-   margin: 120px 0 0 0;
-   padding-left: 340px;
-   gap: 60px;
-}
-
-.c {
-   display: flex;
-   flex-direction: column;
-   width: 320px;
-   margin: 0;
-   padding: 0;
+.maket {
+   min-height: 80px;
 }

@@ -45,11 +45,10 @@ export const ProfileMenu = () => {
                </li>
                <li>
                   {/* to="/login" */}
-                  <button className={styles.li}
-                     onClick={logoutUserOnPageProfile}
-                  >
+                  <Link className={styles.li}
+                     onClick={logoutUserOnPageProfile}>
                      Выход
-                  </button>
+                  </Link>
                </li>
             </ul>
             <p className={styles.text}>В этом разделе вы можете
