@@ -64,9 +64,9 @@ export const App = () => {
    }
 
    //ингредиеты
-   const onCloseModalingredient = useCallback((url) => {
+   const onCloseModalingredient = useCallback(() => {
       setopenInfoModal(false)
-      history.push(url)
+      history.push("/")
    }, [history])
 
    //ордер
@@ -110,7 +110,7 @@ export const App = () => {
             <Route path="/ingredients/:id">
                <Modal
                   active={openInfoModal}
-                  onClickClose={() => { onCloseModalingredient("/") }} >
+                  onClickClose={onCloseModalingredient} >
                   <IngredientDetails />
                </Modal>
             </Route>

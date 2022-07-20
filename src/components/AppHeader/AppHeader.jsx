@@ -22,7 +22,7 @@ export const AppHeader = () => {
                      <p className={` ${styles.p} `}>Лента заказов</p>
                   </Link>
                </li>
-               <Link to="/login">
+               <Link to="/">
                   <Logo />
                </Link>
                <li className={styles.li}>

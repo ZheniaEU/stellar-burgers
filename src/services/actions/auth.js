@@ -1,12 +1,12 @@
-/* eslint-disable */
 import { setCookie, getCookie, deleteCookie } from "../../utils/cookie"
-import { login, logout, getUser, refreshToken, updateUser } from "../../utils/api"
+import { login, logout, getUser, refreshToken, updateUser, forgottenPassword } from "../../utils/api"
 
 export const LOGIN_USER = "LOGIN_USER"
 export const LOGIN_USER_ERROR = "LOGIN_USER_ERROR"
 export const LOGOUT_USER = "LOGOUT_USER"
 export const UPDATE_USER = "UPDATE_USER"
-export const REFRESH_USER = "REFRESH_USER"
+export const REDIRECT_FROM_FORGOT_PASSWORD = "REDIRECT_FROM_FORGOT_PASSWORD"
+export const PROTECTE_RESET_PASSWORD = "PROTECTE_RESET_PASSWORD"
 
 export const loginUser = (email, password) => {
    return (dispatch) => {
@@ -21,9 +21,9 @@ export const loginUser = (email, password) => {
                })
             }
          })
-         .catch(err => {
+         .catch(res => {
             dispatch(loginFailed())
-            console.log(`Ошибка при вводе логина ${err}`)
+            console.log(`Ошибка при вводе логина ${res}`)
          })
    }
 }
@@ -45,6 +45,9 @@ export const logoutUser = () => {
                   type: LOGOUT_USER
                })
             }
+         })
+         .catch(res => {
+            console.log(`Что-то пошло не поплану, нужно повторить действие ${res}`)
          })
    }
 }
@@ -97,5 +100,31 @@ export const updateUserInfo = (name, email, password) => {
                })
             }
          })
+         .catch(res => {
+            console.log(`Ошибка редактировании информации пользователя ${res}`)
+         })
+   }
+}
+
+export const forgottenPasswordUser = (email) => {
+   return (dispatch) => {
+      forgottenPassword(email)
+         .then(res => {
+            if (res.success) {
+               dispatch(redirectFromForgottenPassword())
+            }
+         })
+   }
+}
+
+const redirectFromForgottenPassword = () => {
+   return {
+      type: REDIRECT_FROM_FORGOT_PASSWORD
+   }
+}
+
+export const protectResetPassword = () => {
+   return {
+      type: PROTECTE_RESET_PASSWORD
    }
 }

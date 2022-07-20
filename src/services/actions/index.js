@@ -4,7 +4,6 @@ import { getIngredients } from "../../utils/api"
 export const GET_INGREDIENTS_REQUEST = "GET_INGREDIENTS_REQUEST"
 export const GET_INGREDIENTS_SUCCESS = "GET_INGREDIENTS_SUCCESS"
 export const GET_INGREDIENTS_FAILED = "GET_INGREDIENTS_FAILED"
-//export const SAVE_INGREDIENTS = "SAVE_INGREDIENTS"
 
 /**Экшены для ордеров */
 export const GET_ORDER_REQUEST = "GET_ORDER_REQUEST"
@@ -29,9 +28,9 @@ export const getData = () => {
                dispatch(getIngredientsFailed())
             }
          })
-         .catch(err => {
+         .catch(res => {
             dispatch(getIngredientsFailed())
-            console.log(`Обнаружено жжение в нижней части таза ${err}`)
+            console.log(`Обнаружено жжение в нижней части таза ${res}`)
          })
    }
 }

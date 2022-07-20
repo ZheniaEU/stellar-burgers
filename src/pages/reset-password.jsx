@@ -1,13 +1,19 @@
-import { useState } from "react"
-import { Link, Redirect } from "react-router-dom"
+import { useState, useEffect } from "react"
+import { Link, Redirect, useLocation } from "react-router-dom"
 import { Input, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components"
+import { protectResetPassword } from "../services/actions/auth"
 import { resetPassword } from "../utils/api"
-import { useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
 import styles from "./index.module.css"
 
 export const ResetPassword = () => {
 
-   const { isAuth } = useSelector(state => state.auth)
+   const location = useLocation()
+   const dispach = useDispatch()
+
+   useEffect(() => {
+      dispach(protectResetPassword())
+   }, [dispach])
 
    const [password, setPassword] = useState("")
    const [token, setToken] = useState("")
@@ -25,9 +31,10 @@ export const ResetPassword = () => {
       setToken(e.target.value)
    }
 
-   if (isAuth) {
+   if (location.state === undefined ||
+      !location.state.from.pathname === "/forgot-password") {
       return (
-         <Redirect to='/' />
+         <Redirect to="/" />
       )
    }
 

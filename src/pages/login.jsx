@@ -8,10 +8,9 @@ import styles from "./index.module.css"
 export const Login = () => {
 
    const location = useLocation()
+   const dispatch = useDispatch()
 
    const { isAuth } = useSelector(state => state.auth)
-
-   const dispatch = useDispatch()
 
    const [email, setEmail] = useState("")
    const [password, setPassword] = useState("")

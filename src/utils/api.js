@@ -1,8 +1,8 @@
 const API_URL = "https://norma.nomoreparties.space/api"
 
 const checkResponse = (res) => {
-   // return res.ok ? res.json() : res.json().then((err) =>
-   //    Promise.reject(`У нас проблемы с ответом или я накосячил где-то в логике : ${err}`))
+   // return res.ok ? res.json() : res.json().then((res) =>
+   //    Promise.reject(`У нас проблемы с ответом или я накосячил где-то в логике : ${res}`))
    return res.ok ? res.json() : res.json().then((res) =>
       Promise.reject({ res }))
 }
@@ -25,7 +25,7 @@ export const onDemandOrder = async (massId) => {
       .then(res => checkResponse(res))
 }
 
-export const forgotenPassword = async (email) => {
+export const forgottenPassword = async (email) => {
    return await fetch(`${API_URL}/password-reset`, {
       method: "POST",
       headers: {

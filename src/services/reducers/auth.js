@@ -1,11 +1,15 @@
-import { LOGIN_USER, LOGIN_USER_ERROR, LOGOUT_USER, UPDATE_USER } from "../actions/auth"
+import {
+   LOGIN_USER, LOGIN_USER_ERROR, LOGOUT_USER, UPDATE_USER,
+   REDIRECT_FROM_FORGOT_PASSWORD, PROTECTE_RESET_PASSWORD
+} from "../actions/auth"
 
 const initialStateAuth = {
    user: {
       userName: "",
       userEmail: ""
    },
-   isAuth: false
+   isAuth: false,
+   isRedirect: false
 }
 
 export const authReducer = (state = initialStateAuth, action) => {
@@ -45,6 +49,18 @@ export const authReducer = (state = initialStateAuth, action) => {
                userEmail: action.user.email
             },
             isAuth: true
+         }
+      }
+      case REDIRECT_FROM_FORGOT_PASSWORD: {
+         return {
+            ...state,
+            isRedirect: true
+         }
+      }
+      case PROTECTE_RESET_PASSWORD: {
+         return {
+            ...state,
+            isRedirect: false
          }
       }
       default:
