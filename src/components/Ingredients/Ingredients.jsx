@@ -4,6 +4,7 @@ import styles from "./Ingredients.module.css"
 import PropTypes from "prop-types"
 import { useDrag } from "react-dnd"
 import { useMemo } from "react"
+import { useLocation, Link } from "react-router-dom"
 
 export const Ingredients = ({ onOpen, item }) => {
 
@@ -28,18 +29,25 @@ export const Ingredients = ({ onOpen, item }) => {
       })
    })
 
+   const id = item._id
+
+   const location = useLocation()
+
    return (
       < li className={styles.card} ref={dragRef} >
          <div className={styles.counter} >
             {counter() > 0 && <Counter count={counter()} />}
          </div>
-         <img className={styles.img} src={item.image} alt={item.name} onClick={() => onOpen(item)} />
+         <Link to={{ pathname: `/ingredients/${id}`, state: { background: location } }} >
+            <img className={styles.img} src={item.image} alt={item.name} onClick={() => onOpen(item)} />
+         </Link >
          <div className={styles.div}>
             <p className={styles.price}>{item.price}</p>
             <CurrencyIcon type="primary" />
          </div>
          <p className={styles.name}>{item.name}</p>
       </li >
+
    )
 }
 

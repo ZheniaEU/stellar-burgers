@@ -28,9 +28,9 @@ export const getData = () => {
                dispatch(getIngredientsFailed())
             }
          })
-         .catch(err => {
+         .catch(res => {
             dispatch(getIngredientsFailed())
-            console.log(`Обнаружено жжение в нижней части таза ${err}`)
+            console.log(`Обнаружено жжение в нижней части таза ${res}`)
          })
    }
 }

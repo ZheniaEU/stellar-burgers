@@ -1,6 +1,7 @@
 import { combineReducers } from "redux"
 import { orderReducer } from "./order"
 import { dndReducer } from "./dnd"
+import { authReducer } from "./auth"
 
 import {
    GET_INGREDIENTS_REQUEST,
@@ -11,9 +12,7 @@ import {
 const initialState = {
    ingredients: [],
    ingredientsRequest: false,
-   ingredientsFailed: false,
-   isLoading: false,
-   //   errorLoading: false
+   isLoading: false
 }
 
 const ingredientsReducer = (state = initialState, action) => {
@@ -23,17 +22,14 @@ const ingredientsReducer = (state = initialState, action) => {
             ...state,
             ingredientsRequest: true,
             ingredientsFailed: false,
-            isLoading: true,
-            //            errorLoading: false
+            isLoading: true
          }
       }
       case GET_INGREDIENTS_SUCCESS: {
          return {
             ...state,
             ingredientsRequest: false,
-            ingredientsFailed: false,
             isLoading: false,
-            //          errorLoading: false,
             ingredients: action.ingredients
          }
       }
@@ -42,7 +38,6 @@ const ingredientsReducer = (state = initialState, action) => {
             ...state,
             ingredientsRequest: true,
             isLoading: false,
-            //        errorLoading: false
          }
       }
 
@@ -55,5 +50,6 @@ const ingredientsReducer = (state = initialState, action) => {
 export const rootReducer = combineReducers({
    ingredients: ingredientsReducer,
    order: orderReducer,
-   dnd: dndReducer
+   dnd: dndReducer,
+   auth: authReducer
 })

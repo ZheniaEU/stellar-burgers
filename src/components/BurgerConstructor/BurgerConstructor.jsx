@@ -14,13 +14,17 @@ import {
    ADD_BUN,
    DELETE_ITEM
 } from "../../services/actions/index"
+import { useHistory } from "react-router-dom"
 
 export const BurgerConstructor = ({ onOpen }) => {
 
    const { ingredients } = useSelector(state => state.ingredients)
    const { bun, fillings } = useSelector(state => state.dnd)
+   const { isAuth } = useSelector(state => state.auth)
 
    const dispatch = useDispatch()
+
+   const history = useHistory()
 
    const [, dropTarget] = useDrop({
       accept: "ingredients",
@@ -62,11 +66,12 @@ export const BurgerConstructor = ({ onOpen }) => {
    }
 
    const sendOrder = () => {
-      onDemandOrder(countTotalIngredients(ingredients))
+      !isAuth && history.push("./login")
+      isAuth && onDemandOrder(countTotalIngredients(ingredients))
          .then(res => {
             dispatch({ type: GET_ORDER_SUCCESS, data: res.order.number })
          })
-      onOpen()
+      isAuth && onOpen()
    }
 
    return (

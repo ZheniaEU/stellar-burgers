@@ -1,7 +1,7 @@
 .header {
    display: flex;
    justify-content: center;
-
+   padding: 16px 0;
    background-color: #1c1c21;
 }
 
@@ -27,8 +27,8 @@
 }
 
 .li:nth-child(2) {
-   margin-right: 120px;
-   /* сместел на 8 пикселей вправо чтобы лого казалось более естественным, в центре */
+   margin-right: 116px;
+   /* сместел на 4 пикселей вправо чтобы лого казалось более естественным, в центре */
 }
 
 .li:last-child {
@@ -45,16 +45,8 @@
    text-decoration-line: none;
 }
 
-.a:focus {
-   outline: 2px solid dodgerblue;
-}
-
-.logo {
-   padding: 16.82px 0;
-}
-
 .p {
    font-weight: 16px;
    line-height: 24px;
-   padding-left: 10px;
+   padding-left: 8px;
 }

@@ -4,6 +4,7 @@
    display: flex;
    align-items: center;
    justify-content: center;
+   right: 0;
    cursor: wait;
    position: fixed;
    z-index: 5;

@@ -8,11 +8,15 @@
    width: 272px;
    list-style: none;
    position: relative;
+   transition: 0.2s;
+}
+
+.card:hover {
+   transform: scale(1.05);
 }
 
 .counter {
    position: absolute;
-
    right: 8px;
    opacity: 1;
 }
