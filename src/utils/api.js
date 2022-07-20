@@ -49,6 +49,7 @@ export const resetPassword = async (password, token) => {
          token,
       })
    })
+      .then(res => checkResponse(res))
 }
 
 export const createUser = async (name, email, password) => {
@@ -63,6 +64,7 @@ export const createUser = async (name, email, password) => {
          name
       })
    })
+      .then(res => checkResponse(res))
 }
 
 export const login = async (email, password) => {

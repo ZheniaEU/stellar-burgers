@@ -5,11 +5,8 @@ import PropTypes from "prop-types"
 import { useDrag } from "react-dnd"
 import { useMemo } from "react"
 import { useLocation, Link } from "react-router-dom"
-import { useRouteMatch } from "react-router-dom"
-import { useHistory } from "react-router-dom"
 
 export const Ingredients = ({ onOpen, item }) => {
-
 
    const { bun, fillings } = useSelector(state => state.dnd)
 
@@ -35,11 +32,8 @@ export const Ingredients = ({ onOpen, item }) => {
    const id = item._id
 
    const location = useLocation()
-   const match = useRouteMatch()
 
    return (
-
-
       < li className={styles.card} ref={dragRef} >
          <div className={styles.counter} >
             {counter() > 0 && <Counter count={counter()} />}

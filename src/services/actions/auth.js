@@ -51,11 +51,11 @@ export const logoutUser = () => {
 
 //аутентификация юзера при посещении сайта или при перезагрузки его
 export const аuthenticationUser = () => {
-   if (getCookie("accessToken") === undefined) {
-      return
-   }
-
    return async (dispatch) => {
+      if (getCookie("accessToken") === undefined) {
+         return
+      }
+
       try {
          await getUserInfo(dispatch)
       }
