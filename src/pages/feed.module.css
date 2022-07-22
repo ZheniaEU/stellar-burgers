@@ -111,13 +111,8 @@
    border: 2px solid #0000;
    background:
       linear-gradient(#1C1C21, #1C1C21) padding-box,
-      linear-gradient(60deg, rgba(128, 26, 178, 1), rgba(76, 76, 255, 1)) border-box;
+      linear-gradient(63.18deg, rgba(128, 26, 178, 1), rgba(76, 76, 255, 1)) border-box;
 }
-
-img {
-   width: 60px;
-}
-
 
 .price_container {
    display: flex;

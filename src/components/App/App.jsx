@@ -54,6 +54,7 @@ export const App = () => {
    //состояния
    const [openOrderModal, setopenOrderModal] = useState(false)
    const [openInfoModal, setopenInfoModal] = useState(false)
+   const [openFeedModal, setopenFeedModal] = useState(false)
 
    //открыть
    const handleOpenOrderModal = () => {
@@ -64,17 +65,26 @@ export const App = () => {
       setopenInfoModal(true)
    }
 
-   //ингредиеты
+   const handleOpenFeedModal = () => {
+      setopenFeedModal(true)
+   }
+
+   //закрыть ингредиет
    const onCloseModalingredient = useCallback(() => {
       setopenInfoModal(false)
       history.push("/")
    }, [history])
 
-   //ордер
+   //закрыть ордер
    const onCloseModalOrder = () => {
       setopenOrderModal(false)
       dispatch({ type: DELETE_ORDER })
       dispatch({ type: RESET_ITEMS })
+   }
+
+   //закрыть фид
+   const onCloseModalFeed = () => {
+      setopenInfoModal(false)
    }
 
    return (
@@ -96,7 +106,8 @@ export const App = () => {
             <Route path="/register" exact children={<Register />} />
             <Route path="/forgot-password" exact children={<ForgotPassword />} />
             <Route path="/reset-password" exact children={<ResetPassword />} />
-            <Route path="/feed" exact children={<Feed />} />
+
+            <Route path="/feed" exact children={<Feed onOpen={handleOpenFeedModal} />} />
 
             <Route path="/ingredients/:id">
                <div className={styles.maket} />
@@ -111,16 +122,23 @@ export const App = () => {
          {background && openInfoModal && (
             <Route path="/ingredients/:id">
                <Modal
-                  active={openInfoModal}
                   onClickClose={onCloseModalingredient} >
                   <IngredientDetails />
                </Modal>
             </Route>
          )}
 
+         {openFeedModal && (
+
+               <Modal
+                  onClickClose={onCloseModalFeed} >
+                  <IngredientDetails />
+               </Modal>
+
+         )}
+
          {openOrderModal && (
             <Modal
-               active={openOrderModal}
                onClickClose={onCloseModalOrder}>
                <OrderDetals />
             </Modal>

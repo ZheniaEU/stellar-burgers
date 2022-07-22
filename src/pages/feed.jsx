@@ -1,30 +1,25 @@
 /*eslint-disable*/
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components"
-import { useSelector } from "react-redux"
 import styles from "./feed.module.css"
 
 
-export const Feed = () => {
-
-   const { ingredients } = useSelector(state => state.ingredients)
-
-   console.log(ingredients)
+export const Feed = ({ onOpen }) => {
 
    return (
       <main className={styles.main}>
          <h1 className={styles.h1}>Лента заказов</h1>
          <section className={styles.section}>
-            <CardOrder />
+            <CardOrder onOpen={onOpen} />
             <StatusList />
          </section>
       </main>
    )
 }
 
-export const CardOrder = () => {
+export const CardOrder = ({ onOpen }) => {
    return (
       <ul className={styles.container}>
-         <li className={styles.card}>
+         <li className={styles.card} onClick={() => onOpen()}>
             <div className={styles.order_container}>
                <p className={styles.order}>#034535</p>
                <p className={styles.date}>Сегодня, 16:20 i-GMT+3</p>
@@ -95,7 +90,6 @@ export const CardOrder = () => {
       </ul>
    )
 }
-
 
 export const StatusList = () => {
    return (
