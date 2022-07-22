@@ -22,7 +22,8 @@ import {
    Register,
    ForgotPassword,
    ResetPassword,
-   Error404
+   Error404,
+   Feed
 } from "../../pages/index"
 import styles from "./App.module.css"
 
@@ -95,6 +96,7 @@ export const App = () => {
             <Route path="/register" exact children={<Register />} />
             <Route path="/forgot-password" exact children={<ForgotPassword />} />
             <Route path="/reset-password" exact children={<ResetPassword />} />
+            <Route path="/feed" exact children={<Feed />} />
 
             <Route path="/ingredients/:id">
                <div className={styles.maket} />

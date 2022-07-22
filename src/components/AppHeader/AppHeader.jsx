@@ -17,7 +17,7 @@ export const AppHeader = () => {
                   </Link>
                </li>
                <li className={styles.li}>
-                  <Link to="/order" className={styles.a}>
+                  <Link to="/feed" className={styles.a}>
                      <ListIcon type="secondary" text="Лента Заказа" />
                      <p className={` ${styles.p} `}>Лента заказов</p>
                   </Link>
