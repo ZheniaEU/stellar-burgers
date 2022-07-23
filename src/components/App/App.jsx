@@ -29,14 +29,17 @@ import styles from "./App.module.css"
 
 export const App = () => {
 
-//    const ws = new WebSocket("wss://norma.nomoreparties.space/orders/all")
+   const { wsConnected, messages } = useSelector(state => state.ws)
 
-// //    ws.onmessage = (event) => {
-// //    //   console.log(JSON.parse(event.data).orders);
-// //       console.log(event.lastEventId)
+   console.log(wsConnected, messages)
+   //    const ws = new WebSocket("wss://norma.nomoreparties.space/orders/all")
 
-// //   //    console.log(`Получены данные: ${event.data}`)
-// //    }
+   // //    ws.onmessage = (event) => {
+   // //    //   console.log(JSON.parse(event.data).orders);
+   // //       console.log(event.lastEventId)
+
+   // //   //    console.log(`Получены данные: ${event.data}`)
+   // //    }
 
    const { isLoading } = useSelector(state => state.ingredients)
    const dispatch = useDispatch()

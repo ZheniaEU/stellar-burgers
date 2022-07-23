@@ -5,7 +5,7 @@ import { rootReducer } from "./reducers"
 import { socketMiddleware } from "./middleware/wsMiddleware"
 import { wsAction } from "./actions/wsActionTypes"
 
-export const wsURL = "wss://norma.nomoreparties.space/orders"
+export const wsURL = "wss://norma.nomoreparties.space/orders/all"
 
 const composeEnhancers =
    typeof window === "object" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
