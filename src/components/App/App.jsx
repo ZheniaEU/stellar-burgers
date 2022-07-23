@@ -29,14 +29,14 @@ import styles from "./App.module.css"
 
 export const App = () => {
 
-   const ws = new WebSocket("wss://norma.nomoreparties.space/orders/all")
+//    const ws = new WebSocket("wss://norma.nomoreparties.space/orders/all")
 
-//    ws.onmessage = (event) => {
-//    //   console.log(JSON.parse(event.data).orders);
-//       console.log(event.lastEventId)
+// //    ws.onmessage = (event) => {
+// //    //   console.log(JSON.parse(event.data).orders);
+// //       console.log(event.lastEventId)
 
-//   //    console.log(`Получены данные: ${event.data}`)
-//    }
+// //   //    console.log(`Получены данные: ${event.data}`)
+// //    }
 
    const { isLoading } = useSelector(state => state.ingredients)
    const dispatch = useDispatch()
@@ -53,10 +53,10 @@ export const App = () => {
       if (match) {
          setopenInfoModal(true)
       }
-      ws.onopen = (event) => {
-         console.log(event);
-         console.log("Соединение установлено");
-      }
+      // ws.onopen = (event) => {
+      //    console.log(event);
+      //    console.log("Соединение установлено");
+      // }
 
 
 

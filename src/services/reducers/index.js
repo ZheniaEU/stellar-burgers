@@ -2,6 +2,8 @@ import { combineReducers } from "redux"
 import { orderReducer } from "./order"
 import { dndReducer } from "./dnd"
 import { authReducer } from "./auth"
+import { wsReducer } from "./ws"
+
 
 import {
    GET_INGREDIENTS_REQUEST,
@@ -51,5 +53,6 @@ export const rootReducer = combineReducers({
    ingredients: ingredientsReducer,
    order: orderReducer,
    dnd: dndReducer,
-   auth: authReducer
+   auth: authReducer,
+   ws: wsReducer
 })
