@@ -30,16 +30,13 @@ import { WS_CONNECTION_INIT } from "../../services/reducers/ws"
 
 export const App = () => {
 
-   const { orders, total, totalToday } = useSelector(state => state.ws)
+ //  const { orders, total, totalToday } = useSelector(state => state.ws)
    const { isLoading } = useSelector(state => state.ingredients)
    const dispatch = useDispatch()
    useEffect(() => {
       dispatch({ type: WS_CONNECTION_INIT, payload: "/all" })
 
    }, [dispatch])
-
-   console.log( orders, total, totalToday)
-
 
    const match = useRouteMatch("/ingredients/:id")
 

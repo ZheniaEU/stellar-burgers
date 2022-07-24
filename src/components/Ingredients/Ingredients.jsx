@@ -47,7 +47,6 @@ export const Ingredients = ({ onOpen, item }) => {
          </div>
          <p className={styles.name}>{item.name}</p>
       </li >
-
    )
 }
 

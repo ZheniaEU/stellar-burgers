@@ -5,7 +5,7 @@ export const socketMiddleware = (wsActions) => {
    return stote => {
       let socket = null
       const wsURL = "wss://norma.nomoreparties.space/orders"
-      const token = getCookie("accessToken")
+      //  const token = getCookie("accessToken")
       console.log(getCookie("accessToken"))
       const {
          wsInit, onOpen, onMessage, wsSendMessage, onClose, onError
@@ -16,7 +16,9 @@ export const socketMiddleware = (wsActions) => {
          const { type, payload } = action
 
          if (type === wsInit) {
-            socket = new WebSocket(`${wsURL}${payload}?token=${token}`)
+            socket = new WebSocket(`${wsURL}${payload}`)
+            //я не поняв зачем нам токен передавать свой в урле?
+            //  socket = new WebSocket(`${wsURL}${payload}?token=${token}`)
          }
          if (socket) {
             socket.onopen = event => {

@@ -70,7 +70,7 @@ export const wsReducer = (state = initialState, action) => {
          return {
             ...state,
             error: undefined,
-            orders: action.payload,
+            orders: action.payload.orders,
             total: action.payload.total,
             totalToday: action.payload.totalToday
          };

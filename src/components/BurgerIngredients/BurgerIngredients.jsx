@@ -77,7 +77,6 @@ export const BurgerIngredients = ({ onOpen }) => {
                </ul>
             </article>
          </section >
-
    )
 }
 

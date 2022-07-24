@@ -42,7 +42,6 @@ export const ConstructorList = ({ filling, index, handleDellItem, id }) => {
    drag(drop(ref))
 
    return (
-
       <li className={style.li} index={index} ref={ref} style={{ opacity }} >
          <div className={style.div}>
             <div className={`mr-2`}>
