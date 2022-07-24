@@ -1,3 +1,4 @@
+/*eslint-disable*/
 import {
    WS_CONNECTION_START,
    WS_CONNECTION_SUCCESS,
@@ -10,7 +11,7 @@ import {
 
 const initialState = {
    wsConnected: false,
-   messages: [],
+   data: [],
    error: undefined
 }
 
@@ -50,7 +51,7 @@ export const wsReducer = (state = initialState, action) => {
          return {
             ...state,
             error: undefined,
-            messages: [...state.messages, action.payload]
+            data: [...state.data, action.payload]
          };
       default:
          return state;

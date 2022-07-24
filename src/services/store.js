@@ -5,14 +5,12 @@ import { rootReducer } from "./reducers"
 import { socketMiddleware } from "./middleware/wsMiddleware"
 import { wsAction } from "./actions/wsActionTypes"
 
-export const wsURL = "wss://norma.nomoreparties.space/orders/all"
-
 const composeEnhancers =
    typeof window === "object" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
       ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
       : compose
 
-const enhancer = composeEnhancers(applyMiddleware(thunk, socketMiddleware(wsURL, wsAction)))
+const enhancer = composeEnhancers(applyMiddleware(thunk, socketMiddleware(wsAction)))
 // const enhancer = composeEnhancers(applyMiddleware(thunk))
 
 export const state = createStore(rootReducer, enhancer)

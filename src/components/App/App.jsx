@@ -26,23 +26,21 @@ import {
    Feed
 } from "../../pages/index"
 import styles from "./App.module.css"
+import { WS_CONNECTION_START } from "../../services/actions/wsActionTypes"
 
 export const App = () => {
 
-   const { wsConnected, messages } = useSelector(state => state.ws)
-
-   console.log(wsConnected, messages)
-   //    const ws = new WebSocket("wss://norma.nomoreparties.space/orders/all")
-
-   // //    ws.onmessage = (event) => {
-   // //    //   console.log(JSON.parse(event.data).orders);
-   // //       console.log(event.lastEventId)
-
-   // //   //    console.log(`Получены данные: ${event.data}`)
-   // //    }
-
+   const { data } = useSelector(state => state.ws)
    const { isLoading } = useSelector(state => state.ingredients)
    const dispatch = useDispatch()
+
+   useEffect(() => {
+
+      dispatch({ type: WS_CONNECTION_START })
+   }, [dispatch])
+
+   const a = data.data
+   console.log(a)
 
    const match = useRouteMatch("/ingredients/:id")
 
@@ -56,13 +54,6 @@ export const App = () => {
       if (match) {
          setopenInfoModal(true)
       }
-      // ws.onopen = (event) => {
-      //    console.log(event);
-      //    console.log("Соединение установлено");
-      // }
-
-
-
    }, [match])
 
    useEffect(() => {
