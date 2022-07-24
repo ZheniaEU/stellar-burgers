@@ -26,21 +26,20 @@ import {
    Feed
 } from "../../pages/index"
 import styles from "./App.module.css"
-import { WS_CONNECTION_START } from "../../services/actions/wsActionTypes"
+import { WS_CONNECTION_INIT } from "../../services/reducers/ws"
 
 export const App = () => {
 
-   const { data } = useSelector(state => state.ws)
+   const { orders, total, totalToday } = useSelector(state => state.ws)
    const { isLoading } = useSelector(state => state.ingredients)
    const dispatch = useDispatch()
-
    useEffect(() => {
+      dispatch({ type: WS_CONNECTION_INIT, payload: "/all" })
 
-      dispatch({ type: WS_CONNECTION_START })
    }, [dispatch])
 
-   const a = data.data
-   console.log(a)
+   console.log( orders, total, totalToday)
+
 
    const match = useRouteMatch("/ingredients/:id")
 

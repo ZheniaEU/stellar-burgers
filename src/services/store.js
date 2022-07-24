@@ -3,7 +3,7 @@ import { compose, createStore, applyMiddleware } from "redux"
 // import { logger } from "redux-logger"
 import { rootReducer } from "./reducers"
 import { socketMiddleware } from "./middleware/wsMiddleware"
-import { wsAction } from "./actions/wsActionTypes"
+import { wsAction } from "./reducers/ws"
 
 const composeEnhancers =
    typeof window === "object" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__

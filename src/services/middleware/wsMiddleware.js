@@ -4,16 +4,19 @@ import { getCookie } from "../../utils/cookie"
 export const socketMiddleware = (wsActions) => {
    return stote => {
       let socket = null
-      const wsURL = "wss://norma.nomoreparties.space/orders/all"
-      const { wsInit, onOpen, onMessage, wsSendMessage, onClose, onError } = wsActions
+      const wsURL = "wss://norma.nomoreparties.space/orders"
+      const token = getCookie("accessToken")
+      console.log(getCookie("accessToken"))
+      const {
+         wsInit, onOpen, onMessage, wsSendMessage, onClose, onError
+      } = wsActions
 
       return next => action => {
          const { dispatch } = stote
          const { type, payload } = action
 
          if (type === wsInit) {
-            // socket = new WebSocket(`${wsURL}?token=${user.token}`)
-            socket = new WebSocket(wsURL)
+            socket = new WebSocket(`${wsURL}${payload}?token=${token}`)
          }
          if (socket) {
             socket.onopen = event => {
@@ -36,10 +39,10 @@ export const socketMiddleware = (wsActions) => {
                dispatch({ type: onClose, payload: event })
             }
 
-            if (type === wsSendMessage) {
-               const message = { ...payload }
-               socket.send(JSON.stringify(message))
-            }
+            // if (type === wsSendMessage) {
+            //    const message = { ...payload }
+            //    socket.send(JSON.stringify(message))
+            // }
          }
 
          next(action)
