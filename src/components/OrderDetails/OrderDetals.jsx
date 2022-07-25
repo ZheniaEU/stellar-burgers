@@ -1,7 +1,7 @@
-import styles from "./OrderDetals.module.css"
-import done from "../../images/done.svg"
 import { useSelector } from "react-redux"
 import { Loader } from "../Loader/Loader"
+import done from "../../images/done.svg"
+import styles from "./OrderDetals.module.css"
 
 export const OrderDetals = () => {
 

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { Loader } from "../components/Loader/Loader"
 import { WS_CONNECTION_INIT } from "../services/reducers/ws"
 import styles from "./feed.module.css"
-
+//!дописать проптайпы
 
 export const Feed = ({ onOpen }) => {
 

@@ -1,21 +1,20 @@
 /* eslint-disable*/
-import { Switch, Route, useHistory, useRouteMatch } from "react-router-dom"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
+import { Switch, Route, useHistory, useRouteMatch, useLocation } from "react-router-dom"
 import { AppHeader } from "../AppHeader/AppHeader"
 import { BurgerIngredients } from "../BurgerIngredients/BurgerIngredients"
 import { BurgerConstructor } from "../BurgerConstructor/BurgerConstructor"
 import { IngredientDetails } from "../IngredientDetails/IngredientDetails"
-import { Modal } from "../Modal/Modal"
 import { OrderDetals } from "../OrderDetails/OrderDetals"
+import { OrderInfo } from "../OrderInfo/OrderInfo"
 import { useSelector, useDispatch } from "react-redux"
 import { DndProvider } from "react-dnd"
 import { HTML5Backend } from "react-dnd-html5-backend"
 import { ProtectedRoute } from "../ProtectedRoute/ProtectedRoute"
+import { Modal } from "../Modal/Modal"
 import { Loader } from "../Loader/Loader"
 import { getData, DELETE_ORDER, RESET_ITEMS } from "../../services/actions/index"
 import { аuthenticationUser } from "../../services/actions/auth"
-import { useLocation } from "react-router-dom"
-import { useCallback } from "react"
 import {
    Profile,
    Login,
@@ -75,12 +74,6 @@ export const App = () => {
       setopenFeedModal(true)
    }
 
-   //закрыть ингредиет
-   const onCloseModalingredient = useCallback(() => {
-      setopenInfoModal(false)
-      history.push("/")
-   }, [history])
-
    //закрыть ордер
    const onCloseModalOrder = () => {
       setopenOrderModal(false)
@@ -88,9 +81,15 @@ export const App = () => {
       dispatch({ type: RESET_ITEMS })
    }
 
+   //закрыть ингредиет
+   const onCloseModalingredient = useCallback(() => {
+      setopenInfoModal(false)
+      history.push("/")
+   }, [history])
+
    //закрыть фид
    const onCloseModalFeed = () => {
-      setopenInfoModal(false)
+      setopenFeedModal(false)
    }
 
    return (
@@ -138,7 +137,7 @@ export const App = () => {
 
             <Modal
                onClickClose={onCloseModalFeed} >
-               <IngredientDetails />
+               <OrderInfo />
             </Modal>
 
          )}
