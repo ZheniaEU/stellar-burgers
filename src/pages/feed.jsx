@@ -30,7 +30,7 @@ export const Feed = ({ onOpen }) => {
             <section className={styles.section}>
                <ul className={styles.container}>
                   {orders.map((item) => (
-                     < CardOrder onOpen={onOpen} item={item} key={item._id} />
+                     < CardOrder onOpen={onOpen} item={item} key={item._id} id={item.ingredients} />
                   ))}
                </ul>
 
@@ -42,20 +42,51 @@ export const Feed = ({ onOpen }) => {
    )
 }
 
-export const CardOrder = ({ onOpen, item }) => {
+export const CardOrder = ({ onOpen, item, id }) => {
 
+   const { ingredients } = useSelector(state => state.ingredients)
+
+   // console.log(id)
+
+   const getimageingredients = (id) => {
+      //console.log(ingredients.find((item) => item._id === id))
+      return ingredients.find((item) => item._id === id)
+   }
+
+   const a = id.map((id) => {
+      //  console.log(getimageingredients(id))
+      return getimageingredients(id)
+   })
+
+   console.log(a)
+
+   const countTotalPrice = (a, sum = 0) => {
+      for (let { price } of a)
+         sum += price
+      return sum
+   }
+
+   console.log(countTotalPrice(a))
+
+
+   useEffect(() => {
+      // console.log(item.ingredients)
+
+   }, [])
 
    return (
       <li className={styles.card} onClick={() => onOpen()}>
          <div className={styles.order_container}>
-            <p className={styles.order}>{item.number}</p>
+            <p className={styles.order}>#{item.number}</p>
             <p className={styles.date}>{item.createdAt}</p>
          </div>
          <h2 className={styles.h2}>{item.name}</h2>
          <div className={styles.overview_container}>
             <div className={styles.images_container}>
+               {/* {item.map((item) => ( */}
                <img className={styles.image}
                   src="https://code.s3.yandex.net/react/code/bun-01-mobile.png" alt="" />
+               {/* ))} */}
             </div>
             <div className={styles.price_container}>
                <p className={styles.price}>480</p>
@@ -70,13 +101,13 @@ export const StatusList = () => {
 
    const { wsConnected, orders, total, totalToday } = useSelector(state => state.ws)
 
-   const doneOrders = orders
-      .filter(order => order.status === "done")
-      .map(order => order.number)
+   const ordersIsDone = orders
+      .filter((order) => order.status === "done")
+      .slice(0, 10)
 
-   const progressOrders = orders
-      .filter(order => order.status !== "done")
-      .map(order => order.number)
+   const orderIsPending = orders
+      .filter(order => order.status === "pending")
+      .slice(0, 10)
 
    return (
       <article className={styles.article}>
@@ -84,17 +115,17 @@ export const StatusList = () => {
             <div className={styles.orders} >
                <h3 className={styles.h3}>Готовы:</h3>
                <ul className={styles.ul}>
-
-                  <li className={styles.done}>034533</li>
-
+                  {ordersIsDone.map((item) => (
+                     <li className={styles.done} key={item._id}>{item.number}</li>
+                  ))}
                </ul>
             </div>
             <div className={styles.orders}>
                <h3 className={styles.h3}>В работе:</h3>
                <ul className={styles.ul}>
-
-                  <li className={styles.progress}>034533</li>
-
+                  {orderIsPending.map((item) => (
+                     <li className={styles.progress} key={item._id}>{item.number}</li>
+                  ))}
                </ul >
             </div>
          </div>
