@@ -16,7 +16,7 @@
    display: flex;
 }
 
-/*AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA*/
+/***************************ardOrder***************************/
 
 .container {
    width: 600px;
@@ -101,16 +101,52 @@
 .images_container {
    display: flex;
    height: 64px;
+   padding-left: 16px;
+   position: relative;
 }
 
 .image {
    width: 60px;
+   height: 60px;
+   margin-left: -16px;
    object-fit: cover;
    border-radius: 50%;
    border: 2px solid #0000;
    background:
       linear-gradient(#1C1C21, #1C1C21) padding-box,
       linear-gradient(63.18deg, rgba(128, 26, 178, 1), rgba(76, 76, 255, 1)) border-box;
+   z-index: 6;
+}
+
+.image:nth-child(2) {
+   z-index: 5;
+}
+
+.image:nth-child(3) {
+   z-index: 4;
+}
+
+.image:nth-child(4) {
+   z-index: 3;
+}
+
+.image:nth-child(5) {
+   z-index: 2;
+}
+
+.image:nth-child(6) {
+   opacity: 0.6;
+   z-index: 1;
+}
+
+.hide {
+   font-size: 16px;
+   position: absolute;
+   height: 0;
+   width: 0;
+   top: 10px;
+   left: 260px;
+   z-index: 2;
 }
 
 .price_container {
@@ -128,7 +164,7 @@
 }
 
 
-/*BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB*/
+/************************StatusList***************************/
 
 .article {
    display: flex;
