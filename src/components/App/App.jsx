@@ -26,6 +26,7 @@ import {
 } from "../../pages/index"
 import styles from "./App.module.css"
 import { WS_CONNECTION_INIT } from "../../services/reducers/ws"
+import { CardOrder } from "../../pages/feed"
 
 export const App = () => {
 
@@ -118,7 +119,6 @@ export const App = () => {
             <Route path="/register" exact children={<Register />} />
             <Route path="/forgot-password" exact children={<ForgotPassword />} />
             <Route path="/reset-password" exact children={<ResetPassword />} />
-
             <Route path="/feed" exact children={<Feed onOpen={handleOpenFeedModal} />} />
 
             <Route path="/feed/:id" exact>
@@ -132,6 +132,8 @@ export const App = () => {
             </Route>
 
             <ProtectedRoute path="/profile" exact children={<Profile />} />
+            <ProtectedRoute path="/profile/orders" exact children={<Feed />} />
+            <ProtectedRoute path="/profile/orders/:id" exact children={<OrderInfo />} />
 
             <Route children={<Error404 />} />
          </Switch>

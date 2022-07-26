@@ -25,7 +25,7 @@ export const Feed = ({ onOpen }) => {
             <section className={styles.section}>
                <ul className={styles.container}>
                   {orders.map((item) => (
-                     < CardOrder onOpen={onOpen} item={item} key={item._id} arr={item.ingredients} />
+                     <CardOrder onOpen={onOpen} item={item} key={item._id} arr={item.ingredients} />
                   ))}
                </ul>
                <StatusList />
@@ -39,6 +39,12 @@ export const CardOrder = ({ onOpen, item, arr }) => {
 
    const { ingredients } = useSelector(state => state.ingredients)
    const location = useLocation()
+
+   if (!item && ingredients) {
+      return (
+         <Loader />
+      )
+   }
 
    const id = item._id
 
