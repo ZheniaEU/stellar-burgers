@@ -22,7 +22,8 @@ import {
    ForgotPassword,
    ResetPassword,
    Error404,
-   Feed
+   Feed,
+   OrdersHistory
 } from "../../pages/index"
 import styles from "./App.module.css"
 import { WS_CONNECTION_INIT } from "../../services/reducers/ws"
@@ -132,7 +133,7 @@ export const App = () => {
             </Route>
 
             <ProtectedRoute path="/profile" exact children={<Profile />} />
-            <ProtectedRoute path="/profile/orders" exact children={<Feed />} />
+            <ProtectedRoute path="/profile/orders" exact children={<OrdersHistory />} />
             <ProtectedRoute path="/profile/orders/:id" exact children={<OrderInfo />} />
 
             <Route children={<Error404 />} />

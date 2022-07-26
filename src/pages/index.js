@@ -5,5 +5,15 @@ import { ForgotPassword } from "./forgot-password"
 import { ResetPassword } from "./reset-password"
 import { Error404 } from "./error404"
 import { Feed } from "./feed"
+import { OrdersHistory } from "./orders-history"
 
-export { Login, Profile, Register, ForgotPassword, ResetPassword, Error404, Feed }
+export {
+   Login,
+   Profile,
+   Register,
+   ForgotPassword,
+   ResetPassword,
+   Error404,
+   Feed,
+   OrdersHistory
+}
