@@ -55,15 +55,18 @@ export const logoutUser = () => {
 //аутентификация юзера при посещении сайта или при перезагрузки его
 export const аuthenticationUser = () => {
    return async (dispatch) => {
+      console.log(getCookie("accessToken"))
       if (getCookie("accessToken") === undefined) {
          return
       }
 
+      //     console.log(getCookie("accessToken"))
       try {
          await getUserInfo(dispatch)
       }
       catch (res) {
          if (res.res.message === "jwt expired") {
+            //         if (res.res.message === "invalid token") {
             await refreshTokenUsert()
             await getUserInfo(dispatch)
          }

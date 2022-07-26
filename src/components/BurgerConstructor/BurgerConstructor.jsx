@@ -68,10 +68,11 @@ export const BurgerConstructor = ({ onOpen }) => {
 
    const sendOrder = () => {
       !isAuth && history.push("./login")
-      isAuth && onDemandOrder(countTotalIngredients(ingredients), getCookie("accessToken"))
+      isAuth && onDemandOrder(countTotalIngredients([bun, bun, ...fillings]), getCookie("accessToken"))
          .then(res => {
             dispatch({ type: GET_ORDER_SUCCESS, data: res.order.number })
          })
+
       isAuth && onOpen()
    }
 

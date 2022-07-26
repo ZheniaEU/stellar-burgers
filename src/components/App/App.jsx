@@ -28,6 +28,7 @@ import {
 import styles from "./App.module.css"
 import { WS_CONNECTION_INIT } from "../../services/reducers/ws"
 import { CardOrder } from "../../pages/feed"
+import { getCookie } from "../../utils/cookie"
 
 export const App = () => {
 
@@ -60,6 +61,7 @@ export const App = () => {
    useEffect(() => {
       dispatch(getData())
       dispatch(аuthenticationUser())
+      // console.log(getCookie("accessToken"))
    }, [dispatch])
 
    //состояния
