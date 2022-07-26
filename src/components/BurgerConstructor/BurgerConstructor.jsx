@@ -8,6 +8,7 @@ import { useDrop } from "react-dnd"
 import ConstructorStyles from "./BurgerConstructor.module.css"
 import { GET_ORDER_SUCCESS } from "../../services/actions/index"
 import { useMemo } from "react"
+import { getCookie } from "../../utils/cookie"
 
 import {
    ADD_FILLINGS,
@@ -67,7 +68,7 @@ export const BurgerConstructor = ({ onOpen }) => {
 
    const sendOrder = () => {
       !isAuth && history.push("./login")
-      isAuth && onDemandOrder(countTotalIngredients(ingredients))
+      isAuth && onDemandOrder(countTotalIngredients(ingredients), getCookie("accessToken"))
          .then(res => {
             dispatch({ type: GET_ORDER_SUCCESS, data: res.order.number })
          })

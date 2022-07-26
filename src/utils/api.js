@@ -12,14 +12,15 @@ export const getIngredients = async () => {
       .then(res => checkResponse(res))
 }
 
-export const onDemandOrder = async (massId) => {
+export const onDemandOrder = async (arr, accessToken) => {
    return await fetch(`${API_URL}/orders`, {
       method: "POST",
       headers: {
-         "Content-Type": "application/json"
+         "Content-Type": "application/json",
+         Authorization: "Bearer " + accessToken
       },
       body: JSON.stringify({
-         ingredients: massId
+         ingredients: arr
       })
    })
       .then(res => checkResponse(res))
