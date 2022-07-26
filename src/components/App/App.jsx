@@ -37,7 +37,8 @@ export const App = () => {
 
    }, [dispatch])
 
-   const match = useRouteMatch("/ingredients/:id")
+   const isIngredients = useRouteMatch("/ingredients/:id")
+   const isFeed = useRouteMatch("/feed/:id")
 
    const history = useHistory()
 
@@ -46,10 +47,13 @@ export const App = () => {
    const background = location.state?.background
 
    useEffect(() => {
-      if (match) {
+      if (isIngredients) {
          setopenInfoModal(true)
       }
-   }, [match])
+      if (isFeed) {
+         setopenFeedModal(true)
+      }
+   }, [isIngredients, isFeed])
 
    useEffect(() => {
       dispatch(getData())
@@ -117,6 +121,11 @@ export const App = () => {
 
             <Route path="/feed" exact children={<Feed onOpen={handleOpenFeedModal} />} />
 
+            <Route path="/feed/:id" exact>
+               <div className={styles.maket} />
+               <OrderInfo />
+            </Route>
+
             <Route path="/ingredients/:id">
                <div className={styles.maket} />
                <IngredientDetails />
@@ -136,7 +145,7 @@ export const App = () => {
             </Route>
          )}
 
-         {openFeedModal && (
+         {background && openFeedModal && (
             <Route path="/feed/:id">
                <Modal
                   onClickClose={onCloseModalFeed} >

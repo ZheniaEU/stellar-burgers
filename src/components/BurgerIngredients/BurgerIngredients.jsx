@@ -1,11 +1,11 @@
 import { useMemo, useState, useEffect } from "react"
 import { Ingredients } from "../Ingredients/Ingredients"
-import styles from "./BurgerIngredients.module.css"
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components"
 import { useInView } from "react-hook-inview"
 import { ingredientsPropTypes } from "../../utils/types"
-import PropTypes from "prop-types"
 import { useSelector } from "react-redux"
+import styles from "./BurgerIngredients.module.css"
+import PropTypes from "prop-types"
 
 export const BurgerIngredients = ({ onOpen }) => {
 
