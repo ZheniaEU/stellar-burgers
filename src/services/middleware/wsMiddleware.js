@@ -6,7 +6,7 @@ export const socketMiddleware = (wsActions) => {
       let socket = null
       const wsURL = "wss://norma.nomoreparties.space/orders"
       //  const token = getCookie("accessToken")
-      console.log(getCookie("accessToken"))
+      //      console.log(getCookie("accessToken"))
       const {
          wsInit, onOpen, onMessage, wsSendMessage, onClose, onError
       } = wsActions

@@ -29,7 +29,7 @@ import { WS_CONNECTION_INIT } from "../../services/reducers/ws"
 
 export const App = () => {
 
- //  const { orders, total, totalToday } = useSelector(state => state.ws)
+   //  const { orders, total, totalToday } = useSelector(state => state.ws)
    const { isLoading } = useSelector(state => state.ingredients)
    const dispatch = useDispatch()
    useEffect(() => {
@@ -82,15 +82,18 @@ export const App = () => {
    }
 
    //закрыть ингредиет
-   const onCloseModalingredient = useCallback(() => {
-      setopenInfoModal(false)
-      history.push("/")
-   }, [history])
+   const onCloseModalingredient =
+      useCallback(() => {
+         setopenInfoModal(false)
+         history.push("/")
+      }, [history])
 
    //закрыть фид
-   const onCloseModalFeed = () => {
-      setopenFeedModal(false)
-   }
+   const onCloseModalFeed =
+      useCallback(() => {
+         setopenFeedModal(false)
+         history.push("/feed")
+      }, [history])
 
    return (
       <>
@@ -134,12 +137,12 @@ export const App = () => {
          )}
 
          {openFeedModal && (
-
-            <Modal
-               onClickClose={onCloseModalFeed} >
-               <OrderInfo />
-            </Modal>
-
+            <Route path="/feed/:id">
+               <Modal
+                  onClickClose={onCloseModalFeed} >
+                  <OrderInfo />
+               </Modal>
+            </Route>
          )}
 
          {openOrderModal && (

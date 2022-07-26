@@ -1,6 +1,7 @@
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components"
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
+import { Link, useLocation } from "react-router-dom"
 import { Loader } from "../components/Loader/Loader"
 import { WS_CONNECTION_INIT } from "../services/reducers/ws"
 import styles from "./feed.module.css"
@@ -37,6 +38,9 @@ export const Feed = ({ onOpen }) => {
 export const CardOrder = ({ onOpen, item, arr }) => {
 
    const { ingredients } = useSelector(state => state.ingredients)
+   const location = useLocation()
+
+   const id = item._id
 
    const getIngredients = (id) => {
       return ingredients.find((item) => item._id === id)
@@ -58,25 +62,28 @@ export const CardOrder = ({ onOpen, item, arr }) => {
    }
 
    return (
-      <li className={styles.card} onClick={() => onOpen()}>
-         <div className={styles.order_container}>
-            <p className={styles.order}>#{item.number}</p>
-            <p className={styles.date}>{item.createdAt}</p>
-         </div>
-         <h2 className={styles.h2}>{item.name}</h2>
-         <div className={styles.overview_container}>
-            <div className={styles.images_container}>
-               {totalIngredients.slice(0, 6).map((item, index) => (
-                  < img className={styles.image} src={item.image_mobile}
-                     key={index} alt={item.name} />
-               ))}
-               <p className={styles.hide}>{hideElements(totalIngredients)}</p>
+      <li className={styles.li} onClick={() => onOpen()}>
+         <Link className={styles.link}
+            to={{ pathname: `/feed/${id}`, state: { background: location } }}>
+            <div className={styles.order_container}>
+               <p className={styles.order}>#{item.number}</p>
+               <p className={styles.date}>{item.createdAt}</p>
             </div>
-            <div className={styles.price_container}>
-               <p className={styles.price}>{countTotalPrice(totalIngredients)}</p>
-               <CurrencyIcon />
+            <h2 className={styles.h2}>{item.name}</h2>
+            <div className={styles.overview_container}>
+               <div className={styles.images_container}>
+                  {totalIngredients.slice(0, 6).map((item, index) => (
+                     < img className={styles.image} src={item.image_mobile}
+                        key={index} alt={item.name} />
+                  ))}
+                  <p className={styles.hide}>{hideElements(totalIngredients)}</p>
+               </div>
+               <div className={styles.price_container}>
+                  <p className={styles.price}>{countTotalPrice(totalIngredients)}</p>
+                  <CurrencyIcon />
+               </div>
             </div>
-         </div>
+         </Link>
       </li>
    )
 }
