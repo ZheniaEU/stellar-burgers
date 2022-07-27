@@ -33,7 +33,7 @@ export const Profile = () => {
    }
 
    return (
-      <>
+      <main className={styles.main}>
          <ProfileMenu />
          <form className={styles.form} onSubmit={handleSubmit}>
             <div className={styles.input}>
@@ -75,6 +75,6 @@ export const Profile = () => {
                <Button disabled={password.length < 6} type="primary" size="medium">Сохранить</Button>
             </div>
          </form>
-      </>
+      </main>
    )
 }

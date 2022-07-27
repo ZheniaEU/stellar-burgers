@@ -14,7 +14,6 @@ export const ProfileMenu = () => {
    }
 
    return (
-      <>
          <nav className={styles.nav}>
             <ul className={styles.ul}>
                <li>
@@ -37,6 +36,5 @@ export const ProfileMenu = () => {
             <p className={styles.text}>В этом разделе вы можете
                изменить свои персональные данные</p>
          </nav>
-      </>
    )
 }

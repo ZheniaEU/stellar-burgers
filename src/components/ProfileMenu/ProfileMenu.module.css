@@ -1,8 +1,8 @@
 .nav {
+   display: flex;
+   flex-direction: column;
    width: 320px;
-   top: 208px;
-   left: calc(50% - 320px - 480px/2 - 60px);
-   position: absolute;
+   margin: 0 60px 0 0;
 }
 
 .ul {

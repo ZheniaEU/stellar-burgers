@@ -19,7 +19,6 @@ import { useHistory } from "react-router-dom"
 
 export const BurgerConstructor = ({ onOpen }) => {
 
-   const { ingredients } = useSelector(state => state.ingredients)
    const { bun, fillings } = useSelector(state => state.dnd)
    const { isAuth } = useSelector(state => state.auth)
 
@@ -27,6 +26,8 @@ export const BurgerConstructor = ({ onOpen }) => {
 
    const history = useHistory()
 
+
+//dnd
    const [, dropTarget] = useDrop({
       accept: "ingredients",
       drop(item) {
@@ -53,6 +54,7 @@ export const BurgerConstructor = ({ onOpen }) => {
       })
    }
 
+   //подсчёт итогой суммы бургера
    const countTotalPrice = useMemo(() =>
       (bun, fillings, sum = 0) => {
          for (let { price } of fillings)
@@ -60,10 +62,10 @@ export const BurgerConstructor = ({ onOpen }) => {
          return sum + ((bun.price || 0) * 2)
       }, [])
 
-   const countTotalIngredients = (ingredients, mass = []) => {
+   const countTotalIngredients = (ingredients, arr = []) => {
       for (let { _id } of ingredients)
-         mass.push(_id)
-      return mass
+         arr.push(_id)
+      return arr
    }
 
    const sendOrder = () => {
