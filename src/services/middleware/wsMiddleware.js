@@ -1,24 +1,18 @@
-/*eslint-disable*/
-import { getCookie } from "../../utils/cookie"
-
 export const socketMiddleware = (wsActions) => {
-   return stote => {
+   return state => {
       let socket = null
       const wsURL = "wss://norma.nomoreparties.space/orders"
-      //  const token = getCookie("accessToken")
-      //      console.log(getCookie("accessToken"))
+
       const {
-         wsInit, onOpen, onMessage, wsSendMessage, onClose, onError
+         wsInit, onOpen, onMessage, onClose, onError
       } = wsActions
 
       return next => action => {
-         const { dispatch } = stote
+         const { dispatch } = state
          const { type, payload } = action
 
          if (type === wsInit) {
             socket = new WebSocket(`${wsURL}${payload}`)
-            //я не поняв зачем нам токен передавать свой в урле?
-            //  socket = new WebSocket(`${wsURL}${payload}?token=${token}`)
          }
          if (socket) {
             socket.onopen = event => {
@@ -40,92 +34,9 @@ export const socketMiddleware = (wsActions) => {
             socket.onclose = event => {
                dispatch({ type: onClose, payload: event })
             }
-
-            // if (type === wsSendMessage) {
-            //    const message = { ...payload }
-            //    socket.send(JSON.stringify(message))
-            // }
          }
 
          next(action)
-      }
-   }
-}
-
-//от Ханина
-export const socketMiddlewareWithReconnect = (wsActions) => {
-   return (store) => {
-      //  const { ... } = wsActions
-      let socket = null
-      let isConnected = false
-      let reconnectTimer = 0
-      let url = ""
-
-      return (next) => (action) => {
-         const { dispatch } = store
-         const { type, payload } = action
-
-         if (type === wsInit) {
-            url = action.payload
-            socket = new WebSocket(url)
-            isConnected = true
-
-            //         socket.onopen = ...
-            //           socket.onerror = ...
-
-            socket.onmessage = (event) => {
-               const { data } = event
-               const parsedData = JSON.parse(data)
-
-               if (parsedData.message === "Invalid or missing token") {
-                  refreshToken()
-                     .then((refreshData) => {
-                        const wssUrl = new URL(url)
-                        wssUrl.searchParams.set(
-                           "token",
-                           refreshData.accessToken.replace("Bearer ", "")
-                        )
-                        dispatch({
-                           type: wsInit,
-                           payload: wssUrl,
-                        })
-                     })
-                     .catch((err) => {
-                        dispatch({ type: onError, payload: err })
-                     })
-
-                  dispatch({ type: wsClose })
-                  return
-               }
-
-               dispatch({
-                  type: onMessage,
-                  payload: parsedData,
-               })
-            }
-
-            socket.onclose = (event) => {
-               dispatch({ type: onClose, payload: event })
-
-               if (isConnected) {
-                  reconnectTimer = setTimeout(() => {
-                     dispatch({
-                        type: wsInit,
-                        payload: url,
-                     })
-                  }, 5000)
-               }
-            }
-         }
-
-         if (wsClose && type === wsClose && socket) {
-            clearTimeout(reconnectTimer)
-            isConnected = false
-            reconnectTimer = 0
-            socket.close()
-         }
-
-         //    ...
       }
    }
 }

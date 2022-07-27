@@ -16,7 +16,7 @@ export const OrderInfo = () => {
       if (orders)
          return orders.find((el) => el._id === id)
       return null
-   }, [orders])
+   }, [orders, id])
 
    const getIngredients =
       useCallback((id) => {

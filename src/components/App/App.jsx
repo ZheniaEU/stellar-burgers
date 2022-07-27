@@ -1,4 +1,3 @@
-/* eslint-disable*/
 import { useState, useEffect, useCallback } from "react"
 import { Switch, Route, useHistory, useRouteMatch, useLocation } from "react-router-dom"
 import { AppHeader } from "../AppHeader/AppHeader"
@@ -11,10 +10,11 @@ import { useSelector, useDispatch } from "react-redux"
 import { DndProvider } from "react-dnd"
 import { HTML5Backend } from "react-dnd-html5-backend"
 import { ProtectedRoute } from "../ProtectedRoute/ProtectedRoute"
+import { аuthenticationUser } from "../../services/actions/auth"
 import { Modal } from "../Modal/Modal"
 import { Loader } from "../Loader/Loader"
 import { getData, DELETE_ORDER, RESET_ITEMS } from "../../services/actions/index"
-import { аuthenticationUser } from "../../services/actions/auth"
+import { WS_CONNECTION_INIT } from "../../services/reducers/ws"
 import {
    Profile,
    Login,
@@ -26,11 +26,9 @@ import {
    OrdersHistory
 } from "../../pages/index"
 import styles from "./App.module.css"
-import { WS_CONNECTION_INIT } from "../../services/reducers/ws"
 
 export const App = () => {
 
-   //  const { orders, total, totalToday } = useSelector(state => state.ws)
    const { isLoading } = useSelector(state => state.ingredients)
    const dispatch = useDispatch()
    useEffect(() => {
@@ -40,6 +38,7 @@ export const App = () => {
 
    const isIngredients = useRouteMatch("/ingredients/:id")
    const isFeed = useRouteMatch("/feed/:id")
+   const isHistory = useRouteMatch("/profile/orders/:id")
 
    const history = useHistory()
 
@@ -54,18 +53,21 @@ export const App = () => {
       if (isFeed) {
          setopenFeedModal(true)
       }
-   }, [isIngredients, isFeed])
+      if (isHistory) {
+         setopenHistoryModal(true)
+      }
+   }, [isIngredients, isFeed, isHistory])
 
    useEffect(() => {
       dispatch(getData())
       dispatch(аuthenticationUser())
-      // console.log(getCookie("accessToken"))
    }, [dispatch])
 
    //состояния
    const [openOrderModal, setopenOrderModal] = useState(false)
    const [openInfoModal, setopenInfoModal] = useState(false)
    const [openFeedModal, setopenFeedModal] = useState(false)
+   const [openHistoryModal, setopenHistoryModal] = useState(false)
 
    //открыть
    const handleOpenOrderModal = () => {
@@ -77,6 +79,10 @@ export const App = () => {
    }
 
    const handleOpenFeedModal = () => {
+      setopenFeedModal(true)
+   }
+
+   const handleOpenHistoryModal = () => {
       setopenFeedModal(true)
    }
 
@@ -99,6 +105,12 @@ export const App = () => {
       useCallback(() => {
          setopenFeedModal(false)
          history.push("/feed")
+      }, [history])
+
+   const onCloseHistoryModal =
+      useCallback(() => {
+         setopenHistoryModal(false)
+         history.push("/profile/orders")
       }, [history])
 
    return (
@@ -133,7 +145,8 @@ export const App = () => {
             </Route>
 
             <ProtectedRoute path="/profile" exact children={<Profile />} />
-            <ProtectedRoute path="/profile/orders" exact children={<OrdersHistory />} />
+            <ProtectedRoute path="/profile/orders" exact
+               children={<OrdersHistory onOpen={handleOpenHistoryModal} />} />
             <ProtectedRoute path="/profile/orders/:id" exact children={<OrderInfo />} />
 
             <Route children={<Error404 />} />
@@ -152,6 +165,15 @@ export const App = () => {
             <Route path="/feed/:id">
                <Modal
                   onClickClose={onCloseModalFeed} >
+                  <OrderInfo />
+               </Modal>
+            </Route>
+         )}
+
+         {background && openHistoryModal && (
+            <Route path="/profile/orders/:id">
+               <Modal
+                  onClickClose={onCloseHistoryModal} >
                   <OrderInfo />
                </Modal>
             </Route>

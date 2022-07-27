@@ -1,4 +1,3 @@
-/* eslint-disable*/
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { CardOrder } from "../components/CardOrder/CardOrder"
@@ -9,12 +8,12 @@ import { getCookie } from "../utils/cookie"
 
 import styles from "./orders-history.module.css"
 
-export const OrdersHistory = () => {
+export const OrdersHistory = ({ onOpen }) => {
 
    const { orders } = useSelector(state => state.ws)
    const dispatch = useDispatch()
 
-   const url = "orders"
+   const url = "profile/orders"
 
    useEffect(() => {
       if (!orders) {
@@ -34,7 +33,8 @@ export const OrdersHistory = () => {
             <section className={styles.section}>
                <ul className={styles.ul}>
                   {orders.map((item) => (
-                     <CardOrder item={item} key={item._id} arr={item.ingredients}
+                     <CardOrder onOpen={onOpen} item={item} key={item._id}
+                        arr={item.ingredients}
                         url={url} />
                   ))}
                </ul>

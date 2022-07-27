@@ -1,4 +1,3 @@
-/*eslint-disable*/
 // import {
 //    WS_CONNECTION_INIT,
 //    WS_CONNECTION_OPEN,
@@ -12,7 +11,6 @@
 export const WS_CONNECTION_INIT = "WS_CONNECTION_INIT"
 export const WS_CONNECTION_OPEN = "WS_CONNECTION_OPEN"
 export const WS_GET_MESSAGE = "WS_GET_MESSAGE"
-// export const WS_SEND_MESSAGE = "WS_SEND_MESSAGE"
 export const WS_CONNECTION_CLOSED = "WS_CONNECTION_CLOSED"
 export const WS_CONNECTION_ERROR = "WS_CONNECTION_ERROR"
 
@@ -21,7 +19,6 @@ export const wsAction = {
    wsInit: WS_CONNECTION_INIT,
    onOpen: WS_CONNECTION_OPEN,
    onMessage: WS_GET_MESSAGE,
-   // wsSendMessage: WS_SEND_MESSAGE,
    onClose: WS_CONNECTION_CLOSED,
    onError: WS_CONNECTION_ERROR
 }
