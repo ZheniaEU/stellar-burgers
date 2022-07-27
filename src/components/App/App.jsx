@@ -27,8 +27,6 @@ import {
 } from "../../pages/index"
 import styles from "./App.module.css"
 import { WS_CONNECTION_INIT } from "../../services/reducers/ws"
-import { CardOrder } from "../../pages/feed"
-import { getCookie } from "../../utils/cookie"
 
 export const App = () => {
 

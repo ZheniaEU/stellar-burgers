@@ -32,9 +32,11 @@ export const Profile = () => {
       setPassword(e.target.value)
    }
 
+   const description = "В этом разделе вы можете изменить свои персональные данные"
+
    return (
       <main className={styles.main}>
-         <ProfileMenu />
+         <ProfileMenu description={description} />
          <form className={styles.form} onSubmit={handleSubmit}>
             <div className={styles.input}>
                <Input

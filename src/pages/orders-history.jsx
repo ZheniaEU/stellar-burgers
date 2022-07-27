@@ -1,38 +1,44 @@
 /* eslint-disable*/
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
+import { CardOrder } from "../components/CardOrder/CardOrder"
 import { Loader } from "../components/Loader/Loader"
 import { ProfileMenu } from "../components/ProfileMenu/ProfileMenu"
 import { WS_CONNECTION_INIT } from "../services/reducers/ws"
 import { getCookie } from "../utils/cookie"
-import { CardOrder } from "./feed"
+
 import styles from "./orders-history.module.css"
 
 export const OrdersHistory = () => {
 
-      const { orders } = useSelector(state => state.ws)
-      const dispatch = useDispatch()
+   const { orders } = useSelector(state => state.ws)
+   const dispatch = useDispatch()
 
-      useEffect(() => {
-            if (!orders) {
-                  dispatch({
-                        type: WS_CONNECTION_INIT,
-                        payload: `?token=${getCookie("accessToken")}`
-                  })
-            }
-      }, [dispatch, orders])
+   const url = "orders"
 
-      return (
-            !orders ? <Loader /> :
-                  <main className={styles.main}>
-                        <ProfileMenu />
-                        <section className={styles.section}>
-                              <ul className={styles.ul}>
-                                    {orders.map((item) => (
-                                          <CardOrder item={item} key={item._id} arr={item.ingredients} />
-                                    ))}
-                              </ul>
-                        </section>
-                  </main>
-      )
+   useEffect(() => {
+      if (!orders) {
+         dispatch({
+            type: WS_CONNECTION_INIT,
+            payload: `?token=${getCookie("accessToken")}`
+         })
+      }
+   }, [dispatch, orders])
+
+   const description = "В этом разделе вы можете просмотреть свою историю заказов"
+
+   return (
+      !orders ? <Loader /> :
+         <main className={styles.main}>
+            <ProfileMenu description={description} />
+            <section className={styles.section}>
+               <ul className={styles.ul}>
+                  {orders.map((item) => (
+                     <CardOrder item={item} key={item._id} arr={item.ingredients}
+                        url={url} />
+                  ))}
+               </ul>
+            </section>
+         </main>
+   )
 }
