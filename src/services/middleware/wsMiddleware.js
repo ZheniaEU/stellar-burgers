@@ -1,7 +1,6 @@
-export const socketMiddleware = (wsActions) => {
+export const socketMiddleware = (wsURL, wsActions) => {
    return state => {
       let socket = null
-      const wsURL = "wss://norma.nomoreparties.space/orders"
 
       const {
          wsInit, onOpen, onMessage, onClose, onError

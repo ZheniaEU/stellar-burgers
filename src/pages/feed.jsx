@@ -2,7 +2,7 @@ import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { CardOrder } from "../components/CardOrder/CardOrder"
 import { Loader } from "../components/Loader/Loader"
-import { WS_CONNECTION_INIT } from "../services/reducers/ws"
+import { WS_CONNECTION_CLOSED, WS_CONNECTION_INIT } from "../services/reducers/ws"
 import styles from "./feed.module.css"
 
 export const Feed = ({ onOpen }) => {
@@ -12,9 +12,20 @@ export const Feed = ({ onOpen }) => {
 
    useEffect(() => {
       if (!orders) {
-         dispatch({ type: WS_CONNECTION_INIT, payload: "/all" })
+         dispatch({
+            type: WS_CONNECTION_INIT, payload: "/all"
+         })
+
+         return () => {
+            dispatch({ type: WS_CONNECTION_CLOSED })
+         }
       }
    }, [dispatch, orders])
+
+
+   // useEffect(() => {
+   //    dispatch({ type: WS_CONNECTION_INIT, payload: "/all" })
+   // }, [dispatch])
 
    const url = "feed"
 

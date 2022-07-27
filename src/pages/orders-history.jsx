@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { CardOrder } from "../components/CardOrder/CardOrder"
 import { Loader } from "../components/Loader/Loader"
 import { ProfileMenu } from "../components/ProfileMenu/ProfileMenu"
-import { WS_CONNECTION_INIT } from "../services/reducers/ws"
+import { WS_CONNECTION_CLOSED, WS_CONNECTION_INIT } from "../services/reducers/ws"
 import { getCookie } from "../utils/cookie"
 
 import styles from "./orders-history.module.css"
@@ -18,10 +18,14 @@ export const OrdersHistory = ({ onOpen }) => {
    useEffect(() => {
       if (!orders) {
          dispatch({
-            type: WS_CONNECTION_INIT,
-            payload: `?token=${getCookie("accessToken")}`
+            type: WS_CONNECTION_INIT, payload: `?token=${getCookie("accessToken")}`
          })
+
+         return () => {
+            dispatch({ type: WS_CONNECTION_CLOSED })
+         }
       }
+
    }, [dispatch, orders])
 
    const description = "В этом разделе вы можете просмотреть свою историю заказов"

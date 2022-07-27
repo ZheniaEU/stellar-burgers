@@ -10,7 +10,9 @@ const composeEnhancers =
       ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
       : compose
 
-const enhancer = composeEnhancers(applyMiddleware(thunk, socketMiddleware(wsAction)))
+const wsURL = "wss://norma.nomoreparties.space/orders"
+
+const enhancer = composeEnhancers(applyMiddleware(thunk, socketMiddleware(wsURL, wsAction)))
 // const enhancer = composeEnhancers(applyMiddleware(thunk))
 
 export const state = createStore(rootReducer, enhancer)

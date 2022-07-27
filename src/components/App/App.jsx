@@ -14,7 +14,6 @@ import { аuthenticationUser } from "../../services/actions/auth"
 import { Modal } from "../Modal/Modal"
 import { Loader } from "../Loader/Loader"
 import { getData, DELETE_ORDER, RESET_ITEMS } from "../../services/actions/index"
-import { WS_CONNECTION_INIT } from "../../services/reducers/ws"
 import {
    Profile,
    Login,
@@ -30,14 +29,7 @@ import styles from "./App.module.css"
 export const App = () => {
 
    const { isLoading } = useSelector(state => state.ingredients)
-   const { isAuth } = useSelector(state => state.auth)
-   const { orders } = useSelector(state => state.ws)
-   const { ingredients } = useSelector(state => state.ingredients)
-
    const dispatch = useDispatch()
-   useEffect(() => {
-      dispatch({ type: WS_CONNECTION_INIT, payload: "/all" })
-   }, [dispatch])
 
    const isIngredients = useRouteMatch("/ingredients/:id")
    const isFeed = useRouteMatch("/feed/:id")
@@ -51,13 +43,13 @@ export const App = () => {
 
    useEffect(() => {
       if (isIngredients) {
-         setopenInfoModal(true)
+         setOpenInfoModal(true)
       }
       if (isFeed) {
-         setopenFeedModal(true)
+         setOpenFeedModal(true)
       }
       if (isHistory) {
-         setopenHistoryModal(true)
+         setOpenHistoryModal(true)
       }
    }, [isIngredients, isFeed, isHistory])
 
@@ -67,31 +59,31 @@ export const App = () => {
    }, [dispatch])
 
    //состояния
-   const [openOrderModal, setopenOrderModal] = useState(false)
-   const [openInfoModal, setopenInfoModal] = useState(false)
-   const [openFeedModal, setopenFeedModal] = useState(false)
-   const [openHistoryModal, setopenHistoryModal] = useState(false)
+   const [openOrderModal, setOpenOrderModal] = useState(false)
+   const [openInfoModal, setOpenInfoModal] = useState(false)
+   const [openFeedModal, setOpenFeedModal] = useState(false)
+   const [openHistoryModal, setOpenHistoryModal] = useState(false)
 
    //открыть
    const handleOpenOrderModal = () => {
-      setopenOrderModal(true)
+      setOpenOrderModal(true)
    }
 
    const handleOpenInfoModal = () => {
-      setopenInfoModal(true)
+      setOpenInfoModal(true)
    }
 
    const handleOpenFeedModal = () => {
-      setopenFeedModal(true)
+      setOpenFeedModal(true)
    }
 
    const handleOpenHistoryModal = () => {
-      setopenFeedModal(true)
+      setOpenFeedModal(true)
    }
 
    //закрыть ордер
    const onCloseModalOrder = () => {
-      setopenOrderModal(false)
+      setOpenOrderModal(false)
       dispatch({ type: DELETE_ORDER })
       dispatch({ type: RESET_ITEMS })
    }
@@ -99,20 +91,20 @@ export const App = () => {
    //закрыть ингредиет
    const onCloseModalingredient =
       useCallback(() => {
-         setopenInfoModal(false)
+         setOpenInfoModal(false)
          history.push("/")
       }, [history])
 
    //закрыть фид
    const onCloseModalFeed =
       useCallback(() => {
-         setopenFeedModal(false)
+         setOpenFeedModal(false)
          history.push("/feed")
       }, [history])
 
    const onCloseHistoryModal =
       useCallback(() => {
-         setopenHistoryModal(false)
+         setOpenHistoryModal(false)
          history.push("/profile/orders")
       }, [history])
 
@@ -147,15 +139,10 @@ export const App = () => {
                <IngredientDetails />
             </Route>
 
-            {!isAuth && !orders && ingredients ? <Loader /> :
-               <>
                   <ProtectedRoute path="/profile" exact children={<Profile />} />
                   <ProtectedRoute path="/profile/orders" exact
                      children={<OrdersHistory onOpen={handleOpenHistoryModal} />} />
                   <ProtectedRoute path="/profile/orders/:id" exact children={<OrderInfo />} />
-               </>
-            }
-
             <Route children={<Error404 />} />
          </Switch>
 

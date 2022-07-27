@@ -1,14 +1,28 @@
-import { useCallback, useMemo } from "react"
+import { useCallback, useEffect, useMemo } from "react"
 import { useParams } from "react-router-dom"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { Loader } from "../Loader/Loader"
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components"
 import styles from "./OrderInfo.module.css"
+import { WS_CONNECTION_CLOSED, WS_CONNECTION_INIT } from "../../services/reducers/ws"
 
 export const OrderInfo = () => {
 
    const { ingredients } = useSelector(state => state.ingredients)
    const { orders } = useSelector(state => state.ws)
+   const dispatch = useDispatch()
+
+   useEffect(() => {
+      if (!orders) {
+         dispatch({
+            type: WS_CONNECTION_INIT, payload: "/all"
+         })
+
+         return () => {
+            dispatch({ type: WS_CONNECTION_CLOSED })
+         }
+      }
+   }, [dispatch, orders])
 
    const { id } = useParams()
 
@@ -80,7 +94,7 @@ export const OrderInfo = () => {
    }, [card])
 
    return (
-      !card  ? <Loader /> :
+      !card ? <Loader /> :
          <div className={styles.container_info}>
             <p className={styles.number}>#{card.number}</p>
             <h2 className={styles.h2}>{card.name}</h2>
