@@ -30,10 +30,13 @@ import styles from "./App.module.css"
 export const App = () => {
 
    const { isLoading } = useSelector(state => state.ingredients)
+   const { isAuth } = useSelector(state => state.auth)
+   const { orders } = useSelector(state => state.ws)
+   const { ingredients } = useSelector(state => state.ingredients)
+
    const dispatch = useDispatch()
    useEffect(() => {
       dispatch({ type: WS_CONNECTION_INIT, payload: "/all" })
-
    }, [dispatch])
 
    const isIngredients = useRouteMatch("/ingredients/:id")
@@ -144,10 +147,14 @@ export const App = () => {
                <IngredientDetails />
             </Route>
 
-            <ProtectedRoute path="/profile" exact children={<Profile />} />
-            <ProtectedRoute path="/profile/orders" exact
-               children={<OrdersHistory onOpen={handleOpenHistoryModal} />} />
-            <ProtectedRoute path="/profile/orders/:id" exact children={<OrderInfo />} />
+            {!isAuth && !orders && ingredients ? <Loader /> :
+               <>
+                  <ProtectedRoute path="/profile" exact children={<Profile />} />
+                  <ProtectedRoute path="/profile/orders" exact
+                     children={<OrdersHistory onOpen={handleOpenHistoryModal} />} />
+                  <ProtectedRoute path="/profile/orders/:id" exact children={<OrderInfo />} />
+               </>
+            }
 
             <Route children={<Error404 />} />
          </Switch>

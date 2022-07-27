@@ -15,7 +15,6 @@ export const OrderInfo = () => {
    const card = useMemo(() => {
       if (orders)
          return orders.find((el) => el._id === id)
-      return null
    }, [orders, id])
 
    const getIngredients =
@@ -23,7 +22,10 @@ export const OrderInfo = () => {
          return ingredients.find((item) => item._id === id)
       }, [ingredients])
 
-   const totalIngredients = useMemo(() => card?.ingredients.map((id) => getIngredients(id)), [card, getIngredients])
+   const totalIngredients =
+      useMemo(() =>
+         card?.ingredients.map((id) => getIngredients(id)
+         ), [card, getIngredients])
 
    const finallyIngredients = useMemo(() => {
       if (!totalIngredients)
@@ -78,7 +80,7 @@ export const OrderInfo = () => {
    }, [card])
 
    return (
-      !orders && !card && ingredients ? <Loader /> :
+      !card  ? <Loader /> :
          <div className={styles.container_info}>
             <p className={styles.number}>#{card.number}</p>
             <h2 className={styles.h2}>{card.name}</h2>

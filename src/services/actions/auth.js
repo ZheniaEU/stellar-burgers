@@ -55,7 +55,6 @@ export const logoutUser = () => {
 //аутентификация юзера при посещении сайта или при перезагрузки его
 export const аuthenticationUser = () => {
    return async (dispatch) => {
-      console.log(getCookie("accessToken"))
       if (getCookie("accessToken") === undefined) {
          return
       }
