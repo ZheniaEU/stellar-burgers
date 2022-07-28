@@ -13,14 +13,13 @@ export const WS_CONNECTION_OPEN = "WS_CONNECTION_OPEN"
 export const WS_GET_MESSAGE = "WS_GET_MESSAGE"
 export const WS_CONNECTION_CLOSED = "WS_CONNECTION_CLOSED"
 export const WS_CONNECTION_ERROR = "WS_CONNECTION_ERROR"
-export const WS_GET_PRIVATE_MESSAGE = "WS_GET_PRIVATE_MESSAGE"
+export const WS_CLEAR_STORE = "WS_CLEAR_STORE"
 
 //жёванный цирк переменных
 export const wsAction = {
    wsInit: WS_CONNECTION_INIT,
    onOpen: WS_CONNECTION_OPEN,
    onMessage: WS_GET_MESSAGE,
-   onMessagePrivate: WS_GET_PRIVATE_MESSAGE,
    onClose: WS_CONNECTION_CLOSED,
    onError: WS_CONNECTION_ERROR
 }
@@ -28,7 +27,6 @@ export const wsAction = {
 const initialState = {
    wsConnected: false,
    orders: null, //[]
-   privateOrders: null, //[]
    total: null, // number
    totalToday: null, //number
 }
@@ -58,18 +56,12 @@ export const wsReducer = (state = initialState, action) => {
             total: action.payload.total,
             totalToday: action.payload.totalToday
          }
-      case WS_GET_PRIVATE_MESSAGE:
-         return {
-            ...state,
-            privateOrders: action.payload.orders,
-            total: action.payload.total,
-            totalToday: action.payload.totalToday
-         }
-      case "CLOSE_SUKA":
+      case WS_CLEAR_STORE:
          return {
             ...state,
             orders: null
          }
+
       default:
          return state
    }

@@ -2,7 +2,7 @@ import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { CardOrder } from "../components/CardOrder/CardOrder"
 import { Loader } from "../components/Loader/Loader"
-import { WS_CONNECTION_CLOSED, WS_CONNECTION_INIT } from "../services/reducers/ws"
+import { WS_CLEAR_STORE, WS_CONNECTION_CLOSED, WS_CONNECTION_INIT } from "../services/reducers/ws"
 import styles from "./feed.module.css"
 
 export const Feed = ({ onOpen }) => {
@@ -13,26 +13,18 @@ export const Feed = ({ onOpen }) => {
    useEffect(() => {
       if (!orders) {
          dispatch({
-            type: WS_CONNECTION_INIT, payload: "/all", // isPrivate: false
+            type: WS_CONNECTION_INIT, payload: "/all"
          })
 
          return () => {
-            //      dispatch({type: "CLOSE_SUKA"})
             dispatch({ type: WS_CONNECTION_CLOSED })
          }
       }
-      // return () => {
-      //    dispatch({ type: "CLOSE_SUKA" })
-      // }
-
    }, [dispatch, orders])
 
    useEffect(() => {
-      dispatch({ type: "CLOSE_SUKA" })
+      dispatch({ type: WS_CLEAR_STORE })
    }, [dispatch])
-
-
-   const url = "feed"
 
    return (
       !orders ? <Loader /> : (
@@ -41,8 +33,12 @@ export const Feed = ({ onOpen }) => {
             <section className={styles.section}>
                <ul className={styles.container}>
                   {orders.map((item) => (
-                     <CardOrder onOpen={onOpen} item={item} key={item._id}
-                        arr={item.ingredients} url={url} />
+                     <CardOrder
+                        onOpen={onOpen}
+                        item={item}
+                        key={item._id}
+                        arr={item.ingredients}
+                        url={"feed"} />
                   ))}
                </ul>
                <StatusList />

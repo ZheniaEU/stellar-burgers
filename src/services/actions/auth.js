@@ -59,13 +59,11 @@ export const аuthenticationUser = () => {
          return
       }
 
-      //     console.log(getCookie("accessToken"))
       try {
          await getUserInfo(dispatch)
       }
       catch (res) {
          if (res.res.message === "jwt expired") {
-            //         if (res.res.message === "invalid token") {
             await refreshTokenUsert()
             await getUserInfo(dispatch)
          }

@@ -143,13 +143,13 @@ export const App = () => {
 
             <ProtectedRoute path="/profile" exact children={<Profile />} />
 
-
             {!isAuth ? <Loader /> :
                <ProtectedRoute path="/profile/orders" exact
                   children={< OrdersHistory onOpen={handleOpenHistoryModal} />} />
             }
             {!isAuth ? <Loader /> :
-               <ProtectedRoute path="/profile/orders/:id" exact children={<OrderInfo url={`?token=${getCookie("accessToken")}`} />} />
+               <ProtectedRoute path="/profile/orders/:id" exact
+                  children={<OrderInfo url={`?token=${getCookie("accessToken")}`} />} />
             }
             <Route children={<Error404 />} />
 

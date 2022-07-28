@@ -13,26 +13,21 @@ export const OrderInfo = ({ url }) => {
    const { orders } = useSelector(state => state.ws)
    const dispatch = useDispatch()
 
-  // dispatch({ type: "CLOSE_SUKA" })
    useEffect(() => {
       if (!orders) {
          dispatch({
-            type: WS_CONNECTION_INIT, payload: url// isPrivate: //url !== "/all"
+            type: WS_CONNECTION_INIT, payload: url
          })
 
          return () => {
             dispatch({ type: WS_CONNECTION_CLOSED })
          }
       }
-      // return () => {
-      //    dispatch({ type: "CLOSE_SUKA" })
-      // }
-   }, [dispatch, orders])
+   }, [dispatch, orders, url])
 
    const { id } = useParams()
 
    const card = orders?.find((el) => el._id === id)
-
 
    const getIngredients =
       useCallback((id) => {
@@ -44,9 +39,8 @@ export const OrderInfo = ({ url }) => {
          card?.ingredients.map((id) => getIngredients(id)
          ), [card, getIngredients])
 
-   const pesel2 = (arr) => {
-      const obj = {}
-
+//редьюсим повторы игредиентов
+   const reduceIngredients = (arr,  obj = {}) => {
       arr.forEach((el) => {
          const name = el.name
          if (name in obj) {
@@ -66,6 +60,7 @@ export const OrderInfo = ({ url }) => {
       return sum
    }
 
+//нормализация времени
    const creatTime = useMemo(() => {
       if (!card)
          return
@@ -78,10 +73,6 @@ export const OrderInfo = ({ url }) => {
       return "готово"
    }, [card])
 
-   // console.log(ingredients)
-   console.log(orders)
-   // console.log(card)
-
    return (
       !card ? <Loader /> :
          <div className={styles.container_info}>
@@ -90,7 +81,7 @@ export const OrderInfo = ({ url }) => {
             <p className={styles.span}>{status}</p>
             <h3 className={styles.h3}>Состав:</h3>
             <ul className={styles.ul}>
-               {pesel2(totalIngredients).map((item, index) => (
+               {reduceIngredients(totalIngredients).map((item, index) => (
                   <li className={styles.li} key={index}>
                      <img className={styles.image}
                         src={item.image_mobile} alt={item.name} />
@@ -112,39 +103,3 @@ export const OrderInfo = ({ url }) => {
          </div>
    )
 }
-
-
-
-// const finallyIngredients = useMemo(() => {
-//    if (!totalIngredients)
-//       return []
-//    const sorted = totalIngredients.sort((a, b) => {
-//       if (a.name < b.name)
-//          return -1
-//       if (a.name > b.name)
-//          return 1
-//       return 0
-//    })
-
-//    const uniqArr = []
-
-//    for (let i = 0; i < sorted.length; i++) {
-//       if (sorted[i].name !== sorted[i + 1]?.name) {
-//          uniqArr.push(sorted[i])
-//       }
-//    }
-
-//    for (let i = 0; i < uniqArr.length; ++i) {
-
-//       let count = 0
-
-//       totalIngredients.forEach((e) => {
-//          if (e.name === uniqArr[i].name) {
-//             count++
-//             uniqArr[i].count = count
-//          }
-//       })
-//    }
-
-//    return uniqArr
-// }, [totalIngredients])

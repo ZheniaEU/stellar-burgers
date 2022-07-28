@@ -1,8 +1,8 @@
 import { useState } from "react"
 import { Link, Redirect, useLocation } from "react-router-dom"
-import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-components"
 import { useDispatch, useSelector } from "react-redux"
 import { forgottenPasswordUser } from "../services/actions/auth"
+import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-components"
 import styles from "./index.module.css"
 
 export const ForgotPassword = () => {

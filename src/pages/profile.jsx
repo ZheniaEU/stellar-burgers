@@ -1,8 +1,8 @@
 import { useState } from "react"
 import { useDispatch } from "react-redux"
-import { Input, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components"
 import { updateUserInfo } from "../services/actions/auth"
 import { ProfileMenu } from "../components/ProfileMenu/ProfileMenu"
+import { Input, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components"
 import styles from "./profile.module.css"
 
 export const Profile = () => {
@@ -32,11 +32,9 @@ export const Profile = () => {
       setPassword(e.target.value)
    }
 
-   const description = "В этом разделе вы можете изменить свои персональные данные"
-
    return (
       <main className={styles.main}>
-         <ProfileMenu description={description} />
+         <ProfileMenu description={"В этом разделе вы можете изменить свои персональные данные"} />
          <form className={styles.form} onSubmit={handleSubmit}>
             <div className={styles.input}>
                <Input
