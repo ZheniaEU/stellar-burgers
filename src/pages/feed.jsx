@@ -13,19 +13,24 @@ export const Feed = ({ onOpen }) => {
    useEffect(() => {
       if (!orders) {
          dispatch({
-            type: WS_CONNECTION_INIT, payload: "/all"
+            type: WS_CONNECTION_INIT, payload: "/all", // isPrivate: false
          })
 
          return () => {
+            //      dispatch({type: "CLOSE_SUKA"})
             dispatch({ type: WS_CONNECTION_CLOSED })
          }
       }
+      // return () => {
+      //    dispatch({ type: "CLOSE_SUKA" })
+      // }
+
    }, [dispatch, orders])
 
+   useEffect(() => {
+      dispatch({ type: "CLOSE_SUKA" })
+   }, [dispatch])
 
-   // useEffect(() => {
-   //    dispatch({ type: WS_CONNECTION_INIT, payload: "/all" })
-   // }, [dispatch])
 
    const url = "feed"
 

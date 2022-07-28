@@ -1,4 +1,4 @@
-import { useEffect } from "react"
+import { useEffect, useMemo } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { CardOrder } from "../components/CardOrder/CardOrder"
 import { Loader } from "../components/Loader/Loader"
@@ -10,25 +10,39 @@ import styles from "./orders-history.module.css"
 
 export const OrdersHistory = ({ onOpen }) => {
 
-   const { orders } = useSelector(state => state.ws)
+   const { orders, privateOrders } = useSelector(state => state.ws)
    const dispatch = useDispatch()
+
+   const ordersa = useMemo(() => {
+      return orders?.reverse()
+   }, [orders])
 
    const url = "profile/orders"
 
+   //  dispatch({type: "CLOSE_SUKA"})
    useEffect(() => {
       if (!orders) {
          dispatch({
-            type: WS_CONNECTION_INIT, payload: `?token=${getCookie("accessToken")}`
+            type: WS_CONNECTION_INIT, payload: `?token=${getCookie("accessToken")}`,// isPrivate : true
          })
 
          return () => {
+            //      dispatch({type: "CLOSE_SUKA"})
             dispatch({ type: WS_CONNECTION_CLOSED })
          }
       }
-
+      // return () => {
+      //    dispatch({ type: "CLOSE_SUKA" })
+      // }
    }, [dispatch, orders])
 
+   useEffect(() => {
+      dispatch({ type: "CLOSE_SUKA" })
+   }, [dispatch])
+
    const description = "В этом разделе вы можете просмотреть свою историю заказов"
+
+   //console.log(privateOrders, orders)
 
    return (
       !orders ? <Loader /> :
@@ -36,7 +50,7 @@ export const OrdersHistory = ({ onOpen }) => {
             <ProfileMenu description={description} />
             <section className={styles.section}>
                <ul className={styles.ul}>
-                  {orders.map((item) => (
+                  {ordersa.map((item) => (
                      <CardOrder onOpen={onOpen} item={item} key={item._id}
                         arr={item.ingredients}
                         url={url} />

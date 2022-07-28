@@ -1,32 +1,28 @@
-
+/* eslint-disable */
 import { useCallback, useEffect, useMemo } from "react"
 import { useParams } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 import { Loader } from "../Loader/Loader"
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components"
-import styles from "./OrderInfo.module.css"
+import styles from "./OrderInfoP.module.css"
 import { WS_CONNECTION_CLOSED, WS_CONNECTION_INIT } from "../../services/reducers/ws"
 
-export const OrderInfo = ({ url }) => {
+export const OrderInfoP = () => {
 
    const { ingredients } = useSelector(state => state.ingredients)
    const { orders } = useSelector(state => state.ws)
    const dispatch = useDispatch()
 
-  // dispatch({ type: "CLOSE_SUKA" })
    useEffect(() => {
       if (!orders) {
          dispatch({
-            type: WS_CONNECTION_INIT, payload: url// isPrivate: //url !== "/all"
+            type: WS_CONNECTION_INIT,  payload: `?token=${getCookie("accessToken")}`
          })
 
-         return () => {
-            dispatch({ type: WS_CONNECTION_CLOSED })
-         }
+          return () => {
+             dispatch({ type: WS_CONNECTION_CLOSED })
+          }
       }
-      // return () => {
-      //    dispatch({ type: "CLOSE_SUKA" })
-      // }
    }, [dispatch, orders])
 
    const { id } = useParams()
@@ -47,17 +43,17 @@ export const OrderInfo = ({ url }) => {
    const pesel2 = (arr) => {
       const obj = {}
 
-      arr.forEach((el) => {
-         const name = el.name
-         if (name in obj) {
+    arr.forEach((el) => {
+        const name = el.name
+        if (name in obj) {
             obj[name].count++
-         } else {
+        } else {
             obj[name] = el
             obj[name].count = 1
-         }
-      })
+        }
+    })
 
-      return Object.values(obj)
+    return Object.values(obj)
    }
 
    const countTotalPrice = (arr, sum = 0) => {
@@ -72,15 +68,9 @@ export const OrderInfo = ({ url }) => {
       return new Date(card.createdAt).toLocaleString()
    }, [card])
 
-   const status = useMemo(() => {
-      if (!card)
-         return "готовится"
-      return "готово"
-   }, [card])
-
-   // console.log(ingredients)
+   console.log(ingredients)
    console.log(orders)
-   // console.log(card)
+   console.log(card)
 
    return (
       !card ? <Loader /> :
@@ -148,3 +138,9 @@ export const OrderInfo = ({ url }) => {
 
 //    return uniqArr
 // }, [totalIngredients])
+
+// const status = useMemo(() => {
+//    if (!card)
+//       return "готовится"
+//    return "готово"
+// }, [card])

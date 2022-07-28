@@ -25,9 +25,11 @@ import {
    OrdersHistory
 } from "../../pages/index"
 import styles from "./App.module.css"
+import { getCookie } from "../../utils/cookie"
 
 export const App = () => {
 
+   const { isAuth } = useSelector(state => state.auth)
    const { isLoading } = useSelector(state => state.ingredients)
    const dispatch = useDispatch()
 
@@ -131,7 +133,7 @@ export const App = () => {
 
             <Route path="/feed/:id" exact>
                <div className={styles.maket} />
-               <OrderInfo />
+               <OrderInfo url={"/all"} />
             </Route>
 
             <Route path="/ingredients/:id">
@@ -139,11 +141,18 @@ export const App = () => {
                <IngredientDetails />
             </Route>
 
-                  <ProtectedRoute path="/profile" exact children={<Profile />} />
-                  <ProtectedRoute path="/profile/orders" exact
-                     children={<OrdersHistory onOpen={handleOpenHistoryModal} />} />
-                  <ProtectedRoute path="/profile/orders/:id" exact children={<OrderInfo />} />
+            <ProtectedRoute path="/profile" exact children={<Profile />} />
+
+
+            {!isAuth ? <Loader /> :
+               <ProtectedRoute path="/profile/orders" exact
+                  children={< OrdersHistory onOpen={handleOpenHistoryModal} />} />
+            }
+            {!isAuth ? <Loader /> :
+               <ProtectedRoute path="/profile/orders/:id" exact children={<OrderInfo url={`?token=${getCookie("accessToken")}`} />} />
+            }
             <Route children={<Error404 />} />
+
          </Switch>
 
          {background && openInfoModal && (
@@ -165,12 +174,12 @@ export const App = () => {
          )}
 
          {background && openHistoryModal && (
-            <Route path="/profile/orders/:id">
+            <ProtectedRoute path="/profile/orders/:id">
                <Modal
                   onClickClose={onCloseHistoryModal} >
                   <OrderInfo />
                </Modal>
-            </Route>
+            </ProtectedRoute>
          )}
 
          {openOrderModal && (
