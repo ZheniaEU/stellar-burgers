@@ -1,58 +1,11 @@
 import { useState } from "react"
-import { Link} from "react-router-dom"
-import { Input, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components"
-import { logoutUser } from "../services/actions/auth"
 import { useDispatch } from "react-redux"
 import { updateUserInfo } from "../services/actions/auth"
+import { ProfileMenu } from "../components/ProfileMenu/ProfileMenu"
+import { Input, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components"
 import styles from "./profile.module.css"
 
 export const Profile = () => {
-
-   return (
-      <>
-         <ProfileMenu />
-         < ProfileForm />
-      </>
-   )
-}
-
-export const ProfileMenu = () => {
-
-   const dispath = useDispatch()
-
-   const logoutUserOnPageProfile = () => {
-      dispath(logoutUser())
-   }
-
-   return (
-      <>
-         <nav className={styles.nav}>
-            <ul className={styles.ul}>
-               <li>
-                  <Link to="/login" className={`${styles.li} ${styles.active}`}>
-                     Профиль
-                  </Link>
-               </li>
-               <li>
-                  <Link to="/profile/orders" className={styles.li}>
-                     История заказов
-                  </Link>
-               </li>
-               <li>
-                  <Link to="/" className={styles.li}
-                     onClick={logoutUserOnPageProfile}>
-                     Выход
-                  </Link>
-               </li>
-            </ul>
-            <p className={styles.text}>В этом разделе вы можете
-               изменить свои персональные данные</p>
-         </nav>
-      </>
-   )
-}
-
-export const ProfileForm = () => {
 
    const [name, setName] = useState("")
    const [email, setEmail] = useState("")
@@ -80,7 +33,8 @@ export const ProfileForm = () => {
    }
 
    return (
-      <>
+      <main className={styles.main}>
+         <ProfileMenu description={"В этом разделе вы можете изменить свои персональные данные"} />
          <form className={styles.form} onSubmit={handleSubmit}>
             <div className={styles.input}>
                <Input
@@ -121,6 +75,6 @@ export const ProfileForm = () => {
                <Button disabled={password.length < 6} type="primary" size="medium">Сохранить</Button>
             </div>
          </form>
-      </>
+      </main>
    )
 }

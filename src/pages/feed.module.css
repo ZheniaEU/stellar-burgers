@@ -1,0 +1,245 @@
+.main {
+   display: flex;
+   flex-direction: column;
+   margin: 0 auto;
+   width: 1240px;
+}
+
+.h1 {
+   font-size: 36px;
+   line-height: 40px;
+   font-weight: 700;
+   margin: 40px 0 20px;
+}
+
+.section {
+   display: flex;
+   gap: 60px;
+}
+
+.container {
+   width: 600px;
+   max-height: 79.8vh;
+   margin: 0;
+   padding: 0;
+   list-style: none;
+   overflow-y: scroll;
+   overflow-x: hidden;
+   scroll-behavior: smooth;
+}
+
+.container::-webkit-scrollbar {
+   width: 8px;
+   background-color: #2f2f37;
+   border-radius: 12px;
+}
+
+.container::-webkit-scrollbar-thumb {
+   background-color: #8585ad;
+   border-radius: 12px;
+}
+
+/***************************CardOrder***************************/
+
+.li {
+   margin: 2px 8px 16px 2px;
+   padding: 22px 24px 24px 22px;
+   background: #1C1C21;
+   border-radius: 40px;
+   outline: 2px solid #1C1C21;
+   box-shadow:
+      0px 4px 8px rgba(0, 0, 0, 0.04),
+      0px 0px 2px rgba(0, 0, 0, 0.06),
+      0px 0px 1px rgba(0, 0, 0, 0.04);
+}
+
+.li:hover {
+   outline: 2px solid rgba(76, 76, 255, 0.2)
+}
+
+.li:last-child {
+   margin-bottom: 0;
+}
+
+.link {
+   display: flex;
+   flex-direction: column;
+   gap: 24px;
+   text-decoration: none;
+}
+
+
+.order_container {
+   display: flex;
+   justify-content: space-between;
+}
+
+.order {
+   font-family: "Iceland";
+   font-size: 28px;
+   line-height: 24px;
+   margin: 0;
+   color: #F2F2F3;
+}
+
+.date {
+   font-size: 16px;
+   line-height: 24px;
+   margin: 0;
+   color: #8585AD;
+
+}
+
+.h2 {
+   font-size: 24px;
+   line-height: 30px;
+   font-weight: 700;
+   margin: 0;
+   color: #F2F2F3;
+}
+
+.overview_container {
+   display: flex;
+   justify-content: space-between;
+}
+
+.images_container {
+   display: flex;
+   height: 64px;
+   padding-left: 16px;
+   position: relative;
+}
+
+.image {
+   width: 60px;
+   height: 60px;
+   margin-left: -16px;
+   object-fit: cover;
+   border-radius: 50%;
+   border: 2px solid #0000;
+   background:
+      linear-gradient(#1C1C21, #1C1C21) padding-box,
+      linear-gradient(63.18deg, rgba(128, 26, 178, 1), rgba(76, 76, 255, 1)) border-box;
+   z-index: 6;
+}
+
+.image:nth-child(2) {
+   z-index: 5;
+}
+
+.image:nth-child(3) {
+   z-index: 4;
+}
+
+.image:nth-child(4) {
+   z-index: 3;
+}
+
+.image:nth-child(5) {
+   z-index: 2;
+}
+
+.image:nth-child(6) {
+   opacity: 0.6;
+   z-index: 1;
+}
+
+.hide {
+   font-size: 16px;
+   position: absolute;
+   color: #F2F2F3;
+   height: 0;
+   width: 0;
+   top: 10px;
+   left: 260px;
+   z-index: 2;
+}
+
+.price_container {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   margin-left: 24px;
+}
+
+.price {
+   font-family: "Iceland";
+   font-size: 28px;
+   line-height: 24px;
+   margin: 0 8px 0 0;
+   color: #F2F2F3;
+}
+
+
+/************************StatusList***************************/
+
+.article {
+   display: flex;
+   flex-direction: column;
+}
+
+
+.ul {
+   display: flex;
+   flex-direction: column;
+   flex-wrap: wrap;
+   height: 152px;
+   gap: 8px;
+   margin: 0;
+   padding: 0;
+   list-style: none;
+}
+
+.orders_container {
+   display: flex;
+   justify-content: space-between;
+}
+
+.h3 {
+   margin: 0 0 24px 0;
+   font-size: 24px;
+   font-weight: 700;
+   line-height: 30px;
+}
+
+.orders {
+   width: 272px;
+}
+
+.orders:first-child {
+   margin-right: 36px;
+}
+
+.done {
+   font-family: "Iceland";
+   font-size: 28px;
+   line-height: 24px;
+   color: #00CCCC;
+}
+
+.progress {
+   font-family: "Iceland";
+   font-size: 28px;
+   line-height: 24px;
+   color: #F2F2F3;
+}
+
+.text {
+   margin: 60px 0 0 0;
+   font-size: 24px;
+   line-height: 30px;
+   font-weight: 700;
+   color: #F2F2F3;
+}
+
+.counter {
+   font-family: "Iceland";
+   font-size: 144px;
+   line-height: 120px;
+   margin: 0;
+   color: #F2F2F3;
+   text-shadow:
+      0px 0px 16px rgba(51, 51, 255, 0.25),
+      0px 0px 8px rgba(51, 51, 255, 0.25),
+      0px 4px 32px rgba(51, 51, 255, 0.5);
+}

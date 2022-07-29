@@ -1,10 +1,14 @@
+.main {
+   display: flex;
+   margin: 120px auto 0;
+   max-width: 1240px;
+}
+
 .form {
    display: flex;
    flex-direction: column;
    align-items: center;
    width: 480px;
-   margin: 120px auto 0;
-   /* padding-left: 120px; */
 }
 
 .title {
@@ -34,17 +38,9 @@
    margin: 0 0 80px;
 }
 
-.buttons{
+.buttons {
    display: flex;
    justify-content: flex-end;
-}
-
-.text {
-   font-size: 16px;
-   line-height: 24px;
-   margin: 0 0 16px;
-   color: #8585AD;
-   opacity: 0.4;
 }
 
 .link {
@@ -54,33 +50,4 @@
 
 .link:hover {
    opacity: 0.8;
-}
-
-.nav {
-   width: 320px;
-   top: 208px;
-   left: calc(50% - 320px - 480px/2 - 60px);
-   position: absolute;
-}
-
-.ul {
-   padding: 0;
-   list-style-type: none;
-   margin: 0 0 80px;
-}
-
-.li {
-   display: flex;
-   align-items: center;
-   height: 44px;
-   font-size: 24px;
-   line-height: 30px;
-   margin: 10px 0;
-   color: #8585AD;
-   text-decoration: none;
-}
-
-/* стиль к активному линку */
-.active {
-   color: #F2F2F3;
 }

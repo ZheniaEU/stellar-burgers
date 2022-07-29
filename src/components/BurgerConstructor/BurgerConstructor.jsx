@@ -8,6 +8,7 @@ import { useDrop } from "react-dnd"
 import ConstructorStyles from "./BurgerConstructor.module.css"
 import { GET_ORDER_SUCCESS } from "../../services/actions/index"
 import { useMemo } from "react"
+import { getCookie } from "../../utils/cookie"
 
 import {
    ADD_FILLINGS,
@@ -18,7 +19,6 @@ import { useHistory } from "react-router-dom"
 
 export const BurgerConstructor = ({ onOpen }) => {
 
-   const { ingredients } = useSelector(state => state.ingredients)
    const { bun, fillings } = useSelector(state => state.dnd)
    const { isAuth } = useSelector(state => state.auth)
 
@@ -26,6 +26,8 @@ export const BurgerConstructor = ({ onOpen }) => {
 
    const history = useHistory()
 
+
+//dnd
    const [, dropTarget] = useDrop({
       accept: "ingredients",
       drop(item) {
@@ -52,6 +54,7 @@ export const BurgerConstructor = ({ onOpen }) => {
       })
    }
 
+   //подсчёт итогой суммы бургера
    const countTotalPrice = useMemo(() =>
       (bun, fillings, sum = 0) => {
          for (let { price } of fillings)
@@ -59,18 +62,19 @@ export const BurgerConstructor = ({ onOpen }) => {
          return sum + ((bun.price || 0) * 2)
       }, [])
 
-   const countTotalIngredients = (ingredients, mass = []) => {
+   const countTotalIngredients = (ingredients, arr = []) => {
       for (let { _id } of ingredients)
-         mass.push(_id)
-      return mass
+         arr.push(_id)
+      return arr
    }
 
    const sendOrder = () => {
       !isAuth && history.push("./login")
-      isAuth && onDemandOrder(countTotalIngredients(ingredients))
+      isAuth && onDemandOrder(countTotalIngredients([bun, bun, ...fillings]), getCookie("accessToken"))
          .then(res => {
             dispatch({ type: GET_ORDER_SUCCESS, data: res.order.number })
          })
+
       isAuth && onOpen()
    }
 

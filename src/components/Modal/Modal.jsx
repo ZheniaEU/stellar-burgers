@@ -7,7 +7,7 @@ import PropTypes from "prop-types"
 
 const modalRoot = document.getElementById("modal")
 
-export const Modal = ({ active, onClickClose, children }) => {
+export const Modal = ({ onClickClose, children }) => {
 
    const handleCloseModal = (evt) => {
       if (evt.key === "Escape") {
@@ -30,14 +30,13 @@ export const Modal = ({ active, onClickClose, children }) => {
             </button>
             {children}
          </div>
-         <ModalOverlay active={active} onClose={onClickClose} />
+         <ModalOverlay onClose={onClickClose} />
       </>
       , modalRoot)
 
 }
 
 Modal.propTypes = {
-   active: PropTypes.bool.isRequired,
    onClickClose: PropTypes.func.isRequired,
    children: PropTypes.node.isRequired
 }

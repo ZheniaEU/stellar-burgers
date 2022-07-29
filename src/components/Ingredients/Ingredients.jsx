@@ -9,6 +9,9 @@ import { useLocation, Link } from "react-router-dom"
 export const Ingredients = ({ onOpen, item }) => {
 
    const { bun, fillings } = useSelector(state => state.dnd)
+   const location = useLocation()
+
+   const id = item._id
 
    /**счётчик подсчёта количества ингредиентов */
    const counter = useMemo(() =>
@@ -29,10 +32,6 @@ export const Ingredients = ({ onOpen, item }) => {
       })
    })
 
-   const id = item._id
-
-   const location = useLocation()
-
    return (
       < li className={styles.card} ref={dragRef} >
          <div className={styles.counter} >
@@ -47,7 +46,6 @@ export const Ingredients = ({ onOpen, item }) => {
          </div>
          <p className={styles.name}>{item.name}</p>
       </li >
-
    )
 }
 

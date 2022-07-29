@@ -2,13 +2,18 @@ import thunk from "redux-thunk"
 import { compose, createStore, applyMiddleware } from "redux"
 // import { logger } from "redux-logger"
 import { rootReducer } from "./reducers"
+import { socketMiddleware } from "./middleware/wsMiddleware"
+import { wsAction } from "./reducers/ws"
 
 const composeEnhancers =
    typeof window === "object" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
       ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
       : compose
 
-const enhancer = composeEnhancers(applyMiddleware(thunk))
+const wsURL = "wss://norma.nomoreparties.space/orders"
+
+const enhancer = composeEnhancers(applyMiddleware(thunk, socketMiddleware(wsURL, wsAction)))
+// const enhancer = composeEnhancers(applyMiddleware(thunk))
 
 export const state = createStore(rootReducer, enhancer)
 
